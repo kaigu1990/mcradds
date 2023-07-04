@@ -1,0 +1,79 @@
+---
+title: 'Design: Class structure'
+author: "Kai Gu"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This vignette explores what could be a good class inheritance design in the `mcradds` package.
+
+## Objectives
+
+This package is a complement to `mcr`, so it means we can select the same class structure as `mcr`package. Or we just want to fast develop, so S3 class could be a choice.
+- S4 class, similar with `mcr` package.
+- S3 class, fast to develop.
+
+We need to deal with two data categories, quantitative and qualitative data, such as:
+- `c(1, 2, 3)` as quantitative value of one measurement method.
+- `c("Positive", "Negative")` as the qualitative value of one measurement method.
+
+Below methods will be implemented in above two data categories.
+- quantitative data:
+  - Descriptive statistics, frequencies.
+  - Regression methods, rely on `mcr` package.
+  - Bland-Altman for quantitative data, refers to CLSI EP09.
+  - Outlier detection for quantitative data, refers to CLSI EP09-A2/A3.
+  - Medical Decision Level, rely on `mcr` package, and summary the results.
+  - Reference Range/Interval, refers to CLSI EP28-A3, or NMPA guideline.
+  - ROC/AUC, wraps the `pROC` package.
+  - Correlation
+- qualitative data:
+  - Descriptive statistics, proportion/ratios.
+  - Diagnostic Accuracy Criteria for quantitative data, refers to CLSI EP12-A2.
+  - ROC/AUC, wraps the `pROC` package.
+
+Figures can be displayed by some simple functions, like `boxplot`, `scatterplot` and so on.
+
+Adds functions to calculate the sample size for quantitative and qualitative trials, following the NMPA guidance's recommendation.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

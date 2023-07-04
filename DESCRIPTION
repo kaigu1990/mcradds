@@ -1,0 +1,34 @@
+Package: mcradds
+Type: Package
+Title: Some Additional Methods for 'mcr' Package  
+Version: 0.1.0
+Authors@R: c(
+    person("Kai", "Gu", , "gukai1212@163.com", role = c("aut", "cre"))
+    )
+Maintainer: Kai Gu <gukai1212@163.com>
+Description: It's a complement to 'mcr' package, contains functions to 
+    quantify or quality the relation between two measurement methods with 
+    the referring to CLSI recommendations, making it easier to apply common 
+    analysis in In Vitro Diagnostic Trials. 
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Depends: 
+    R (>= 3.5-0), mcr
+Imports: 
+    magrittr,
+    checkmate,
+    dplyr,
+    ggplot2,
+    methods,
+    purrr,
+Suggests: 
+    testthat (>= 3.0.0),
+    tibble,
+    knitr,
+    usethis,
+    rmarkdown
+Config/testthat/edition: 3
+VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
