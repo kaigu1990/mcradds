@@ -1,0 +1,44 @@
+---
+title: 'Design: Sample Size Calculation'
+author: "Kai Gu"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The `mcradds` contains four methods to calculate the sample size for two different trial categories, such as quantitative and qualitative trials.
+- Test for One Proportion
+- Confidence Interval for One Proportion
+- Pearson's Correlation Tests
+- Confidence Interval for Pearson's Correlation
+
+### Reference
+
+![NMPA Guideline](https://www.nmpa.gov.cn/xxgk/ggtg/qtggtg/20210927152837140.html?type=pc&m=)
+
+### Test for One Proportion
+
+$$
+n=\frac{[Z_{1-α/2}\sqrt{P_0(1 - P_0)}+Z_{1-β}\sqrt{P_T(1-P_T)}]^2}{(P_T-P_0)^2}
+$$
+- n: sample size.
+- Z: Z statistics at significance and power.
+- P0: acceptable criteria.
+- PT: expected criteria.
+
+
+### Confidence Interval for One Proportion
+
+
+
+
+
+

@@ -9,9 +9,7 @@
 #'
 #' @inheritDotParams mcr::printSummary
 #'
-#' @return
 #' @export
-#'
 #' @examples
 #' data(platelet)
 #' fit <- mcreg(x = platelet$Comparative, y = platelet$Candidate,
@@ -32,9 +30,7 @@ printSummary <- function(...) {
 #'
 #' @inheritDotParams mcr::getCoefficients
 #'
-#' @return
 #' @export
-#'
 #' @examples
 #' data(platelet)
 #' fit <- mcreg(x = platelet$Comparative, y = platelet$Candidate,

@@ -10,7 +10,7 @@ Description: It's a complement to 'mcr' package, contains functions to
     quantify or quality the relation between two measurement methods with 
     the referring to CLSI recommendations, making it easier to apply common 
     analysis in In Vitro Diagnostic Trials. 
-License: MIT + file LICENSE
+License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 Depends: 
