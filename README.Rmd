@@ -45,6 +45,6 @@ devtools::install_github("kaigu1990/mcradds")
 You can get started by reading the introduction vignette:
 
 ```{r vignette-start, eval = FALSE}
-# library(hermes)
-# vignette("introduction", package = "hermes")
+# library(mcradds)
+# vignette("introduction", package = "mcradds")
 ```

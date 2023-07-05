@@ -8,12 +8,12 @@
 A \link{platelet} contains 120 observations and 3 variables.
 \describe{
 \item{sample}{sample id}
-\item{Comparative}{Comparative measurement procedure}
-\item{Candidate}{Candidate measurement procedure}
+\item{Comparative}{Measurement from comparative analyzer}
+\item{Candidate}{Measurement from candidate analyzer}
 }
 }
 \source{
-CLSI-EP09 A3 is cited in this data set.
+CLSI-EP09 A3 Appendix H, Table H2 is cited in this data set.
 }
 \usage{
 platelet

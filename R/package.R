@@ -4,6 +4,7 @@
 #'
 "_PACKAGE"
 
+#' @import mcr
 #' @import checkmate
 #' @import ggplot2
 #' @import methods
