@@ -19,21 +19,21 @@ This vignette explores what could be a good class inheritance design in the `mcr
 ## Objectives
 
 This package is a complement to `mcr`, so it means we can select the same class structure as `mcr`package. Or we just want to fast develop, so S3 class could be a choice.
-- S4 class, similar with `mcr` package.
+- S4 class, similar to `mcr` package.
 - S3 class, fast to develop.
 
-We need to deal with two data categories, quantitative and qualitative data, such as:
-- `c(1, 2, 3)` as quantitative value of one measurement method.
+We need to deal with two data categories, quantitative and qualitative data such as:
+- `c(1, 2, 3)` as the quantitative value of one measurement method.
 - `c("Positive", "Negative")` as the qualitative value of one measurement method.
 
 Below methods will be implemented in above two data categories.
 - quantitative data:
   - Descriptive statistics, frequencies.
   - Regression methods, rely on `mcr` package.
-  - Bland-Altman for quantitative data, refers to CLSI EP09.
-  - Outlier detection for quantitative data, refers to CLSI EP09-A2/A3.
-  - Medical Decision Level, rely on `mcr` package, and summary the results.
-  - Reference Range/Interval, refers to CLSI EP28-A3, or NMPA guideline.
+  - Bland-Altman for quantitative data, refer to CLSI EP09.
+  - Outlier detection for quantitative data, refer to CLSI EP09-A2/A3.
+  - Medical Decision Level, rely on `mcr` package, and summarize the results.
+  - Reference Range/Interval, refer to CLSI EP28-A3, or NMPA guideline.
   - ROC/AUC, wraps the `pROC` package.
   - Correlation
 - qualitative data:
@@ -42,38 +42,35 @@ Below methods will be implemented in above two data categories.
   - ROC/AUC, wraps the `pROC` package.
 
 Figures can be displayed by some simple functions, like `boxplot`, `scatterplot` and so on.
+- Scatter plot for Bland-Altman
+- Box plot for data distribution
+- Scatter Plot for Regression
+- ROC plot
+- Line plot for by visit
 
 Adds functions to calculate the sample size for quantitative and qualitative trials, following the NMPA guidance's recommendation.
+- Test for One Proportion
+- Confidence Interval for One Proportion
+- Pearson's Correlation Tests
+- Confidence Interval for Pearson's Correlation
 
+## Question
 
+For the choice of class, either S3 nor S4. 
+Considering the `mcr` package uses the S4 class `MCResult`, we'd better use the same structure as it. But the IVD's trial data is very simple, as shown below.
 
-
-
-
-
-
-
-
-
-
-
-
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r}
+head(mcr::creatinine)
 ```
 
-## Including Plots
+Maybe some additional clinical data are required, such as age, sex, race, diagnostic and sample type. But the measurements are more critical, and they are the main data should be used in each model and method.
 
-You can also embed plots, for example:
+So we don't need to create a specific class for store trial data, just use `data.frame` or `tibble()` is fine for input data.
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
+It appears that we have some outputs from various methodologies, like regression, Bland-Altman, and so on. I can not think of a general class that would handle these methods. So I'm not sure that maybe S3 is a simplified way to implement?
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+### Validation
+
+If we choose S3 not S4, it appears that we don't need the validation process.
+

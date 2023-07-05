@@ -4,9 +4,9 @@
 \name{mcradds-package}
 \alias{mcradds}
 \alias{mcradds-package}
-\title{\code{mcIVD} Package}
+\title{\code{mcradss} Package}
 \description{
-\code{mcIVD} facilitates pre-processing, analyzing, and reporting of IVD data.
+\code{mcradss} facilitates analyzing and reporting in IVD trials.
 }
 \author{
 \strong{Maintainer}: Kai Gu \email{gukai1212@163.com}

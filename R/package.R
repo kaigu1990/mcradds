@@ -1,6 +1,6 @@
-#' `mcIVD` Package
+#' `mcradss` Package
 #'
-#' `mcIVD` facilitates pre-processing, analyzing, and reporting of IVD data.
+#' `mcradss` facilitates analyzing and reporting in IVD trials.
 #'
 "_PACKAGE"
 
@@ -9,4 +9,5 @@
 #' @import methods
 #' @import dplyr
 #' @importFrom purrr accumulate
+#' @importFrom lifecycle deprecated
 NULL

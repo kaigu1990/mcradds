@@ -1,7 +1,7 @@
 Package: mcradds
 Type: Package
-Title: Some Additional Methods for 'mcr' Package  
-Version: 0.1.0
+Title: Additional Methods for 'mcr' Package  
+Version: 0.0.0.9000
 Authors@R: c(
     person("Kai", "Gu", , "gukai1212@163.com", role = c("aut", "cre"))
     )
@@ -22,6 +22,7 @@ Imports:
     ggplot2,
     methods,
     purrr,
+    lifecycle
 Suggests: 
     testthat (>= 3.0.0),
     tibble,
