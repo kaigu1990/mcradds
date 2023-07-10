@@ -41,10 +41,10 @@ size_one_prop <- function(p1, p0, alpha = 0.05, power = 0.8,
   z_beta <- qnorm(power)
   n <- (z_alpha * sqrt(p0 * (1 - p0)) + z_beta * sqrt(p1 * (1 - p1)))^2 / (p1 - p0)^2
 
-  object <- list(
+  object <- samplesize(
     call = match.call(),
     method = "Sample size determination for one Proportion",
-    n = ceiling(n),
+    n = n,
     param = args
   )
   object
@@ -122,10 +122,10 @@ size_ci_one_prop <- function(p, lr, alpha = 0.05,
     }, tol = tol, interval = interval)$root
   }
 
-  object <- list(
+  object <- samplesize(
     call = match.call(),
     method = "Sample size determination for a Given Lower Confidence Interval",
-    n = ceiling(n),
+    n = n,
     param = args
   )
   object
@@ -179,10 +179,10 @@ size_corr <- function(r1, r0, alpha = 0.05, power = 0.8,
   zr0 <- 1 / 2 * log((1 + r0) / (1 - r0))
   n <- ((z_alpha + z_beta) / abs(zr1 - zr0))^2 + 3
 
-  object <- list(
+  object <- samplesize(
     call = match.call(),
     method = "Sample size determination for testing Pearson's Correlation",
-    n = ceiling(n),
+    n = n,
     param = args
   )
   object
@@ -238,11 +238,10 @@ size_ci_corr <- function(r, lr, alpha = 0.05,
     return(ll - lr)
   }, tol = tol, interval = interval)$root
 
-  object <- list(
+  object <- samplesize(
     call = match.call(),
-    method = "Sample size determination for a Given Lower Confidence Interval of
-      Pearson's Correlation",
-    n = ceiling(n),
+    method = "Sample size determination for a Given Lower Confidence Interval of Pearson's Correlation",
+    n = n,
     param = args
   )
   object
