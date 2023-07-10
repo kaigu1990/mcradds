@@ -21,7 +21,7 @@ size_ci_one_prop(
 
 \item{alpha}{(numeric)\cr type-I-risk, \eqn{\alpha}.}
 
-\item{interval}{(vector)\cr a vector containing the end-points of the interval
+\item{interval}{(numeric)\cr a numeric vector containing the end-points of the interval
 to be searched for the root(sample size). The defaults are set to c(1, 100000).}
 
 \item{tol}{(numeric)\cr tolerance for searching the root(sample size).}
@@ -53,5 +53,5 @@ Newcombe, R. G. 1998. 'Two-Sided Confidence Intervals for the
 Single Proportion: Comparison of Seven Methods.' Statistics in Medicine, 17, pp. 857-872.
 }
 \seealso{
-\code{\link[=size_one_prop]{size_one_prop()}}
+\code{\link[=size_one_prop]{size_one_prop()}} \code{\link[=size_corr]{size_corr()}} \code{\link[=size_ci_corr]{size_ci_corr()}}
 }

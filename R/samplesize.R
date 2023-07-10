@@ -17,7 +17,7 @@
 #' @return an object of `size` class that contains the sample size and relevant parameters.
 #'
 #' @export
-#' @seealso [size_ci_one_prop()]
+#' @seealso [size_ci_one_prop()] [size_corr()] [size_ci_corr()]
 #' @references Chinese NMPA's IVD technical guideline.
 #'
 #' @examples
@@ -26,6 +26,7 @@ size_one_prop <- function(p1, p0, alpha = 0.05, power = 0.8,
                           alternative = c("two.sided", "less", "greater")) {
   assert_numeric(p1)
   assert_numeric(p0)
+  assert_true(p1 > p0)
   assert_numeric(alpha, lower = 0, upper = 1)
   assert_numeric(power, lower = 0, upper = 1)
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"), several.ok = FALSE)
@@ -43,7 +44,7 @@ size_one_prop <- function(p1, p0, alpha = 0.05, power = 0.8,
   object <- list(
     call = match.call(),
     method = "Sample size determination for one Proportion",
-    n = n,
+    n = ceiling(n),
     param = args
   )
   object
@@ -75,7 +76,7 @@ size_one_prop <- function(p1, p0, alpha = 0.05, power = 0.8,
 #' @return an object of `size` class that contains the sample size and relevant parameters.
 #'
 #' @export
-#' @seealso [size_one_prop()]
+#' @seealso [size_one_prop()] [size_corr()] [size_ci_corr()]
 #' @references Newcombe, R. G. 1998. 'Two-Sided Confidence Intervals for the
 #'  Single Proportion: Comparison of Seven Methods.' Statistics in Medicine, 17, pp. 857-872.
 #'
@@ -124,7 +125,124 @@ size_ci_one_prop <- function(p, lr, alpha = 0.05,
   object <- list(
     call = match.call(),
     method = "Sample size determination for a Given Lower Confidence Interval",
-    n = n,
+    n = ceiling(n),
+    param = args
+  )
+  object
+}
+
+
+# Pearson's Correlation Tests ----
+
+#' Sample size determination for testing Pearson's correlation
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This function performs sample size computation for testing Pearson's
+#' correlation, using uses Fisher's classic z-transformation to
+#' normalize the distribution of Pearson's correlation coefficient.
+#'
+#' @param r1 (numeric)\cr expected correlation coefficient of the evaluated assay.
+#' @param r0 (numeric)\cr acceptable correlation coefficient of the evaluated assay.
+#' @param alpha (numeric)\cr type-I-risk, \eqn{\alpha}.
+#' @param power (numeric)\cr Power of test, equal to 1 minus type-II-risk (\eqn{\beta}).
+#' @param alternative (character)\cr string specifying the alternative hypothesis,
+#'  must be one of "two.sided" (default), "greater" or "less".
+#'
+#' @return an object of `size` class that contains the sample size and relevant parameters.
+#'
+#' @export
+#' @seealso [size_one_prop()] [size_ci_one_prop()] [size_ci_corr()]
+#' @references Fisher (1973, p. 199).
+#'
+#' @examples
+#' size_corr(r1 = 0.95, r0 = 0.9, alpha = 0.025, power = 0.8, alternative = "greater")
+size_corr <- function(r1, r0, alpha = 0.05, power = 0.8,
+                      alternative = c("two.sided", "less", "greater")) {
+  assert_numeric(r1, lower = 0, upper = 1)
+  assert_numeric(r0, lower = 0, upper = 1)
+  assert_true(r1 > r0)
+  assert_numeric(alpha, lower = 0, upper = 1)
+  assert_numeric(power, lower = 0, upper = 1)
+  alternative <- match.arg(alternative, c("two.sided", "less", "greater"), several.ok = FALSE)
+  args <- c(as.list(environment()))
+
+  side <- switch(alternative,
+    two.sided = 2,
+    less = 1,
+    greater = 1
+  )
+
+  z_alpha <- qnorm(1 - alpha / side)
+  z_beta <- qnorm(power)
+  zr1 <- 1 / 2 * log((1 + r1) / (1 - r1))
+  zr0 <- 1 / 2 * log((1 + r0) / (1 - r0))
+  n <- ((z_alpha + z_beta) / abs(zr1 - zr0))^2 + 3
+
+  object <- list(
+    call = match.call(),
+    method = "Sample size determination for testing Pearson's Correlation",
+    n = ceiling(n),
+    param = args
+  )
+  object
+}
+
+
+# Confidence Interval for Pearson's Correlation ----
+
+#' Sample size determination for testing Pearson's correlation for a Given Lower
+#' Confidence Interval
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This function performs sample size computation for testing Pearson's
+#' correlation when a lower confidence interval is provided.
+#'
+#' @param r1 (numeric)\cr expected correlation coefficient of the evaluated assay.
+#' @param r0 (numeric)\cr acceptable correlation coefficient of the evaluated assay.
+#' @param alpha (numeric)\cr type-I-risk, \eqn{\alpha}.
+#' @param alternative (character)\cr string specifying the alternative hypothesis,
+#'  must be one of "two.sided" (default), "greater" or "less".
+#'
+#' @return an object of `size` class that contains the sample size and relevant parameters.
+#'
+#' @export
+#' @seealso [size_one_prop()] [size_ci_one_prop()] [size_corr()]
+#' @references Fisher (1973, p. 199).
+#'
+#' @examples
+#' size_ci_corr(r = 0.9, lr = 0.85, alpha = 0.025, alternative = "greater")
+size_ci_corr <- function(r, lr, alpha = 0.05,
+                         interval = c(10, 100000), tol = 1e-05,
+                         alternative = c("two.sided", "less", "greater")) {
+  assert_numeric(r, lower = 0, upper = 1)
+  assert_numeric(lr, lower = 0, upper = 1)
+  assert_true(r > lr)
+  assert_numeric(alpha, lower = 0, upper = 1)
+  assert_vector(interval, len = 2)
+  assert_numeric(tol)
+  alternative <- match.arg(alternative, c("two.sided", "less", "greater"), several.ok = FALSE)
+  args <- c(as.list(environment()))
+
+  side <- switch(alternative,
+    two.sided = 2,
+    less = 1,
+    greater = 1
+  )
+
+  n <- uniroot(f = function(n) {
+    z <- qnorm(1 - alpha / side)
+    ll0 <- 1 / 2 * log((1 + r) / (1 - r)) - z * sqrt(1 / (n - 3))
+    ll <- (exp(2 * ll0) - 1) / (exp(2 * ll0) + 1)
+    return(ll - lr)
+  }, tol = tol, interval = interval)$root
+
+  object <- list(
+    call = match.call(),
+    method = "Sample size determination for a Given Lower Confidence Interval of
+      Pearson's Correlation",
+    n = ceiling(n),
     param = args
   )
   object
