@@ -20,6 +20,8 @@
 #' @seealso [size_ci_one_prop()] [size_corr()] [size_ci_corr()]
 #' @references Chinese NMPA's IVD technical guideline.
 #'
+#' @importFrom stats qnorm
+#'
 #' @examples
 #' size_one_prop(p1 = 0.95, p0 = 0.9, alpha = 0.05, power = 0.8)
 size_one_prop <- function(p1, p0, alpha = 0.05, power = 0.8,
@@ -41,7 +43,7 @@ size_one_prop <- function(p1, p0, alpha = 0.05, power = 0.8,
   z_beta <- qnorm(power)
   n <- (z_alpha * sqrt(p0 * (1 - p0)) + z_beta * sqrt(p1 * (1 - p1)))^2 / (p1 - p0)^2
 
-  object <- samplesize(
+  object <- SampleSize(
     call = match.call(),
     method = "Sample size determination for one Proportion",
     n = n,
@@ -122,7 +124,7 @@ size_ci_one_prop <- function(p, lr, alpha = 0.05,
     }, tol = tol, interval = interval)$root
   }
 
-  object <- samplesize(
+  object <- SampleSize(
     call = match.call(),
     method = "Sample size determination for a Given Lower Confidence Interval",
     n = n,
@@ -179,7 +181,7 @@ size_corr <- function(r1, r0, alpha = 0.05, power = 0.8,
   zr0 <- 1 / 2 * log((1 + r0) / (1 - r0))
   n <- ((z_alpha + z_beta) / abs(zr1 - zr0))^2 + 3
 
-  object <- samplesize(
+  object <- SampleSize(
     call = match.call(),
     method = "Sample size determination for testing Pearson's Correlation",
     n = n,
@@ -199,9 +201,12 @@ size_corr <- function(r1, r0, alpha = 0.05, power = 0.8,
 #' This function performs sample size computation for testing Pearson's
 #' correlation when a lower confidence interval is provided.
 #'
-#' @param r1 (numeric)\cr expected correlation coefficient of the evaluated assay.
-#' @param r0 (numeric)\cr acceptable correlation coefficient of the evaluated assay.
+#' @param r (numeric)\cr expected correlation coefficient of the evaluated assay.
+#' @param lr (numeric)\cr acceptable correlation coefficient of the evaluated assay.
 #' @param alpha (numeric)\cr type-I-risk, \eqn{\alpha}.
+#' @param interval (numeric)\cr a numeric vector containing the end-points of the interval
+#'  to be searched for the root(sample size). The defaults are set to c(1, 100000).
+#' @param tol (numeric)\cr tolerance for searching the root(sample size).
 #' @param alternative (character)\cr string specifying the alternative hypothesis,
 #'  must be one of "two.sided" (default), "greater" or "less".
 #'
@@ -238,7 +243,7 @@ size_ci_corr <- function(r, lr, alpha = 0.05,
     return(ll - lr)
   }, tol = tol, interval = interval)$root
 
-  object <- samplesize(
+  object <- SampleSize(
     call = match.call(),
     method = "Sample size determination for a Given Lower Confidence Interval of Pearson's Correlation",
     n = n,

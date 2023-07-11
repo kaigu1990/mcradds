@@ -1,15 +1,15 @@
 # show ----
 
-#' Show Method for `samplesize` Objects
+#' Show Method for `SampleSize` Objects
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' A show method that displays essential information of `samplesize` objects.
+#' A show method that displays essential information of `SampleSize` objects.
 #'
 #' @rdname show
 #' @aliases show
 #'
-#' @param object (`samplesize`)\cr input.
+#' @param object (`SampleSize`)\cr input.
 #' @return None (invisible `NULL`), only used for the side effect of printing to
 #'   the console.
 #'
@@ -21,7 +21,7 @@
 #' size_ci_corr(r = 0.9, lr = 0.85, alpha = 0.025, alternative = "greater")
 setMethod(
   f = "show",
-  signature = "samplesize",
+  signature = "SampleSize",
   definition = function(object) {
     cat_with_newline("\n", object@method, "\n")
     cat(" Call: ", append = FALSE)
