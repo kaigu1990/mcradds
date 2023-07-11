@@ -22,7 +22,9 @@ Imports:
     ggplot2,
     methods,
     purrr,
-    lifecycle
+    lifecycle,
+    DescTools,
+    stats
 Suggests: 
     testthat (>= 3.0.0),
     tibble,
