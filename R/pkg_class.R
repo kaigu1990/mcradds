@@ -1,18 +1,18 @@
-# samplesize-class ----
+# SampleSize-class ----
 
-#' samplesize class
+#' SampleSize class
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' The `samplesize` class serves as the store for results and parameters in sample
+#' The `SampleSize` class serves as the store for results and parameters in sample
 #' size calculation.
 #'
 #' @slot slots call method n param
 #'
-#' @rdname samplesize-class
-#' @aliases samplesize
+#' @rdname SampleSize-class
+#' @aliases SampleSize
 setClass(
-  "samplesize",
+  "SampleSize",
   # contains = "list",
   slots = c(
     call = "call",
@@ -24,22 +24,22 @@ setClass(
 
 # size-constructors ----
 
-#' @rdname samplesize-class
+#' @rdname SampleSize-class
 #'
 #' @param call (`call`)\cr function call.
 #' @param method (`character`)\cr method name.
 #' @param n (`numeric`)\cr number of sample size.
 #' @param param (`list`)\cr listing of relevant parameters.
 #'
-#' @return An object of class `samplesize`.
+#' @return An object of class `SampleSize`.
 #'
-samplesize <- function(call, method, n, param) {
-  new("samplesize", call = call, method = method, n = n, param = param)
+SampleSize <- function(call, method, n, param) {
+  new("SampleSize", call = call, method = method, n = n, param = param)
 }
 
-# samplesize-validity ----
+# SampleSize-validity ----
 
-setValidity("samplesize", function(object) {
+setValidity("SampleSize", function(object) {
   if (object@n <= 3) {
     "@n is too small."
   } else {

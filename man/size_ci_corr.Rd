@@ -15,14 +15,19 @@ size_ci_corr(
 )
 }
 \arguments{
+\item{r}{(numeric)\cr expected correlation coefficient of the evaluated assay.}
+
+\item{lr}{(numeric)\cr acceptable correlation coefficient of the evaluated assay.}
+
 \item{alpha}{(numeric)\cr type-I-risk, \eqn{\alpha}.}
+
+\item{interval}{(numeric)\cr a numeric vector containing the end-points of the interval
+to be searched for the root(sample size). The defaults are set to c(1, 100000).}
+
+\item{tol}{(numeric)\cr tolerance for searching the root(sample size).}
 
 \item{alternative}{(character)\cr string specifying the alternative hypothesis,
 must be one of "two.sided" (default), "greater" or "less".}
-
-\item{r1}{(numeric)\cr expected correlation coefficient of the evaluated assay.}
-
-\item{r0}{(numeric)\cr acceptable correlation coefficient of the evaluated assay.}
 }
 \value{
 an object of \code{size} class that contains the sample size and relevant parameters.
