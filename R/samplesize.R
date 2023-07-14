@@ -7,11 +7,11 @@
 #' This function performs sample size computation for testing one proportion
 #' in accordance with Chinese NMPA's IVD guideline.
 #'
-#' @param p1 (numeric)\cr expected criteria of the evaluated assay.
-#' @param p0 (numeric)\cr acceptable criteria of the evaluated assay.
-#' @param alpha (numeric)\cr type-I-risk, \eqn{\alpha}.
-#' @param power (numeric)\cr Power of test, equal to 1 minus type-II-risk (\eqn{\beta}).
-#' @param alternative (character)\cr string specifying the alternative hypothesis,
+#' @param p1 (`numeric`)\cr expected criteria of the evaluated assay.
+#' @param p0 (`numeric`)\cr acceptable criteria of the evaluated assay.
+#' @param alpha (`numeric`)\cr type-I-risk, \eqn{\alpha}.
+#' @param power (`numeric`)\cr Power of test, equal to 1 minus type-II-risk (\eqn{\beta}).
+#' @param alternative (`string`)\cr string specifying the alternative hypothesis,
 #'    must be one of "two.sided" (default), "greater" or "less".
 #'
 #' @return an object of `size` class that contains the sample size and relevant parameters.
@@ -20,7 +20,7 @@
 #' @seealso [size_ci_one_prop()] [size_corr()] [size_ci_corr()]
 #' @references Chinese NMPA's IVD technical guideline.
 #'
-#' @importFrom stats qnorm
+#' @import stats
 #'
 #' @examples
 #' size_one_prop(p1 = 0.95, p0 = 0.9, alpha = 0.05, power = 0.8)
@@ -63,15 +63,15 @@ size_one_prop <- function(p1, p0, alpha = 0.05, power = 0.8,
 #' confidence interval of one proportion with the using of the
 #' Simple Asymptotic(Wald), Wilson score, clopper-pearson and other methods.
 #'
-#' @param p (numeric)\cr expected criteria of the evaluated assay.
-#' @param lr (numeric)\cr acceptable criteria of the evaluated assay.
-#' @param alpha (numeric)\cr type-I-risk, \eqn{\alpha}.
-#' @param interval (numeric)\cr a numeric vector containing the end-points of the interval
+#' @param p (`numeric`)\cr expected criteria of the evaluated assay.
+#' @param lr (`numeric`)\cr acceptable criteria of the evaluated assay.
+#' @param alpha (`numeric`)\cr type-I-risk, \eqn{\alpha}.
+#' @param interval (`numeric`)\cr a numeric vector containing the end-points of the interval
 #'  to be searched for the root(sample size). The defaults are set to c(1, 100000).
-#' @param tol (numeric)\cr tolerance for searching the root(sample size).
-#' @param alternative (character)\cr string specifying the alternative hypothesis,
+#' @param tol (`numeric`)\cr tolerance for searching the root(sample size).
+#' @param alternative (`string`)\cr string specifying the alternative hypothesis,
 #'  must be one of "two.sided" (default), "greater" or "less".
-#' @param method (character)\cr string specifying the which method to use.
+#' @param method (`string`)\cr string specifying the which method to use.
 #'  Simple Asymptotic is default, equal to Wald. Options can be "wilson",
 #'  "clopper-pearson" and other method, see [DescTools::BinomCIn]
 #'
@@ -83,7 +83,6 @@ size_one_prop <- function(p1, p0, alpha = 0.05, power = 0.8,
 #'  Single Proportion: Comparison of Seven Methods.' Statistics in Medicine, 17, pp. 857-872.
 #'
 #' @importFrom DescTools BinomCI
-#' @importFrom stats uniroot
 #'
 #' @examples
 #' size_ci_one_prop(p = 0.85, lr = 0.8, alpha = 0.05, method = "wilson")
@@ -144,11 +143,11 @@ size_ci_one_prop <- function(p, lr, alpha = 0.05,
 #' correlation, using uses Fisher's classic z-transformation to
 #' normalize the distribution of Pearson's correlation coefficient.
 #'
-#' @param r1 (numeric)\cr expected correlation coefficient of the evaluated assay.
-#' @param r0 (numeric)\cr acceptable correlation coefficient of the evaluated assay.
-#' @param alpha (numeric)\cr type-I-risk, \eqn{\alpha}.
-#' @param power (numeric)\cr Power of test, equal to 1 minus type-II-risk (\eqn{\beta}).
-#' @param alternative (character)\cr string specifying the alternative hypothesis,
+#' @param r1 (`numeric`)\cr expected correlation coefficient of the evaluated assay.
+#' @param r0 (`numeric`)\cr acceptable correlation coefficient of the evaluated assay.
+#' @param alpha (`numeric`)\cr type-I-risk, \eqn{\alpha}.
+#' @param power (`numeric`)\cr Power of test, equal to 1 minus type-II-risk (\eqn{\beta}).
+#' @param alternative (`string`)\cr string specifying the alternative hypothesis,
 #'  must be one of "two.sided" (default), "greater" or "less".
 #'
 #' @return an object of `size` class that contains the sample size and relevant parameters.
@@ -201,13 +200,13 @@ size_corr <- function(r1, r0, alpha = 0.05, power = 0.8,
 #' This function performs sample size computation for testing Pearson's
 #' correlation when a lower confidence interval is provided.
 #'
-#' @param r (numeric)\cr expected correlation coefficient of the evaluated assay.
-#' @param lr (numeric)\cr acceptable correlation coefficient of the evaluated assay.
-#' @param alpha (numeric)\cr type-I-risk, \eqn{\alpha}.
-#' @param interval (numeric)\cr a numeric vector containing the end-points of the interval
+#' @param r (`numeric`)\cr expected correlation coefficient of the evaluated assay.
+#' @param lr (`numeric`)\cr acceptable correlation coefficient of the evaluated assay.
+#' @param alpha (`numeric`)\cr type-I-risk, \eqn{\alpha}.
+#' @param interval (`numeric`)\cr a numeric vector containing the end-points of the interval
 #'  to be searched for the root(sample size). The defaults are set to c(1, 100000).
-#' @param tol (numeric)\cr tolerance for searching the root(sample size).
-#' @param alternative (character)\cr string specifying the alternative hypothesis,
+#' @param tol (`numeric`)\cr tolerance for searching the root(sample size).
+#' @param alternative (`string`)\cr string specifying the alternative hypothesis,
 #'  must be one of "two.sided" (default), "greater" or "less".
 #'
 #' @return an object of `size` class that contains the sample size and relevant parameters.
