@@ -52,3 +52,42 @@ setValidity("SampleSize", function(object) {
     TRUE
   }
 })
+
+
+# MCTab-class ----
+
+#' MCTab class
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' The `MCTab` class serves as the store for 2x2 contingency table, candidate and
+#' comparative measurement's information.
+#'
+#' @slot slots tab candidate comparative
+#'
+#' @rdname MCTab-class
+#' @aliases MCTab
+setClass(
+  "MCTab",
+  slots = c(
+    tab = "matrix",
+    candidate = "list",
+    comparative = "list"
+  )
+)
+
+# MCTab-constructors ----
+
+#' @rdname MCTab-class
+#'
+#' @param tab (`matrix`)\cr `matrix` class converted from [xtabs()] to display 2x2 contingency table.
+#' @param candidate (`list`)\cr candidate information, like measurements,
+#'  positive and negative levels.
+#' @param comparative (`list`)\cr comparative information, like measurements,
+#'  positive and negative levels.
+#'
+#' @return An object of class `MCTab`.
+#'
+MCTab <- function(tab, candidate, comparative) {
+  new("MCTab", tab = tab, candidate = candidate, comparative = comparative)
+}

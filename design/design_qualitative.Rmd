@@ -63,3 +63,9 @@ FDA recommends the use of the terms positive percent agreement and negative perc
 Sometimes, such as PLR, NLR, AR and RR are required to compute. In common the confidence interval is also can be calculate per a formula. But I'm not sure if there are others methods can be used, and how to compute, which is needed to make sure.
 
 And other criteria like PPV and NPV, are suggested to put in another method, but I think it also apply to the `xtabs` class, just the method is a litter different.
+
+#### Formula
+
+The performance such as sensitivity, specificity, positive/negative predictive value will use the `DescTools::BinomCI()` function to compute, so that we don't re-build the formula of different methods like Wilson, Wald and Clopper-pearson.
+
+But regarding to positive/negative likelihood ratio, we can't use the binomial distribution to compute the confidence interval, so the formula is necessary.
