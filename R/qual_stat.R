@@ -22,6 +22,8 @@ NULL
 #' @return A object `matrix` contains the 2x2 contingency table.
 #' @export
 #'
+#' @importFrom stats terms
+#'
 #' @seealso [Summary()] for object to calculate diagnostic accuracy criteria.
 #'
 #' @examples
@@ -41,7 +43,7 @@ diagTab <- function(formula = ~., data, ..., rlevels = NULL, clevels = NULL) {
   }
 
   df <- stats::model.frame(formula, data)
-  var <- labels(terms(formula))
+  var <- labels(stats::terms(formula))
   df[[var[1]]] <- h_factor(df, var = var[1], levels = rlevels)
   df[[var[2]]] <- h_factor(df, var = var[2], levels = clevels)
 
@@ -79,6 +81,7 @@ diagTab <- function(formula = ~., data, ..., rlevels = NULL, clevels = NULL) {
 #' @param ... other arguments to be passed to [DescTools::BinomCI].
 #'
 #' @rdname getAccuracy
+#' @aliases getAccuracy
 #'
 #' @returns A data frame contains the qualitative diagnostic accuracy criteria with
 #' three columns for estimated value and confidence interval.
@@ -123,11 +126,11 @@ setMethod(
     assert_choice(method, c("wilson", "wald", "clopper-pearson"))
 
 
-    tp = object@tab[1,1]
-    fp = object@tab[1,2]
-    fn = object@tab[2,1]
-    tn = object@tab[2,2]
-    n = sum(object@tab)
+    tp <- object@tab[1, 1]
+    fp <- object@tab[1, 2]
+    fn <- object@tab[2, 1]
+    tn <- object@tab[2, 2]
+    n <- sum(object@tab)
 
     # sens (sensitivity)
     sens <- DescTools::BinomCI(x = tp, n = tp + fn, conf.level = 1 - alpha, method = method, ...)
@@ -139,8 +142,8 @@ setMethod(
     npv <- DescTools::BinomCI(x = tn, n = tn + fn, conf.level = 1 - alpha, method = method, ...)
 
     # PLR (positive likelihood ratio)
-    p1 <- sens[1,1]
-    p2 <- 1 - spec[1,1]
+    p1 <- sens[1, 1]
+    p2 <- 1 - spec[1, 1]
     x1 <- tp
     x2 <- fp
     plr <- p1 / p2
@@ -149,8 +152,8 @@ setMethod(
     plr <- matrix(c(plr, plr_ll, plr_ul), byrow = FALSE, ncol = 3)
 
     # NLR(negative likelihood ratio)
-    p1 <- 1 - sens[1,1]
-    p2 <- spec[1,1]
+    p1 <- 1 - sens[1, 1]
+    p2 <- spec[1, 1]
     x1 <- fn
     x2 <- tn
     nlr <- p1 / p2

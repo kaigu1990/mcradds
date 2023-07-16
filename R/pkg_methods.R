@@ -48,15 +48,20 @@ setMethod(
   signature = "MCTab",
   definition = function(object) {
     cat(" Contingency Table: \n\n")
-    cat_with_newline("  candidate has", length(object@candidate$levels), "levels:",
-                     object@candidate$levels)
-    cat_with_newline("  comparative has", length(object@candidate$levels), "levels:",
-                     object@candidate$levels, "\n")
+    cat_with_newline(
+      "  candidate has", length(object@candidate$levels), "levels:",
+      object@candidate$levels
+    )
+    cat_with_newline(
+      "  comparative has", length(object@candidate$levels), "levels:",
+      object@candidate$levels, "\n"
+    )
     show(object@tab)
   }
 )
 
 # getAccuracy ----
+
+#' @rdname getAccuracy
+#'
 setGeneric("getAccuracy", function(object, ...) standardGeneric("getAccuracy"))
-
-

@@ -26,5 +26,5 @@ Helper function factor inputs in order of appearance, or per the levels that you
 \examples{
 df <- data.frame(a = c("aa", "a", "aa"))
 h_factor(df, var = "a")
-h_factor(df, var = "a", levels = c("a", "aa"))
+h_factor(df, var = "a", levels = c("aa", "a"))
 }

@@ -40,12 +40,14 @@ test_that("diagTab function works as expected with wilson method", {
   )
   res <- getAccuracy(tb, method = "wilson")
   object <- matrix(
-    c("0.8960", "0.8302", "0.9382",
+    c(
+      "0.8960", "0.8302", "0.9382",
       "0.8533", "0.7562", "0.9161",
       "0.9106", "0.8469", "0.9493",
       "0.8312", "0.7323", "0.8986",
       "6.1091", "3.5276", "10.5798",
-      "0.1219", "0.0722", "0.2056"),
+      "0.1219", "0.0722", "0.2056"
+    ),
     nrow = 6, byrow = TRUE,
     dimnames = list(
       c("sens", "spec", "ppv", "npv", "plr", "nlr"),
@@ -63,9 +65,11 @@ test_that("diagTab function works as expected when withref is FALSE", {
   )
   res <- getAccuracy(tb, method = "wilson", withref = FALSE)
   object <- matrix(
-    c("0.8960", "0.8302", "0.9382",
+    c(
+      "0.8960", "0.8302", "0.9382",
       "0.8533", "0.7562", "0.9161",
-      "0.8800", "0.8277", "0.9180"),
+      "0.8800", "0.8277", "0.9180"
+    ),
     nrow = 3, byrow = TRUE,
     dimnames = list(
       c("ppa", "npa", "opa"),
@@ -100,12 +104,14 @@ test_that("diagTab function works as expected with digits is 3", {
   )
   res <- getAccuracy(tb, method = "wilson", digits = 3)
   object <- matrix(
-    c("0.896", "0.830", "0.938",
+    c(
+      "0.896", "0.830", "0.938",
       "0.853", "0.756", "0.916",
       "0.911", "0.847", "0.949",
       "0.831", "0.732", "0.899",
       "6.109", "3.528", "10.580",
-      "0.122", "0.072", "0.206"),
+      "0.122", "0.072", "0.206"
+    ),
     nrow = 6, byrow = TRUE,
     dimnames = list(
       c("sens", "spec", "ppv", "npv", "plr", "nlr"),
