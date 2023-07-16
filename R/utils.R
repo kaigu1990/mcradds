@@ -52,7 +52,7 @@ cat_with_newline <- function(...) {
 #' @examples
 #' df <- data.frame(a = c("aa", "a", "aa"))
 #' h_factor(df, var = "a")
-#' h_factor(df, var = "a", levels = c("a", "aa"))
+#' h_factor(df, var = "a", levels = c("aa", "a"))
 h_factor <- function(df, var, levels = NULL, ...) {
   assert_data_frame(df)
   assert_choice(var, names(df))
@@ -67,6 +67,3 @@ h_factor <- function(df, var, levels = NULL, ...) {
     df[[var]]
   }
 }
-
-
-

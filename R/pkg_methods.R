@@ -56,7 +56,7 @@ setMethod(
   }
 )
 
-# summary ----
-setGeneric("summary", function(object, ...) standardGeneric("summary"))
+# getAccuracy ----
+setGeneric("getAccuracy", function(object, ...) standardGeneric("getAccuracy"))
 
 

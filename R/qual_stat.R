@@ -22,7 +22,7 @@ NULL
 #' @return A object `matrix` contains the 2x2 contingency table.
 #' @export
 #'
-#' @seealso [Summary()] for object to calculate diagnosis performance.
+#' @seealso [Summary()] for object to calculate diagnostic accuracy criteria.
 #'
 #' @examples
 #' data("qualData")
@@ -73,28 +73,55 @@ diagTab <- function(formula = ~., data, ..., rlevels = NULL, clevels = NULL) {
 #' @param object (`MCTab`)\cr input from [diagTab] function to create 2x2 contingency table.
 #' @param withref (`logical`)\cr weather the comparison test is reference/gold standard or not.
 #' @param alpha (`numeric`)\cr type-I-risk, \eqn{\alpha}.
-#' @param method (`string`)\cr string specifying the which method to use, `wilson` is default.
-#' Options can be `wilson`, `wald` and `clopper-pearson`, see [DescTools::BinomCIn].
-#' @param ... other arguments to be passed to [DescTools::BinomCIn].
+#' @param method (`string`)\cr string specifying the which method to use. Default is `wilson`.
+#' Options can be `wilson`, `wald` and `clopper-pearson`, see [DescTools::BinomCI].
+#' @param digits (`integer`)\cr the desired number of digits. Default is 4.
+#' @param ... other arguments to be passed to [DescTools::BinomCI].
 #'
-#' @rdname summary
+#' @rdname getAccuracy
+#'
+#' @returns A data frame contains the qualitative diagnostic accuracy criteria with
+#' three columns for estimated value and confidence interval.
+#' - sens: Sensitivity refers to how often the test is positive when the condition
+#'  of interest is present.
+#' - spec: Specificity refers to how often the test is negative when the condition
+#'  of interest is absent.
+#' - ppv: Positive predictive value refers to the percentage of subjects with
+#'  a positive test result who have the target condition.
+#' - npv: Negative predictive value refers to the percentage of subjects with
+#'  a negative test result who do not have the target condition.
+#' - plr: Positive likelihood ratio refers to the probability of true positive
+#'  rate divided by the false negative rate.
+#' - nlr: Negative likelihood ratio refers to the probability of false positive
+#'  rate divided by the true negative rate.
+#' - ppa: Positive percent agreement, equals to sensitivity when the candidate method
+#'  is evaluated by comparison with a comparative method, not reference/gold standard.
+#' - npa: Negative percent agreement, equals to specificity when the candidate method
+#'  is evaluated by comparison with a comparative method, not reference/gold standard.
 #'
 #' @export
 #' @examples
-#' summary(m, method = "wilson")
-#' summary(m, method = "wilson", withref = FALSE)
+#' tab <- qualData %>%
+#'   diagTab(
+#'     formula = ~ CandidateN + ComparativeN,
+#'     rlevels = c(1, 0), clevels = c(1, 0)
+#'   )
+#' getAccuracy(tab, method = "wilson")
+#' getAccuracy(tab, method = "wilson", withref = FALSE)
 setMethod(
-  f = "summary",
+  f = "getAccuracy",
   signature = c("MCTab"),
   definition = function(object,
                         withref = TRUE,
                         method = c("wilson", "wald", "clopper-pearson"),
                         alpha = 0.05,
+                        digits = 4,
                         ...) {
     assert_class(object, "MCTab")
     assert_logical(withref)
-    assert_choice(method, c("wilson", "wald", "clopper-pearson"))
     method <- match.arg(method, c("wilson", "wald", "clopper-pearson"), several.ok = FALSE)
+    assert_choice(method, c("wilson", "wald", "clopper-pearson"))
+
 
     tp = object@tab[1,1]
     fp = object@tab[1,2]
@@ -102,14 +129,14 @@ setMethod(
     tn = object@tab[2,2]
     n = sum(object@tab)
 
-    # sens
+    # sens (sensitivity)
     sens <- DescTools::BinomCI(x = tp, n = tp + fn, conf.level = 1 - alpha, method = method, ...)
-    # spec
+    # spec (specificity)
     spec <- DescTools::BinomCI(x = tn, n = tn + fp, conf.level = 1 - alpha, method = method, ...)
     # PPV (positive predictive value)
     ppv <- DescTools::BinomCI(x = tp, n = tp + fp, conf.level = 1 - alpha, method = method, ...)
     # NPV (negative predictive value)
-    npv <- DescTools::BinomCI(x = fn, n = fn + tn, conf.level = 1 - alpha, method = method, ...)
+    npv <- DescTools::BinomCI(x = tn, n = tn + fn, conf.level = 1 - alpha, method = method, ...)
 
     # PLR (positive likelihood ratio)
     p1 <- sens[1,1]
@@ -142,10 +169,14 @@ setMethod(
 
 
     if (withref) {
-      rbind(sens, spec, ppv, npv, plr, nlr)
+      res <- rbind(sens, spec, ppv, npv, plr, nlr)
+      row.names(res) <- c("sens", "spec", "ppv", "npv", "plr", "nlr")
     } else {
-      rbind(ppa, npa, opa)
+      res <- rbind(ppa, npa, opa)
+      row.names(res) <- c("ppa", "npa", "opa")
     }
+    colnames(res) <- c("EST", "LowerCI", "UpperCI")
 
+    as.data.frame(formatC(res, digits = digits, format = "f"))
   }
 )

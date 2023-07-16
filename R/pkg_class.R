@@ -91,3 +91,19 @@ setClass(
 MCTab <- function(tab, candidate, comparative) {
   new("MCTab", tab = tab, candidate = candidate, comparative = comparative)
 }
+
+# MCTab-validity ----
+
+setValidity("MCTab", function(object) {
+  if (any(dim(object@tab) != c(2, 2))) {
+    "@tab should be 2x2 2x2 contingency table."
+  } else {
+    TRUE
+  }
+
+  if (!is.factor(object@candidate$data) | !is.factor(object@comparative$data)) {
+    "@candidate and @comparative should be all factor class."
+  } else {
+    TRUE
+  }
+})

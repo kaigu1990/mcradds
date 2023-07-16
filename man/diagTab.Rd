@@ -41,5 +41,5 @@ qualData \%>\%
   )
 }
 \seealso{
-\code{\link[=Summary]{Summary()}} for object to calculate diagnosis performance.
+\code{\link[=Summary]{Summary()}} for object to calculate diagnostic accuracy criteria.
 }
