@@ -3,12 +3,15 @@
 \name{show,SampleSize-method}
 \alias{show,SampleSize-method}
 \alias{show}
-\title{Show Method for \code{SampleSize} Objects}
+\alias{show,MCTab-method}
+\title{Show Method for Objects}
 \usage{
 \S4method{show}{SampleSize}(object)
+
+\S4method{show}{MCTab}(object)
 }
 \arguments{
-\item{object}{(\code{SampleSize})\cr input.}
+\item{object}{(\code{MCTab})\cr input.}
 }
 \value{
 None (invisible \code{NULL}), only used for the side effect of printing to
@@ -17,9 +20,10 @@ the console.
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-A show method that displays essential information of \code{SampleSize} objects.
+A show method that displays essential information of objects.
 }
 \examples{
 size_one_prop(p1 = 0.95, p0 = 0.9, alpha = 0.05, power = 0.8)
 size_ci_corr(r = 0.9, lr = 0.85, alpha = 0.025, alternative = "greater")
+qualData \%>\% diagTab(formula = ~ CandidateN + ComparativeN)
 }

@@ -35,3 +35,12 @@ Config/testthat/edition: 3
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+Collate: 
+    'data.R'
+    'mcr.R'
+    'package.R'
+    'pkg_class.R'
+    'pkg_methods.R'
+    'qual_stat.R'
+    'samplesize.R'
+    'utils.R'

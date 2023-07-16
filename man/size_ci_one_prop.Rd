@@ -15,21 +15,21 @@ size_ci_one_prop(
 )
 }
 \arguments{
-\item{p}{(numeric)\cr expected criteria of the evaluated assay.}
+\item{p}{(\code{numeric})\cr expected criteria of the evaluated assay.}
 
-\item{lr}{(numeric)\cr acceptable criteria of the evaluated assay.}
+\item{lr}{(\code{numeric})\cr acceptable criteria of the evaluated assay.}
 
-\item{alpha}{(numeric)\cr type-I-risk, \eqn{\alpha}.}
+\item{alpha}{(\code{numeric})\cr type-I-risk, \eqn{\alpha}.}
 
-\item{interval}{(numeric)\cr a numeric vector containing the end-points of the interval
+\item{interval}{(\code{numeric})\cr a numeric vector containing the end-points of the interval
 to be searched for the root(sample size). The defaults are set to c(1, 100000).}
 
-\item{tol}{(numeric)\cr tolerance for searching the root(sample size).}
+\item{tol}{(\code{numeric})\cr tolerance for searching the root(sample size).}
 
-\item{alternative}{(character)\cr string specifying the alternative hypothesis,
+\item{alternative}{(\code{string})\cr string specifying the alternative hypothesis,
 must be one of "two.sided" (default), "greater" or "less".}
 
-\item{method}{(character)\cr string specifying the which method to use.
+\item{method}{(\code{string})\cr string specifying the which method to use.
 Simple Asymptotic is default, equal to Wald. Options can be "wilson",
 "clopper-pearson" and other method, see \link[DescTools:BinomCIn]{DescTools::BinomCIn}}
 }

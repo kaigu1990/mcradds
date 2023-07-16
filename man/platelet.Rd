@@ -7,7 +7,7 @@
 \format{
 A \link{platelet} contains 120 observations and 3 variables.
 \describe{
-\item{sample}{sample id}
+\item{sample}{Sample id}
 \item{Comparative}{Measurement from comparative analyzer}
 \item{Candidate}{Measurement from candidate analyzer}
 }

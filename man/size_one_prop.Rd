@@ -13,15 +13,15 @@ size_one_prop(
 )
 }
 \arguments{
-\item{p1}{(numeric)\cr expected criteria of the evaluated assay.}
+\item{p1}{(\code{numeric})\cr expected criteria of the evaluated assay.}
 
-\item{p0}{(numeric)\cr acceptable criteria of the evaluated assay.}
+\item{p0}{(\code{numeric})\cr acceptable criteria of the evaluated assay.}
 
-\item{alpha}{(numeric)\cr type-I-risk, \eqn{\alpha}.}
+\item{alpha}{(\code{numeric})\cr type-I-risk, \eqn{\alpha}.}
 
-\item{power}{(numeric)\cr Power of test, equal to 1 minus type-II-risk (\eqn{\beta}).}
+\item{power}{(\code{numeric})\cr Power of test, equal to 1 minus type-II-risk (\eqn{\beta}).}
 
-\item{alternative}{(character)\cr string specifying the alternative hypothesis,
+\item{alternative}{(\code{string})\cr string specifying the alternative hypothesis,
 must be one of "two.sided" (default), "greater" or "less".}
 }
 \value{

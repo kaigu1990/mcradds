@@ -1,10 +1,10 @@
 # show ----
 
-#' Show Method for `SampleSize` Objects
+#' Show Method for Objects
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' A show method that displays essential information of `SampleSize` objects.
+#' A show method that displays essential information of objects.
 #'
 #' @rdname show
 #' @aliases show
@@ -13,7 +13,6 @@
 #' @return None (invisible `NULL`), only used for the side effect of printing to
 #'   the console.
 #'
-#' @export
 #' @importFrom purrr map_chr
 #'
 #' @examples
@@ -36,3 +35,33 @@ setMethod(
     )
   }
 )
+
+#' @rdname show
+#' @aliases show
+#'
+#' @param object (`MCTab`)\cr input.
+#'
+#' @examples
+#' qualData %>% diagTab(formula = ~ CandidateN + ComparativeN)
+setMethod(
+  f = "show",
+  signature = "MCTab",
+  definition = function(object) {
+    cat(" Contingency Table: \n\n")
+    cat_with_newline(
+      "  candidate has", length(object@candidate$levels), "levels:",
+      object@candidate$levels
+    )
+    cat_with_newline(
+      "  comparative has", length(object@candidate$levels), "levels:",
+      object@candidate$levels, "\n"
+    )
+    show(object@tab)
+  }
+)
+
+# getAccuracy ----
+
+#' @rdname getAccuracy
+#'
+setGeneric("getAccuracy", function(object, ...) standardGeneric("getAccuracy"))

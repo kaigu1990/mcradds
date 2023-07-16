@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Reference
 
 > Statistical Guidance on Reporting Results from Studies Evaluating Diagnostic Tests -- Guidance for Industry and FDA Staff, 2007
+> CLSI EP12
 
 ### With Reference/Gold Standard
 
@@ -22,11 +23,49 @@ interest is present
 - Specificity refers to how often the test is negative when the condition of
 interest is absent.
 
+Assume that the qualitative data has three columns, like ID, Method1 and Method2. Given the standard process to calculate the sensitivity and specificity is 2x2 contingency table, so we should convert the columns to 2x2 table, and think of way to show it on the console.
+
+A common and simple way to calculate the confidence internal of sensitivity and specificity is from the binomial distribution, such as Wilson-score that is recommended in CLSI EP12.
+
+We don't need to construct the function from foundation formulas, just use existed function from other packages, like `DescTools::BinomCI()` to implement the Wilson-score confidence interval.
+
+#### Class
+
+I purpose the classes can be used, `table` from `xtabs` function, or self function, or a function wraps the `xtabs` function. If I choose to create a self function, the type of `xtabs` is a good reference.
+
+```{r}
+DF <- as.data.frame(UCBAdmissions)
+DF %>% xtabs(formula = ~ Gender + Admit)
+```
+
+In term of development efficiency, I think a new function that wraps the `xtabs` will be a better choice. In this case, we can share the show method for `table` class from `xtabs`, reducing the workload to write the show method to display the contingency table.
+
+#### Function
+
+The function is used to read the data frame or matrix as the input data, and re-factor the variables per the specific levels, and add the other parameter to be selected if needed.
+
+#### Method
+
+Maybe a summary method is appropriate, to select the specific method, like sensitivity or others. And a show method to display the statistical results.
+
+#### Validate
+
+The validate process must be included, and we should add the test process as well.
+
 ### Without Reference/Gold Standard
 
 When a new test is evaluated by comparison to a non-reference standard, it is impossible to calculate unbiased estimates of sensitivity and specificity. In addition, quantities such as positive predictive value, negative predictive value, and the positive and negative likelihood ratios cannot be computed since the subjects’ condition status (as determined by a reference standard) is unknown.
 
 FDA recommends the use of the terms positive percent agreement and negative percent agreement with the non-reference standard to describe these results.
 
+#### Other diagnostic criteria
 
+Sometimes, such as PLR, NLR, AR and RR are required to compute. In common the confidence interval is also can be calculate per a formula. But I'm not sure if there are others methods can be used, and how to compute, which is needed to make sure.
 
+And other criteria like PPV and NPV, are suggested to put in another method, but I think it also apply to the `xtabs` class, just the method is a litter different.
+
+#### Formula
+
+The performance such as sensitivity, specificity, positive/negative predictive value will use the `DescTools::BinomCI()` function to compute, so that we don't re-build the formula of different methods like Wilson, Wald and Clopper-pearson.
+
+But regarding to positive/negative likelihood ratio, we can't use the binomial distribution to compute the confidence interval, so the formula is necessary.
