@@ -1,0 +1,96 @@
+---
+title: 'Design: Quantitative Criterion'
+author: "Kai Gu"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Reference
+
+> CLSI EP09A2/A3
+
+### Regression
+
+The regression analysis follows the calculation from `mcr` package. I import the `mcreg` main method to compute the regression formula as the algorithm is very robust, `getCoefficients` function to get the coefficients, ad `printSummary` function to print the outputs.
+
+But the scatter plot function of `mcr` package is under the basic drawing. I prefer to adopt the ggplot framework so that it can be more flexible.
+
+### Bland-Altman
+
+I don't trend to get the Bland-Altman results from regression process, although that's fine to do so. I think Bland-Altman analysis just needs to measurements from two analyzers. So a data frame with two quantitative measurements are sufficient to do analysis.
+
+```{r}
+data("platelet")
+head(platelet)
+```
+
+But I'd like to refer to the function structure from `mcr::plotDifference` method, such as add an argument to define which type of Bland-Altman difference calculation should be used.
+
+Referring to EP09A3, these differences can be computed.
+
+-   Assume that the comparative measurement is reliable and the magnitude of two measurements are to be essentially the same across the entire interval of concentrations, the difference can be `y-x`. But when the comparative measurement is not reliable and can not be reference, the horizontal axis (X axis) should be `(x + y) / 2`.
+-   Assume that he magnitude of the difference is assumed to be proportional to concentrations, the difference can be `y - x / x`. But when the comparative measurement is not reliable and can not be reference, the difference should be `(y - x) / ((x + y) / 2)` and the horizontal axis (X axis) should be `(x + y) / 2`.
+
+The scatter plot function should be structured by `ggplot` framework with two limit of agreement, and confidence interval if needed.
+
+Sometime authority would require sponsors to provide the CI of the limit of agreement, I'm not sure the formula from a publication is accurate.
+
+### correlation
+
+We can use the correlation coefficient (r) and determination coefficient (r2) to show the relationship between two measurements, that can be computed by `cor` for coefficient, and `cor.test` for testing p-value.
+
+If the H0 hypothesis is not equal to 0, it seems that a self-function should be added. But if I just use the self-function, the p-value of Pearson can be computed in a validated formula for now. For Spearman, I just provide the bootstrap p-value that I think is also good to use.
+
+### Precision
+
+Calculate the N/MEAN/MEDIAN/Q1/Q3/MAX/MIN/CV/SD statistics that are sufficient to use basically.
+
+Calculate the median bias and its confidence interval with Wilcoxon Signed Rank?
+
+And the Presentation (show) way needs to be considered.
+
+### Detecting Aberrant Results (Outliers)
+
+There are two outliers detection methods are illustrated in EP09, the first one is 4E&4rE method that is provided in EP09A2 version, and another one is ESD that is in EP09A3 version.
+
+#### 4E and 4rE
+
+Firstly, define the absolute differences between methods:
+
+$$
+E_{i}=|y_{i}-x_{i}|
+$$
+
+$$
+\overline{E}=\frac{1}{N}\sum_{i}^{N}E_{i}
+$$
+
+And define the relative absolute differences between methods:
+
+$$
+E'_{i}=\frac{|y_{i}-x_{i}|}{x_{i}}
+$$
+
+$$
+\overline{E'}=\frac{1}{N}\sum_{i}^{N}E'_{i}
+$$
+
+Here the Y is the test method, and x is the comparative/reference method.
+
+At last, compute the absolute test limit as `4 x E` and relative test limit as `4 x E'`. If any point (xi, yi) fails both tests, that is an outlier. A maximum of 2.5% of the data may be deleted from the data set. If more than 2.5% of data are identified as outliers by this test, print a warning message to tell users that it should check possible reasons.
+
+#### ESD
+
+The generalized extreme studentized deviate (ESD) technique, which assumes that the distribution of the vast majority of data points is normal (gaussian), can be used when the number of outliers is unknown, and becomes more robust as the number of samples increases.
+
+The algorithm is referring to the Appendix B of EP09A3.
+
+### Medical decision level
+
+The bias calculated from the regression line at stated medical decision points (either at generally recognized decision points or at the extremes of the reference interval) along with the CI of each bias estimate.
+
+This calculation can use the methods provided from `mcr` package, so we just wrap it in `mcradds` package with the same logic and arguments.
