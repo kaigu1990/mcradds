@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 The regression analysis follows the calculation from `mcr` package. I import the `mcreg` main method to compute the regression formula as the algorithm is very robust, `getCoefficients` function to get the coefficients, ad `printSummary` function to print the outputs.
 
-But the scatter plot function of `mcr` package is under the basic drawing. I prefer to adopt the ggplot framework so that it can be more flexible.
+But the scatter plot function of `mcr` package is under the basic drawing. I prefer to adopt the ggplot framework so that it can be more flexible. Also see [survMisc::autoplot] for the reference, to learn how to build a ggplot's autoplot function.
 
 ### Bland-Altman
 
@@ -69,7 +69,7 @@ $$
 \overline{E}=\frac{1}{N}\sum_{i}^{N}E_{i}
 $$
 
-And define the relative absolute differences between methods:
+And define the relative differences between methods:
 
 $$
 E'_{i}=\frac{|y_{i}-x_{i}|}{x_{i}}

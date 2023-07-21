@@ -22,7 +22,7 @@ setClass(
   )
 )
 
-# size-constructors ----
+# SampleSize-constructors ----
 
 #' @rdname SampleSize-class
 #'
@@ -107,3 +107,40 @@ setValidity("MCTab", function(object) {
     TRUE
   }
 })
+
+# BAsummary-class ----
+
+#' BAsummary class
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' The `BAsummary` class is used to display the BlandAltman analysis and outliers.
+#'
+#' @slot slots data data outlier
+#'
+#' @rdname BAsummary-class
+#' @aliases BAsummary
+setClass(
+  "BAsummary",
+  slots = c(
+    data = "data.frame",
+    stat = "matrix",
+    outlier = "list"
+  )
+)
+
+# BAsummary-constructors ----
+
+#' @rdname BAsummary-class
+#'
+#' @param data (`data.frame`)\cr stores the raw data from input.
+#' @param stat (`matrix`)\cr contains several statistics for numeric data.
+#' @param outlier (`list`)\cr contains the outlier order and sample id with corresponding
+#' calculated statistics.
+#'
+#' @return An object of class `BAsummary`.
+#'
+BAsummary <- function(tab, data, stat, outlier) {
+  new("BAsummary", data = data, stat = stat, outlier = outlier)
+}
+
