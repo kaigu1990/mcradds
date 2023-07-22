@@ -1,4 +1,3 @@
-
 # printSummary ----
 
 #' Print Summary of a Regression Analysis
@@ -12,8 +11,10 @@
 #' @export
 #' @examples
 #' data(platelet)
-#' fit <- mcreg(x = platelet$Comparative, y = platelet$Candidate,
-#'              method.reg = "Deming", method.ci = "jackknife")
+#' fit <- mcreg(
+#'   x = platelet$Comparative, y = platelet$Candidate,
+#'   method.reg = "Deming", method.ci = "jackknife"
+#' )
 #' printSummary(fit)
 printSummary <- function(...) {
   mcr::printSummary(...)
@@ -33,8 +34,10 @@ printSummary <- function(...) {
 #' @export
 #' @examples
 #' data(platelet)
-#' fit <- mcreg(x = platelet$Comparative, y = platelet$Candidate,
-#'              method.reg = "Deming", method.ci = "jackknife")
+#' fit <- mcreg(
+#'   x = platelet$Comparative, y = platelet$Candidate,
+#'   method.reg = "Deming", method.ci = "jackknife"
+#' )
 #' getCoefficients(fit)
 getCoefficients <- function(...) {
   mcr::getCoefficients(...)
@@ -56,8 +59,10 @@ getCoefficients <- function(...) {
 #' @export
 #' @examples
 #' data(platelet)
-#' fit <- mcreg(x = platelet$Comparative, y = platelet$Candidate,
-#'              method.reg = "Deming", method.ci = "jackknife")
+#' fit <- mcreg(
+#'   x = platelet$Comparative, y = platelet$Candidate,
+#'   method.reg = "Deming", method.ci = "jackknife"
+#' )
 #' printSummary(fit)
 #' getCoefficients(fit)
 mcreg <- function(...) {

@@ -19,6 +19,13 @@
 #' data("creatinine", package = "mcr")
 #' blandAltman(x = creatinine$serum.crea, y = creatinine$plasma.crea, outlier = TRUE)
 blandAltman <- function(x, y, sid = NULL, type1 = 3, type2 = 5, outlier = FALSE, confint = 0.95) {
+  assert_vector(x)
+  assert_vector(y)
+  assert_choice(type1, choices = 1:5)
+  assert_choice(type2, choices = 1:5)
+  assert_logical(outlier)
+  assert_numeric(confint, lower = 0.7, upper = 1)
+
   data <- as.data.frame(
     if (is.null(sid)) {
       cbind(sid = 1:length(x), x, y)
@@ -45,6 +52,7 @@ blandAltman <- function(x, y, sid = NULL, type1 = 3, type2 = 5, outlier = FALSE,
     outord <- which((da > lu_da | da < ll_da) & (dr > lu_dr | dr < ll_dr))
     outid <- data$sid[outord]
     outmat <- data[data$sid %in% outid, ]
+    row.names(outmat) <- NULL
   }
 
   object <- BAsummary(
