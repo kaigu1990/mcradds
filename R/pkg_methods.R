@@ -9,7 +9,8 @@
 #' @rdname show
 #' @aliases show
 #'
-#' @param object (`SampleSize`)\cr input.
+#' @param object (`any`)\cr input.
+#'
 #' @return None (invisible `NULL`), only used for the side effect of printing to
 #'   the console.
 #'
@@ -39,8 +40,6 @@ setMethod(
 #' @rdname show
 #' @aliases show
 #'
-#' @param object (`MCTab`)\cr input.
-#'
 #' @examples
 #' qualData %>% diagTab(formula = ~ CandidateN + ComparativeN)
 setMethod(
@@ -57,6 +56,37 @@ setMethod(
       object@candidate$levels, "\n"
     )
     show(object@tab)
+  }
+)
+
+#' @rdname show
+#' @aliases show
+#'
+#' @examples
+#' data("creatinine", package = "mcr")
+#' blandAltman(x = creatinine$serum.crea, y = creatinine$plasma.crea, outlier = TRUE)
+setMethod(
+  f = "show",
+  signature = "BAsummary",
+  definition = function(object) {
+    df <- data.frame(object@stat$tab)
+
+    N <- h_fmt_num(df$n, digits = 0, width = 1)
+    mean_sd <- h_fmt_est(df$mean, df$sd, digits = c(3, 3), width = c(6, 6))
+    median <- h_fmt_num(df$median, digits = 3, width = 1)
+    q1_q3 <- h_fmt_range(df$q1, df$q3, digits = c(3, 3), width = c(6, 6))
+    min_max <- h_fmt_range(df$min, df$max, digits = c(3, 3), width = c(6, 6))
+    limit <- h_fmt_range(df$limit_lr, df$limit_up, digits = c(3, 3), width = c(6, 6))
+    ci <- h_fmt_range(df$ci_lr, df$ci_up, digits = c(3, 3), width = c(6, 6))
+
+    res <- rbind(N, mean_sd, median, q1_q3, min_max, limit, ci)
+    row.names(res) <- c(
+      "N", "Mean (SD)", "Median", "Q1, Q3", "Min, Max",
+      "Limit of Agreement", "Confidence Interval of Mean"
+    )
+    colnames(res) <- c("Absolute difference", "Relative difference")
+
+    print(data.frame(res))
   }
 )
 

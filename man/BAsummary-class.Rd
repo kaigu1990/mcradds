@@ -11,7 +11,7 @@ BAsummary(tab, data, stat, outlier)
 \arguments{
 \item{data}{(\code{data.frame})\cr stores the raw data from input.}
 
-\item{stat}{(\code{matrix})\cr contains several statistics for numeric data.}
+\item{stat}{(\code{list})\cr contains several statistics for numeric data.}
 
 \item{outlier}{(\code{list})\cr contains the outlier order and sample id with corresponding
 calculated statistics.}

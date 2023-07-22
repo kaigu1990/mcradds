@@ -199,3 +199,27 @@ h_fmt_est <- function(num1, num2, digits = c(2, 2), width = c(6, 6)) {
   num2 <- h_fmt_num(num2, digits[2], width = width[2])
   paste0(num1, " (", num2, ")")
 }
+
+#' Format and Concatenate Strings
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' Help function to format numeric data as strings and concatenate into a
+#' single character range.
+#'
+#' @param num1 (`numeric`)\cr first numeric input
+#' @param num2 (`numeric`)\cr second numeric input.
+#' @param digits (`integer`)\cr the desired number of digits after the decimal point.
+#' @param width (`integer`)\cr the total field width.
+#'
+#' @seealso [h_fmt_num()]
+#' @return A single character.
+#' @export
+#'
+#' @examples
+#' h_fmt_range(num1 = 3.14, num2 = 3.14, width = c(4, 4))
+h_fmt_range <- function(num1, num2, digits = c(2, 2), width = c(6, 6)) {
+  num1 <- h_fmt_num(num1, digits[1], width = width[1])
+  num2 <- h_fmt_num(num2, digits[2], width = width[2])
+  paste0("(", num1, ", ", num2, ")")
+}

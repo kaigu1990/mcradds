@@ -49,7 +49,11 @@ blandAltman <- function(x, y, sid = NULL, type1 = 3, type2 = 5, outlier = FALSE,
 
   object <- BAsummary(
     data = data,
-    stat = ba_tab,
+    stat = list(
+      tab = ba_tab,
+      absolute_diff = abs_diff[, "y_ba"],
+      relative_diff = rel_diff[, "y_ba"]
+    ),
     outlier = if (outlier) {
       list(ord = outord, sid = outid, mat = outmat)
     } else {

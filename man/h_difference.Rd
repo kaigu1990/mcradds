@@ -7,9 +7,9 @@
 h_difference(x, y, type)
 }
 \arguments{
-\item{x}{(\code{numeric})\cr reference method}
+\item{x}{(\code{numeric})\cr reference method.}
 
-\item{y}{(\code{numeric})\cr test method}
+\item{y}{(\code{numeric})\cr test method.}
 
 \item{type}{(\code{integer})\cr integer specifying a specific difference for Bland-Altman
 (default is 3). Possible choices are:
