@@ -111,8 +111,8 @@ h_summarize <- function(x, confint = 0.95) {
 #'
 #' Helper function computes the difference with specific type.
 #'
-#' @param x (`numeric`)\cr reference method
-#' @param y (`numeric`)\cr test method
+#' @param x (`numeric`)\cr reference method.
+#' @param y (`numeric`)\cr test method.
 #' @param type (`integer`)\cr integer specifying a specific difference for Bland-Altman
 #' (default is 3). Possible choices are:
 #' 1 - difference with X vs. Y-X (absolute differences).
@@ -147,4 +147,55 @@ h_difference <- function(x, y, type) {
   }
 
   cbind(x, y, x_ba, y_ba)
+}
+
+#' Format the numeric data
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' Help function to format numeric data with `formatC` function.
+#'
+#' @param x (`numeric`)\cr numeric input.
+#' @param digits (`integer`)\cr the desired number of digits after the
+#' decimal point (format = "f").
+#' @param width (`integer`)\cr the total field width.
+#'
+#' @seealso [formatC()]
+#'
+#' @return A character object with specific digits and width.
+#' @export
+#'
+#' @examples
+#' h_fmt_num(pi * 10^(-2:2), digits = 2, width = 6)
+h_fmt_num <- function(x, digits, width = digits + 4) {
+  formatC(
+    x,
+    digits = digits,
+    format = "f",
+    width = width
+  )
+}
+
+
+#' Format and Concatenate Strings
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' Help function to format numeric data as strings and concatenate into a single character.
+#'
+#' @param num1 (`numeric`)\cr first numeric input
+#' @param num2 (`numeric`)\cr second numeric input.
+#' @param digits (`integer`)\cr the desired number of digits after the decimal point.
+#' @param width (`integer`)\cr the total field width.
+#'
+#' @seealso [h_fmt_num()]
+#' @return A single character.
+#' @export
+#'
+#' @examples
+#' h_fmt_est(num1 = 3.14, num2 = 3.1415, width = c(4, 4))
+h_fmt_est <- function(num1, num2, digits = c(2, 2), width = c(6, 6)) {
+  num1 <- h_fmt_num(num1, digits[1], width = width[1])
+  num2 <- h_fmt_num(num2, digits[2], width = width[2])
+  paste0(num1, " (", num2, ")")
 }
