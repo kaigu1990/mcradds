@@ -4,14 +4,17 @@
 \alias{show,SampleSize-method}
 \alias{show}
 \alias{show,MCTab-method}
+\alias{show,BAsummary-method}
 \title{Show Method for Objects}
 \usage{
 \S4method{show}{SampleSize}(object)
 
 \S4method{show}{MCTab}(object)
+
+\S4method{show}{BAsummary}(object)
 }
 \arguments{
-\item{object}{(\code{MCTab})\cr input.}
+\item{object}{(\code{any})\cr input.}
 }
 \value{
 None (invisible \code{NULL}), only used for the side effect of printing to
@@ -26,4 +29,6 @@ A show method that displays essential information of objects.
 size_one_prop(p1 = 0.95, p0 = 0.9, alpha = 0.05, power = 0.8)
 size_ci_corr(r = 0.9, lr = 0.85, alpha = 0.025, alternative = "greater")
 qualData \%>\% diagTab(formula = ~ CandidateN + ComparativeN)
+data("creatinine", package = "mcr")
+blandAltman(x = creatinine$serum.crea, y = creatinine$plasma.crea, outlier = TRUE)
 }
