@@ -20,7 +20,9 @@ A copy from \link[mcr:MCResult.printSummary]{mcr::printSummary} in \code{mcr} pa
 }
 \examples{
 data(platelet)
-fit <- mcreg(x = platelet$Comparative, y = platelet$Candidate,
-             method.reg = "Deming", method.ci = "jackknife")
+fit <- mcreg(
+  x = platelet$Comparative, y = platelet$Candidate,
+  method.reg = "Deming", method.ci = "jackknife"
+)
 printSummary(fit)
 }

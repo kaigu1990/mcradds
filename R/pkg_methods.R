@@ -95,3 +95,122 @@ setMethod(
 #' @rdname getAccuracy
 #'
 setGeneric("getAccuracy", function(object, ...) standardGeneric("getAccuracy"))
+
+
+# getOutlier ----
+
+#' @rdname getOutlier
+#'
+setGeneric("getOutlier", function(object, ...) standardGeneric("getOutlier"))
+
+#' Detect Outliers From `BAsummary` Object
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' Detect the potential outliers from the absolute and relative differences in
+#' `BAsummary` object with 4E&4Er and ESD method.
+#'
+#' @note Bland-Altman analysis is used as the input data regardless of the 4E and ESD
+#' method because it's necessary to determine the absolute and relative differences beforehand.
+#' For the 4E method, both of the absolute and relative differences are required to
+#' be define, and the bias exceeds the 4 fold of the absolute and relative differences.
+#' However for the ESD method, only one of them is necessary (the latter is more recommended),
+#' and the bias needs to meet the ESD test.
+#'
+#' @param object (`BAsummary`)\cr input from [blandAltman] function to generate the Bland-Altman
+#' analysis result that contains the absolute and relative differences.
+#' @param method (`string`)\cr string specifying which method to use. Default is `ESD`.
+#' @param difference (`string`)\cr string specifying which difference type to use for `ESD` method.
+#' Default is `abs` that means absolute difference, and `rel` is relative difference.
+#' @param alpha (`numeric`)\cr type-I-risk. Only used when the method is defined as `ESD`.
+#' @param h (`integer`)\cr the positive integer indicating the number of suspected outliers.
+#' Only used when the method is defined as `ESD`.
+#'
+#' @rdname getOutlier
+#' @aliases getOutlier
+#'
+#' @returns A list contains the statistics results (`stat`), outlier's ord id (`ord`),
+#' sample id (`sid`), matrix with outlier (`outmat`) and matrix without outliers (`rmmat`).
+#'
+#' @export
+#' @examples
+#' data("platelet")
+#' # Using `blandAltman` function with default arguments
+#' ba <- blandAltman(x = platelet$Comparative, y = platelet$Candidate)
+#' getOutlier(ba, method = "ESD", difference = "rel")
+#'
+#' # Using `blandAltman` function when the `tyep2` is 2 with `X vs. (Y-X)/X` difference
+#' ba2 <- blandAltman(x = platelet$Comparative, y = platelet$Candidate, type2 = 4)
+#' getOutlier(ba2, method = "ESD", difference = "rel")
+#'
+#' data("creatinine", package = "mcr")
+#' ba3 <- blandAltman(x = creatinine$serum.crea, y = creatinine$plasma.crea)
+#' getOutlier(ba3, method = "4E")
+setMethod(
+  f = "getOutlier",
+  signature = c("BAsummary"),
+  definition = function(object,
+                        method = c("ESD", "4E"),
+                        difference = c("abs", "rel"),
+                        alpha = 0.05,
+                        h = 5) {
+    assert_class(object, "BAsummary")
+    method <- match.arg(method, c("ESD", "4E"), several.ok = FALSE)
+    assert_choice(method, c("ESD", "4E"))
+    difference <- match.arg(difference, c("abs", "rel"), several.ok = FALSE)
+    assert_choice(difference, c("abs", "rel"))
+    assert_numeric(alpha, lower = 0, upper = 0.2)
+    assert_int(h, lower = 1)
+
+    if (method == "4E") {
+      stat <- data.frame(
+        obs = 1:length(object@stat$absolute_diff),
+        abs = object@stat$absolute_diff,
+        abs_limit_lr = object@stat$tab[1, "limit_lr"],
+        abs_limit_ur = object@stat$tab[1, "limit_up"],
+        rel = object@stat$relative_diff,
+        rel_limit_lr = object@stat$tab[2, "limit_lr"],
+        rel_limit_ur = object@stat$tab[2, "limit_up"]
+      )
+      stat$Outlier <- with(
+        stat,
+        ifelse((abs > abs_limit_ur | abs < abs_limit_lr) &
+          (rel > rel_limit_ur | rel < rel_limit_lr), TRUE, FALSE)
+      )
+
+      outord <- which(stat$Outlier == TRUE)
+      if (length(outord) > 0) {
+        rd <- object@data
+        outid <- rd$sid[outord]
+        outmat <- rd[rd$sid %in% outid, ]
+        row.names(outmat) <- NULL
+        rmout <- rd[!rd$sid %in% outid, ]
+        row.names(rmout) <- NULL
+        return(list(stat = stat[outord, ], ord = outord, sid = outid,
+                    outmat = outmat, rmmat = rmout))
+      } else {
+        return(cat("No outlier is detected."))
+      }
+    }
+
+    if (method == "ESD") {
+      res <- if (difference == "abs") {
+        ESD_test(object@stat$absolute_diff, alpha = alpha, h = h)
+      } else if (difference == "rel") {
+        ESD_test(object@stat$relative_diff, alpha = alpha, h = h)
+      }
+
+      if (length(res$ord) > 0) {
+        rd <- object@data[complete.cases(object@data), ]
+        outid <- rd$sid[res$ord]
+        outmat <- rd[rd$sid %in% outid, ]
+        row.names(outmat) <- NULL
+        rmout <- rd[!rd$sid %in% outid, ]
+        row.names(rmout) <- NULL
+        return(c(res, list(sid = outid, outmat = outmat, rmmat = rmout)))
+      } else {
+        return(cat("No outlier is detected."))
+      }
+    }
+  }
+)

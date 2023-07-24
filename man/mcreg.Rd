@@ -61,8 +61,10 @@ A copy from \link[mcr:mcreg]{mcr::mcreg} in \code{mcr} package
 }
 \examples{
 data(platelet)
-fit <- mcreg(x = platelet$Comparative, y = platelet$Candidate,
-             method.reg = "Deming", method.ci = "jackknife")
+fit <- mcreg(
+  x = platelet$Comparative, y = platelet$Candidate,
+  method.reg = "Deming", method.ci = "jackknife"
+)
 printSummary(fit)
 getCoefficients(fit)
 }

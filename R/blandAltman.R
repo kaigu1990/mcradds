@@ -1,5 +1,7 @@
 #' Calculate statistics for Bland-Altman
 #'
+#' @description `r lifecycle::badge("experimental")`
+#'
 #' @param x (`numeric`)\cr reference method.
 #' @param y (`numeric`)\cr test method.
 #' @param sid (`numeric` or `string`) sample id.
@@ -11,19 +13,21 @@
 #' @seealso [h_difference()] to see the type details.
 #'
 #' @return A object with [`BAsummary`] class that contains the BlandAltman analysis.
+#' - `data` a data frame contains the raw data from the input.
+#' - `stat` a list contains the summary table (`tab`) of Bland-Altman analysis,
+#' vector (`absolute_diff`) of absolute difference and vector (`relative_diff`)
+#' of relative difference.
+#'
 #' @export
 #'
 #' @examples
 #' data("platelet")
 #' blandAltman(x = platelet$Comparative, y = platelet$Candidate)
-#' data("creatinine", package = "mcr")
-#' blandAltman(x = creatinine$serum.crea, y = creatinine$plasma.crea, outlier = TRUE)
-blandAltman <- function(x, y, sid = NULL, type1 = 3, type2 = 5, outlier = FALSE, confint = 0.95) {
+blandAltman <- function(x, y, sid = NULL, type1 = 3, type2 = 5, confint = 0.95) {
   assert_vector(x)
   assert_vector(y)
-  assert_choice(type1, choices = 1:5)
-  assert_choice(type2, choices = 1:5)
-  assert_logical(outlier)
+  assert_choice(type1, choices = c(1, 3))
+  assert_choice(type2, choices = c(2, 4, 5))
   assert_numeric(confint, lower = 0.7, upper = 1)
 
   data <- as.data.frame(
@@ -42,31 +46,12 @@ blandAltman <- function(x, y, sid = NULL, type1 = 3, type2 = 5, outlier = FALSE,
   ba_tab <- rbind(abs_tb, rel_tb)
   rownames(ba_tab) <- c("absolute_difference", "relative_difference")
 
-  if (outlier) {
-    da <- abs_diff[, "y_ba"]
-    ll_da <- abs_tb[1, "limit_lr"]
-    lu_da <- abs_tb[1, "limit_up"]
-    dr <- rel_diff[, "y_ba"]
-    ll_dr <- rel_tb[1, "limit_lr"]
-    lu_dr <- rel_tb[1, "limit_up"]
-    outord <- which((da > lu_da | da < ll_da) & (dr > lu_dr | dr < ll_dr))
-    outid <- data$sid[outord]
-    outmat <- data[data$sid %in% outid, ]
-    row.names(outmat) <- NULL
-  }
-
-  object <- BAsummary(
+  BAsummary(
     data = data,
     stat = list(
       tab = ba_tab,
       absolute_diff = abs_diff[, "y_ba"],
       relative_diff = rel_diff[, "y_ba"]
-    ),
-    outlier = if (outlier) {
-      list(ord = outord, sid = outid, mat = outmat)
-    } else {
-      list()
-    }
+    )
   )
-  object
 }

@@ -39,6 +39,7 @@ Collate:
     'blandAltman.R'
     'data.R'
     'mcr.R'
+    'outlier.R'
     'package.R'
     'pkg_class.R'
     'pkg_methods.R'
