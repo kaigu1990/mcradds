@@ -18,7 +18,6 @@ Depends:
 Imports: 
     magrittr,
     checkmate,
-    dplyr,
     ggplot2,
     methods,
     purrr,
@@ -39,6 +38,7 @@ Collate:
     'blandAltman.R'
     'data.R'
     'mcr.R'
+    'outlier.R'
     'package.R'
     'pkg_class.R'
     'pkg_methods.R'

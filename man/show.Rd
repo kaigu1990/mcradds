@@ -30,5 +30,5 @@ size_one_prop(p1 = 0.95, p0 = 0.9, alpha = 0.05, power = 0.8)
 size_ci_corr(r = 0.9, lr = 0.85, alpha = 0.025, alternative = "greater")
 qualData \%>\% diagTab(formula = ~ CandidateN + ComparativeN)
 data("creatinine", package = "mcr")
-blandAltman(x = creatinine$serum.crea, y = creatinine$plasma.crea, outlier = TRUE)
+blandAltman(x = creatinine$serum.crea, y = creatinine$plasma.crea)
 }

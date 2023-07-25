@@ -8,7 +8,8 @@
 #' @import checkmate
 #' @import ggplot2
 #' @import methods
-#' @import dplyr
-#' @importFrom purrr accumulate
+#' @importFrom stats qt na.omit terms qnorm uniroot qnorm complete.cases quantile
+#' @importFrom purrr map_chr
+#' @importFrom DescTools BinomCI
 #' @importFrom lifecycle deprecated
 NULL

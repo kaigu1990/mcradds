@@ -22,8 +22,6 @@ NULL
 #' @return A object `matrix` contains the 2x2 contingency table.
 #' @export
 #'
-#' @importFrom stats terms
-#'
 #' @seealso [Summary()] for object to calculate diagnostic accuracy criteria.
 #'
 #' @examples

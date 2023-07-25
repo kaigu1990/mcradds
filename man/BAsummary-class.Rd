@@ -6,15 +6,12 @@
 \alias{BAsummary}
 \title{BAsummary class}
 \usage{
-BAsummary(tab, data, stat, outlier)
+BAsummary(data, stat)
 }
 \arguments{
 \item{data}{(\code{data.frame})\cr stores the raw data from input.}
 
 \item{stat}{(\code{list})\cr contains several statistics for numeric data.}
-
-\item{outlier}{(\code{list})\cr contains the outlier order and sample id with corresponding
-calculated statistics.}
 }
 \value{
 An object of class \code{BAsummary}.

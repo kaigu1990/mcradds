@@ -94,14 +94,14 @@ h_summarize <- function(x, confint = 0.95) {
   q3 <- as.numeric(quantile(x)[4])
   sd <- sd(x)
   se <- sd(x) / sqrt(n)
-  limit_up <- mean + qnorm(1 - (1 - confint) / 2) * sd
+  limit_ur <- mean + qnorm(1 - (1 - confint) / 2) * sd
   limit_lr <- mean - qnorm(1 - (1 - confint) / 2) * sd
-  ci_up <- mean + qnorm(1 - (1 - confint) / 2) * se
+  ci_ur <- mean + qnorm(1 - (1 - confint) / 2) * se
   ci_lr <- mean - qnorm(1 - (1 - confint) / 2) * se
 
   cbind(
     n = n, mean = mean, median = median, min = min, max = max, q1 = q1, q3 = q3,
-    sd = sd, se = se, limit_lr = limit_lr, limit_up = limit_up, ci_lr = ci_lr, ci_up = ci_up
+    sd = sd, se = se, limit_lr = limit_lr, limit_ur = limit_ur, ci_lr = ci_lr, ci_ur = ci_ur
   )
 }
 

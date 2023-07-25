@@ -4,15 +4,7 @@
 \alias{blandAltman}
 \title{Calculate statistics for Bland-Altman}
 \usage{
-blandAltman(
-  x,
-  y,
-  sid = NULL,
-  type1 = 3,
-  type2 = 5,
-  outlier = FALSE,
-  confint = 0.95
-)
+blandAltman(x, y, sid = NULL, type1 = 3, type2 = 5, confint = 0.95)
 }
 \arguments{
 \item{x}{(\code{numeric})\cr reference method.}
@@ -25,21 +17,26 @@ blandAltman(
 
 \item{type2}{(\code{integer})\cr specifying a specific difference for relative difference, default is 5.}
 
-\item{outlier}{(\code{logic})\cr whether to calculate the outliers with 4E&4Er method.}
-
 \item{confint}{(\code{numeric})\cr significance level for two side, default is 0.95.}
 }
 \value{
 A object with \code{\link{BAsummary}} class that contains the BlandAltman analysis.
+\itemize{
+\item \code{data} a data frame contains the raw data from the input.
+\item \code{stat} a list contains the summary table (\code{tab}) of Bland-Altman analysis,
+vector (\code{absolute_diff}) of absolute difference and vector (\code{relative_diff})
+of relative difference.
+}
 }
 \description{
-Calculate statistics for Bland-Altman
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \examples{
 data("platelet")
 blandAltman(x = platelet$Comparative, y = platelet$Candidate)
-data("creatinine", package = "mcr")
-blandAltman(x = creatinine$serum.crea, y = creatinine$plasma.crea, outlier = TRUE)
+
+# with sample id as input sid
+blandAltman(x = platelet$Comparative, y = platelet$Candidate, sid = platelet$Sample)
 }
 \seealso{
 \code{\link[=h_difference]{h_difference()}} to see the type details.

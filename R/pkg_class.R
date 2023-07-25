@@ -124,8 +124,7 @@ setClass(
   "BAsummary",
   slots = c(
     data = "data.frame",
-    stat = "list",
-    outlier = "list"
+    stat = "list"
   )
 )
 
@@ -135,13 +134,11 @@ setClass(
 #'
 #' @param data (`data.frame`)\cr stores the raw data from input.
 #' @param stat (`list`)\cr contains several statistics for numeric data.
-#' @param outlier (`list`)\cr contains the outlier order and sample id with corresponding
-#' calculated statistics.
 #'
 #' @return An object of class `BAsummary`.
 #'
-BAsummary <- function(tab, data, stat, outlier) {
-  new("BAsummary", data = data, stat = stat, outlier = outlier)
+BAsummary <- function(data, stat) {
+  new("BAsummary", data = data, stat = stat)
 }
 
 # BAsummary-validity ----

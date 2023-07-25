@@ -20,7 +20,9 @@ A copy from \link[mcr:MCResult.getCoefficients]{mcr::getCoefficients} in \code{m
 }
 \examples{
 data(platelet)
-fit <- mcreg(x = platelet$Comparative, y = platelet$Candidate,
-             method.reg = "Deming", method.ci = "jackknife")
+fit <- mcreg(
+  x = platelet$Comparative, y = platelet$Candidate,
+  method.reg = "Deming", method.ci = "jackknife"
+)
 getCoefficients(fit)
 }
