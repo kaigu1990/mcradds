@@ -15,7 +15,7 @@ test_that("blandAltman works as expected with default settings", {
       c("absolute_difference", "relative_difference"),
       c(
         "n", "mean", "median", "min", "max", "q1", "q3", "sd", "se",
-        "limit_lr", "limit_up", "ci_lr", "ci_up"
+        "limit_lr", "limit_ur", "ci_lr", "ci_ur"
       )
     )
   )

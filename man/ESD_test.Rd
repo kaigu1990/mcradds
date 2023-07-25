@@ -49,8 +49,7 @@ will be shown. If they are identical, both of them can not be regarded as outlie
 \examples{
 data("platelet")
 res <- blandAltman(x = platelet$Comparative, y = platelet$Candidate)
-x <- res@stat$relative_diff
-ESD_test(x)
+ESD_test(x = res@stat$relative_diff)
 }
 \references{
 CLSI EP09A3 Appendix B. Detecting Aberrant Results (Outliers).

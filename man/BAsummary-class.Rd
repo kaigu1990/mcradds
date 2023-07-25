@@ -6,7 +6,7 @@
 \alias{BAsummary}
 \title{BAsummary class}
 \usage{
-BAsummary(tab, data, stat)
+BAsummary(data, stat)
 }
 \arguments{
 \item{data}{(\code{data.frame})\cr stores the raw data from input.}

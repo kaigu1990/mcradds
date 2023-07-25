@@ -7,7 +7,6 @@
 #' @param sid (`numeric` or `string`) sample id.
 #' @param type1 (`integer`)\cr specifying a specific difference for absolute difference, default is 3.
 #' @param type2 (`integer`)\cr specifying a specific difference for relative difference, default is 5.
-#' @param outlier (`logic`)\cr whether to calculate the outliers with 4E&4Er method.
 #' @param confint (`numeric`)\cr significance level for two side, default is 0.95.
 #'
 #' @seealso [h_difference()] to see the type details.
@@ -23,6 +22,9 @@
 #' @examples
 #' data("platelet")
 #' blandAltman(x = platelet$Comparative, y = platelet$Candidate)
+#'
+#' # with sample id as input sid
+#' blandAltman(x = platelet$Comparative, y = platelet$Candidate, sid = platelet$Sample)
 blandAltman <- function(x, y, sid = NULL, type1 = 3, type2 = 5, confint = 0.95) {
   assert_vector(x)
   assert_vector(y)

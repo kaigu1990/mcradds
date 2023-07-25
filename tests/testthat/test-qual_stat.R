@@ -96,7 +96,7 @@ test_that("diagTab function works as expected with custom settings", {
   expect_equal(res@tab, object)
 })
 
-test_that("diagTab function works as expected with digits is 3", {
+test_that("getAccuracy function works as expected with digits is 3", {
   data("qualData")
   tb <- qualData %>% diagTab(
     formula = ~ CandidateN + ComparativeN,

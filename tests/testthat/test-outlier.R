@@ -13,7 +13,7 @@ test_that("ESD_test works as expected with default settings", {
     Outlier = c(TRUE, TRUE, TRUE, TRUE, FALSE, FALSE)
   )
 
-  expect_equal(res$stat[,6:8], object, tolerance = 0.0001)
+  expect_equal(res$stat[, 6:8], object, tolerance = 0.0001)
   expect_identical(res$ord, c(1L, 4L, 2L, 10L))
 })
 

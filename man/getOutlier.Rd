@@ -19,6 +19,8 @@ getOutlier(object, ...)
 \item{object}{(\code{BAsummary})\cr input from \link{blandAltman} function to generate the Bland-Altman
 analysis result that contains the absolute and relative differences.}
 
+\item{...}{additional arguments.}
+
 \item{method}{(\code{string})\cr string specifying which method to use. Default is \code{ESD}.}
 
 \item{difference}{(\code{string})\cr string specifying which difference type to use for \code{ESD} method.
@@ -30,14 +32,14 @@ Default is \code{abs} that means absolute difference, and \code{rel} is relative
 Only used when the method is defined as \code{ESD}.}
 }
 \value{
-A list contains the statistics results (\code{stat}), outlier's ord id (\code{ord}),
-sample id (\code{sid}), matrix with outlier (\code{outmat}) and matrix without outliers (\code{rmmat}).
+A list contains the statistics results (\code{stat}), outliers' ord id (\code{ord}),
+sample id (\code{sid}), matrix with outliers (\code{outmat}) and matrix without outliers (\code{rmmat}).
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 Detect the potential outliers from the absolute and relative differences in
-\code{BAsummary} object with 4E&4Er and ESD method.
+\code{BAsummary} object with 4E and ESD method.
 }
 \note{
 Bland-Altman analysis is used as the input data regardless of the 4E and ESD
@@ -53,10 +55,16 @@ data("platelet")
 ba <- blandAltman(x = platelet$Comparative, y = platelet$Candidate)
 getOutlier(ba, method = "ESD", difference = "rel")
 
-ba2 <- blandAltman(x = platelet$Comparative, y = platelet$Candidate, type1 = 1, type2 = 2)
+# Using sample id as input
+ba2 <- blandAltman(x = platelet$Comparative, y = platelet$Candidate, sid = platelet$Sample)
 getOutlier(ba2, method = "ESD", difference = "rel")
 
+# Using `blandAltman` function when the `tyep2` is 2 with `X vs. (Y-X)/X` difference
+ba3 <- blandAltman(x = platelet$Comparative, y = platelet$Candidate, type2 = 4)
+getOutlier(ba3, method = "ESD", difference = "rel")
+
+# Using "4E" as the method input
 data("creatinine", package = "mcr")
-ba3 <- blandAltman(x = creatinine$serum.crea, y = creatinine$plasma.crea)
-getOutlier(ba3, method = "4E")
+ba4 <- blandAltman(x = creatinine$serum.crea, y = creatinine$plasma.crea)
+getOutlier(ba4, method = "4E")
 }

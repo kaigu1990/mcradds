@@ -137,7 +137,7 @@ setClass(
 #'
 #' @return An object of class `BAsummary`.
 #'
-BAsummary <- function(tab, data, stat) {
+BAsummary <- function(data, stat) {
   new("BAsummary", data = data, stat = stat)
 }
 

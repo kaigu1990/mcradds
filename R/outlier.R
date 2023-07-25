@@ -62,9 +62,11 @@ esd.critical <- function(alpha, N, i) {
 #' @examples
 #' data("platelet")
 #' res <- blandAltman(x = platelet$Comparative, y = platelet$Candidate)
-#' x <- res@stat$relative_diff
-#' ESD_test(x)
+#' ESD_test(x = res@stat$relative_diff)
 ESD_test <- function(x, alpha = 0.05, h = 5) {
+  assert_class(x, "numeric")
+  assert_int(h, lower = 1, upper = length(x) - 2)
+
   rd <- x
   x <- na.omit(x)
   n <- length(x)

@@ -20,8 +20,6 @@
 #' @seealso [size_ci_one_prop()] [size_corr()] [size_ci_corr()]
 #' @references Chinese NMPA's IVD technical guideline.
 #'
-#' @importFrom stats qnorm
-#'
 #' @examples
 #' size_one_prop(p1 = 0.95, p0 = 0.9, alpha = 0.05, power = 0.8)
 size_one_prop <- function(p1, p0, alpha = 0.05, power = 0.8,
@@ -81,9 +79,6 @@ size_one_prop <- function(p1, p0, alpha = 0.05, power = 0.8,
 #' @seealso [size_one_prop()] [size_corr()] [size_ci_corr()]
 #' @references Newcombe, R. G. 1998. 'Two-Sided Confidence Intervals for the
 #'  Single Proportion: Comparison of Seven Methods.' Statistics in Medicine, 17, pp. 857-872.
-#'
-#' @importFrom DescTools BinomCI
-#' @importFrom stats uniroot
 #'
 #' @examples
 #' size_ci_one_prop(p = 0.85, lr = 0.8, alpha = 0.05, method = "wilson")

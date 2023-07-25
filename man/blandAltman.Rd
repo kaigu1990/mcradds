@@ -18,8 +18,6 @@ blandAltman(x, y, sid = NULL, type1 = 3, type2 = 5, confint = 0.95)
 \item{type2}{(\code{integer})\cr specifying a specific difference for relative difference, default is 5.}
 
 \item{confint}{(\code{numeric})\cr significance level for two side, default is 0.95.}
-
-\item{outlier}{(\code{logic})\cr whether to calculate the outliers with 4E&4Er method.}
 }
 \value{
 A object with \code{\link{BAsummary}} class that contains the BlandAltman analysis.
@@ -36,6 +34,9 @@ of relative difference.
 \examples{
 data("platelet")
 blandAltman(x = platelet$Comparative, y = platelet$Candidate)
+
+# with sample id as input sid
+blandAltman(x = platelet$Comparative, y = platelet$Candidate, sid = platelet$Sample)
 }
 \seealso{
 \code{\link[=h_difference]{h_difference()}} to see the type details.

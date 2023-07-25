@@ -14,8 +14,6 @@
 #' @return None (invisible `NULL`), only used for the side effect of printing to
 #'   the console.
 #'
-#' @importFrom purrr map_chr
-#'
 #' @examples
 #' size_one_prop(p1 = 0.95, p0 = 0.9, alpha = 0.05, power = 0.8)
 #' size_ci_corr(r = 0.9, lr = 0.85, alpha = 0.025, alternative = "greater")
@@ -64,7 +62,7 @@ setMethod(
 #'
 #' @examples
 #' data("creatinine", package = "mcr")
-#' blandAltman(x = creatinine$serum.crea, y = creatinine$plasma.crea, outlier = TRUE)
+#' blandAltman(x = creatinine$serum.crea, y = creatinine$plasma.crea)
 setMethod(
   f = "show",
   signature = "BAsummary",
@@ -76,8 +74,8 @@ setMethod(
     median <- h_fmt_num(df$median, digits = 3, width = 1)
     q1_q3 <- h_fmt_range(df$q1, df$q3, digits = c(3, 3), width = c(6, 6))
     min_max <- h_fmt_range(df$min, df$max, digits = c(3, 3), width = c(6, 6))
-    limit <- h_fmt_range(df$limit_lr, df$limit_up, digits = c(3, 3), width = c(6, 6))
-    ci <- h_fmt_range(df$ci_lr, df$ci_up, digits = c(3, 3), width = c(6, 6))
+    limit <- h_fmt_range(df$limit_lr, df$limit_ur, digits = c(3, 3), width = c(6, 6))
+    ci <- h_fmt_range(df$ci_lr, df$ci_ur, digits = c(3, 3), width = c(6, 6))
 
     res <- rbind(N, mean_sd, median, q1_q3, min_max, limit, ci)
     row.names(res) <- c(
@@ -100,7 +98,7 @@ setGeneric("getAccuracy", function(object, ...) standardGeneric("getAccuracy"))
 # getOutlier ----
 
 #' @rdname getOutlier
-#'
+#' @param ... additional arguments.
 setGeneric("getOutlier", function(object, ...) standardGeneric("getOutlier"))
 
 #' Detect Outliers From `BAsummary` Object
@@ -108,7 +106,7 @@ setGeneric("getOutlier", function(object, ...) standardGeneric("getOutlier"))
 #' @description `r lifecycle::badge("experimental")`
 #'
 #' Detect the potential outliers from the absolute and relative differences in
-#' `BAsummary` object with 4E&4Er and ESD method.
+#' `BAsummary` object with 4E and ESD method.
 #'
 #' @note Bland-Altman analysis is used as the input data regardless of the 4E and ESD
 #' method because it's necessary to determine the absolute and relative differences beforehand.
@@ -129,8 +127,8 @@ setGeneric("getOutlier", function(object, ...) standardGeneric("getOutlier"))
 #' @rdname getOutlier
 #' @aliases getOutlier
 #'
-#' @returns A list contains the statistics results (`stat`), outlier's ord id (`ord`),
-#' sample id (`sid`), matrix with outlier (`outmat`) and matrix without outliers (`rmmat`).
+#' @returns A list contains the statistics results (`stat`), outliers' ord id (`ord`),
+#' sample id (`sid`), matrix with outliers (`outmat`) and matrix without outliers (`rmmat`).
 #'
 #' @export
 #' @examples
@@ -139,13 +137,18 @@ setGeneric("getOutlier", function(object, ...) standardGeneric("getOutlier"))
 #' ba <- blandAltman(x = platelet$Comparative, y = platelet$Candidate)
 #' getOutlier(ba, method = "ESD", difference = "rel")
 #'
-#' # Using `blandAltman` function when the `tyep2` is 2 with `X vs. (Y-X)/X` difference
-#' ba2 <- blandAltman(x = platelet$Comparative, y = platelet$Candidate, type2 = 4)
+#' # Using sample id as input
+#' ba2 <- blandAltman(x = platelet$Comparative, y = platelet$Candidate, sid = platelet$Sample)
 #' getOutlier(ba2, method = "ESD", difference = "rel")
 #'
+#' # Using `blandAltman` function when the `tyep2` is 2 with `X vs. (Y-X)/X` difference
+#' ba3 <- blandAltman(x = platelet$Comparative, y = platelet$Candidate, type2 = 4)
+#' getOutlier(ba3, method = "ESD", difference = "rel")
+#'
+#' # Using "4E" as the method input
 #' data("creatinine", package = "mcr")
-#' ba3 <- blandAltman(x = creatinine$serum.crea, y = creatinine$plasma.crea)
-#' getOutlier(ba3, method = "4E")
+#' ba4 <- blandAltman(x = creatinine$serum.crea, y = creatinine$plasma.crea)
+#' getOutlier(ba4, method = "4E")
 setMethod(
   f = "getOutlier",
   signature = c("BAsummary"),
@@ -160,17 +163,16 @@ setMethod(
     difference <- match.arg(difference, c("abs", "rel"), several.ok = FALSE)
     assert_choice(difference, c("abs", "rel"))
     assert_numeric(alpha, lower = 0, upper = 0.2)
-    assert_int(h, lower = 1)
 
     if (method == "4E") {
       stat <- data.frame(
         obs = 1:length(object@stat$absolute_diff),
         abs = object@stat$absolute_diff,
         abs_limit_lr = object@stat$tab[1, "limit_lr"],
-        abs_limit_ur = object@stat$tab[1, "limit_up"],
+        abs_limit_ur = object@stat$tab[1, "limit_ur"],
         rel = object@stat$relative_diff,
         rel_limit_lr = object@stat$tab[2, "limit_lr"],
-        rel_limit_ur = object@stat$tab[2, "limit_up"]
+        rel_limit_ur = object@stat$tab[2, "limit_ur"]
       )
       stat$Outlier <- with(
         stat,
@@ -186,8 +188,10 @@ setMethod(
         row.names(outmat) <- NULL
         rmout <- rd[!rd$sid %in% outid, ]
         row.names(rmout) <- NULL
-        return(list(stat = stat[outord, ], ord = outord, sid = outid,
-                    outmat = outmat, rmmat = rmout))
+        return(list(
+          stat = stat[outord, ], ord = outord, sid = outid,
+          outmat = outmat, rmmat = rmout
+        ))
       } else {
         return(cat("No outlier is detected."))
       }
