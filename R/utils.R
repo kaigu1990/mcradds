@@ -75,7 +75,7 @@ h_factor <- function(df, var, levels = NULL, ...) {
 #' Help function summarizes the statistics as needed.
 #'
 #' @param x (`numeric`)\cr input numeric vector.
-#' @param confint (`numeric`)\cr significance level, default is 0.95.
+#' @param conf.level (`numeric`)\cr significance level, default is 0.95.
 #'
 #' @return a verctor contains several statistics, such as n, mean, median, min,
 #' max, q25, q75, sd, se, limit of agreement of limit and confidence interval .
@@ -83,7 +83,7 @@ h_factor <- function(df, var, levels = NULL, ...) {
 #'
 #' @examples
 #' h_summarize(1:50)
-h_summarize <- function(x, confint = 0.95) {
+h_summarize <- function(x, conf.level = 0.95) {
   x <- na.omit(x)
   n <- length(x)
   mean <- mean(x)
@@ -94,10 +94,10 @@ h_summarize <- function(x, confint = 0.95) {
   q3 <- as.numeric(quantile(x)[4])
   sd <- sd(x)
   se <- sd(x) / sqrt(n)
-  limit_ur <- mean + qnorm(1 - (1 - confint) / 2) * sd
-  limit_lr <- mean - qnorm(1 - (1 - confint) / 2) * sd
-  ci_ur <- mean + qnorm(1 - (1 - confint) / 2) * se
-  ci_lr <- mean - qnorm(1 - (1 - confint) / 2) * se
+  limit_ur <- mean + qnorm(1 - (1 - conf.level) / 2) * sd
+  limit_lr <- mean - qnorm(1 - (1 - conf.level) / 2) * sd
+  ci_ur <- mean + qnorm(1 - (1 - conf.level) / 2) * se
+  ci_lr <- mean - qnorm(1 - (1 - conf.level) / 2) * se
 
   cbind(
     n = n, mean = mean, median = median, min = min, max = max, q1 = q1, q3 = q3,

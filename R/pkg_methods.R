@@ -162,7 +162,7 @@ setMethod(
     assert_choice(method, c("ESD", "4E"))
     difference <- match.arg(difference, c("abs", "rel"), several.ok = FALSE)
     assert_choice(difference, c("abs", "rel"))
-    assert_numeric(alpha, lower = 0, upper = 0.2)
+    assert_number(alpha, lower = 0, upper = 0.2)
 
     if (method == "4E") {
       stat <- data.frame(

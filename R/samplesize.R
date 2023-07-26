@@ -24,11 +24,11 @@
 #' size_one_prop(p1 = 0.95, p0 = 0.9, alpha = 0.05, power = 0.8)
 size_one_prop <- function(p1, p0, alpha = 0.05, power = 0.8,
                           alternative = c("two.sided", "less", "greater")) {
-  assert_numeric(p1)
-  assert_numeric(p0)
+  assert_number(p1)
+  assert_number(p0)
   assert_true(p1 > p0)
-  assert_numeric(alpha, lower = 0, upper = 1)
-  assert_numeric(power, lower = 0, upper = 1)
+  assert_number(alpha, lower = 0, upper = 1)
+  assert_number(power, lower = 0, upper = 1)
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"), several.ok = FALSE)
   args <- c(as.list(environment()))
 
@@ -88,12 +88,12 @@ size_ci_one_prop <- function(p, lr, alpha = 0.05,
                              interval = c(1, 100000), tol = 1e-05,
                              alternative = c("two.sided", "less", "greater"),
                              method = c("simple-asymptotic", "wilson", "wald", "clopper-pearson")) {
-  assert_numeric(p)
-  assert_numeric(lr)
+  assert_number(p)
+  assert_number(lr)
   assert_true(p > lr)
-  assert_numeric(alpha, lower = 0, upper = 1)
-  assert_vector(interval, len = 2)
-  assert_numeric(tol)
+  assert_number(alpha, lower = 0, upper = 1)
+  assert_numeric(interval, len = 2)
+  assert_number(tol)
   assert_choice(method, choices = c(
     "simple-asymptotic", "wald", "wilson", "wilsoncc", "agresti-coull",
     "jeffreys", "modified wilson", "modified jeffreys",
@@ -156,11 +156,11 @@ size_ci_one_prop <- function(p, lr, alpha = 0.05,
 #' size_corr(r1 = 0.95, r0 = 0.9, alpha = 0.025, power = 0.8, alternative = "greater")
 size_corr <- function(r1, r0, alpha = 0.05, power = 0.8,
                       alternative = c("two.sided", "less", "greater")) {
-  assert_numeric(r1, lower = 0, upper = 1)
-  assert_numeric(r0, lower = 0, upper = 1)
+  assert_number(r1, lower = 0, upper = 1)
+  assert_number(r0, lower = 0, upper = 1)
   assert_true(r1 > r0)
-  assert_numeric(alpha, lower = 0, upper = 1)
-  assert_numeric(power, lower = 0, upper = 1)
+  assert_number(alpha, lower = 0, upper = 1)
+  assert_number(power, lower = 0, upper = 1)
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"), several.ok = FALSE)
   args <- c(as.list(environment()))
 
@@ -216,12 +216,12 @@ size_corr <- function(r1, r0, alpha = 0.05, power = 0.8,
 size_ci_corr <- function(r, lr, alpha = 0.05,
                          interval = c(10, 100000), tol = 1e-05,
                          alternative = c("two.sided", "less", "greater")) {
-  assert_numeric(r, lower = 0, upper = 1)
-  assert_numeric(lr, lower = 0, upper = 1)
+  assert_number(r, lower = 0, upper = 1)
+  assert_number(lr, lower = 0, upper = 1)
   assert_true(r > lr)
   assert_numeric(alpha, lower = 0, upper = 1)
   assert_vector(interval, len = 2)
-  assert_numeric(tol)
+  assert_number(tol)
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"), several.ok = FALSE)
   args <- c(as.list(environment()))
 
