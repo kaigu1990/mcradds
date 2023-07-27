@@ -3,6 +3,7 @@
 export("%>%")
 export(ESD_test)
 export(blandAltman)
+export(calcBias)
 export(cat_with_newline)
 export(diagTab)
 export(esd.critical)
