@@ -31,7 +31,7 @@
 #' blandAltman(x = platelet$Comparative, y = platelet$Candidate, sid = platelet$Sample)
 blandAltman <- function(x, y, sid = NULL, type1 = 3, type2 = 5, conf.level = 0.95) {
   assert_numeric(x)
-  assert_numeric(x)(y)
+  assert_numeric(x)
   assert_choice(type1, choices = c(1, 3))
   assert_choice(type2, choices = c(2, 4, 5))
   assert_number(conf.level, lower = 0.7, upper = 1)

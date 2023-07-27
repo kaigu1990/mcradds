@@ -23,7 +23,8 @@ Imports:
     purrr,
     lifecycle,
     DescTools,
-    stats
+    stats,
+    boot
 Suggests: 
     testthat (>= 3.0.0),
     tibble,
@@ -36,6 +37,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Collate: 
     'blandAltman.R'
+    'correlation.R'
     'data.R'
     'mcr.R'
     'outlier.R'

@@ -8,8 +8,10 @@
 #' @import checkmate
 #' @import ggplot2
 #' @import methods
-#' @importFrom stats qt na.omit terms qnorm uniroot qnorm complete.cases quantile
+#' @importFrom stats qt na.omit terms qnorm uniroot complete.cases
+#' quantile setNames pnorm cor.test
 #' @importFrom purrr map_chr
 #' @importFrom DescTools BinomCI
 #' @importFrom lifecycle deprecated
+#' @importFrom boot boot
 NULL
