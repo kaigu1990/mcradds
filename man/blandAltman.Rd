@@ -4,7 +4,7 @@
 \alias{blandAltman}
 \title{Calculate statistics for Bland-Altman}
 \usage{
-blandAltman(x, y, sid = NULL, type1 = 3, type2 = 5, confint = 0.95)
+blandAltman(x, y, sid = NULL, type1 = 3, type2 = 5, conf.level = 0.95)
 }
 \arguments{
 \item{x}{(\code{numeric})\cr reference method.}
@@ -17,7 +17,7 @@ blandAltman(x, y, sid = NULL, type1 = 3, type2 = 5, confint = 0.95)
 
 \item{type2}{(\code{integer})\cr specifying a specific difference for relative difference, default is 5.}
 
-\item{confint}{(\code{numeric})\cr significance level for two side, default is 0.95.}
+\item{conf.level}{(\code{numeric})\cr significance level for two side, default is 0.95.}
 }
 \value{
 A object with \code{\link{BAsummary}} class that contains the BlandAltman analysis.
@@ -30,6 +30,10 @@ of relative difference.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
+Calculate the Bland-Altman related statistics with specific difference type,
+such as difference, limited of agreement and confidence interval. And the outlier
+detecting function and graphic function will get the difference result from this.
 }
 \examples{
 data("platelet")

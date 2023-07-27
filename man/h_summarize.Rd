@@ -4,12 +4,12 @@
 \alias{h_summarize}
 \title{Summarize the basic statistics}
 \usage{
-h_summarize(x, confint = 0.95)
+h_summarize(x, conf.level = 0.95)
 }
 \arguments{
 \item{x}{(\code{numeric})\cr input numeric vector.}
 
-\item{confint}{(\code{numeric})\cr significance level, default is 0.95.}
+\item{conf.level}{(\code{numeric})\cr significance level, default is 0.95.}
 }
 \value{
 a verctor contains several statistics, such as n, mean, median, min,
