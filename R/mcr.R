@@ -76,14 +76,14 @@ mcreg <- function(...) {
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' A copy from [mcr::mcreg] in `mcr` package
+#' A copy from [mcr::calcBias] in `mcr` package
 #'
-#' @inheritDotParams mcr::mcreg
+#' @inheritDotParams mcr::calcBias
 #'
 #' @return Bis and corresponding confidence interval for the specific medical
 #' decision levels (`x.levels`).
 #'
-#' @seealso [mcr::mcreg()]
+#' @seealso [mcr::calcBias()]
 #' @export
 #' @examples
 #' data(platelet)
