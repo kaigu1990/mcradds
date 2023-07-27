@@ -1,16 +1,19 @@
 Package: mcradds
 Type: Package
-Title: Additional Methods for 'mcr' Package  
+Title: Processing and analyzing of In Vitro Diagnostic Data
 Version: 0.0.0.9000
 Authors@R: c(
     person("Kai", "Gu", , "gukai1212@163.com", role = c("aut", "cre"))
     )
 Maintainer: Kai Gu <gukai1212@163.com>
-Description: It's a complement to 'mcr' package, contains functions to 
-    quantify or quality the relation between two measurement methods with 
-    the referring to CLSI recommendations, making it easier to apply common 
-    analysis in In Vitro Diagnostic Trials. 
+Description: A complement to 'mcr' package, adding methods and functions to 
+    analyze the quantitative or qualitative performance for diagnostic tests. 
+    And outliers detection, reader precision and reference range are discussed. 
+    Most of the methods and algorithms refer to CLSI recommendations. In 
+    additional, relevant plots are constructed by ggplot statement.
 License: GPL (>= 3)
+URL: https://github.com/kaigu1990/mcradds/
+BugReports: https://github.com/kaigu1990/mcradds/issues
 Encoding: UTF-8
 LazyData: true
 Depends: 
@@ -30,6 +33,7 @@ Suggests:
     tibble,
     knitr,
     usethis,
+    dplyr,
     rmarkdown
 Config/testthat/edition: 3
 VignetteBuilder: knitr

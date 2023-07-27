@@ -22,7 +22,7 @@
 #' @description `r lifecycle::badge("experimental")`
 #'
 #' This simulated data [`mcradds::qualData`] can be used to calculate the
-#' quantitative performance such as sensitivity and specificity.
+#' qualitative performance such as sensitivity and specificity.
 #'
 #' @format A [mcradds::qualData] contains 200 observations and 3 variables.
 #' \describe{

@@ -68,3 +68,32 @@ getCoefficients <- function(...) {
 mcreg <- function(...) {
   mcr::mcreg(...)
 }
+
+
+# calcBias ----
+
+#' Systematical Bias Between Reference Method and Test Method
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' A copy from [mcr::calcBias] in `mcr` package
+#'
+#' @inheritDotParams mcr::calcBias
+#'
+#' @return Bis and corresponding confidence interval for the specific medical
+#' decision levels (`x.levels`).
+#'
+#' @seealso [mcr::calcBias()]
+#' @export
+#' @examples
+#' data(platelet)
+#' fit <- mcreg(
+#'   x = platelet$Comparative, y = platelet$Candidate,
+#'   method.reg = "Deming", method.ci = "jackknife"
+#' )
+#' calcBias(fit, x.levels = c(30, 200))
+#' calcBias(fit, x.levels = c(30, 200), type = "proportional")
+#' calcBias(fit, x.levels = c(30, 200), type = "proportional", percent = FALSE)
+calcBias <- function(...) {
+  mcr::calcBias(...)
+}
