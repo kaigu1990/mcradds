@@ -19,7 +19,7 @@ qualData
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 This simulated data \code{\link{qualData}} can be used to calculate the
-quantitative performance such as sensitivity and specificity.
+qualitative performance such as sensitivity and specificity.
 }
 \seealso{
 \link{platelet} which contains quantitative data comparing

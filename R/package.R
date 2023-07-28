@@ -1,6 +1,6 @@
-#' `mcradss` Package
+#' `mcradds` Package
 #'
-#' `mcradss` facilitates analyzing and reporting in IVD trials.
+#' `mcradds` Processing and analyzing of In Vitro Diagnostic Data.
 #'
 "_PACKAGE"
 

@@ -4,9 +4,18 @@
 \name{mcradds-package}
 \alias{mcradds}
 \alias{mcradds-package}
-\title{\code{mcradss} Package}
+\title{\code{mcradds} Package}
 \description{
-\code{mcradss} facilitates analyzing and reporting in IVD trials.
+\code{mcradds} Processing and analyzing of In Vitro Diagnostic Data.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/kaigu1990/mcradds/}
+  \item \url{https://kaigu1990.github.io/mcradds/}
+  \item Report bugs at \url{https://github.com/kaigu1990/mcradds/issues}
+}
+
 }
 \author{
 \strong{Maintainer}: Kai Gu \email{gukai1212@163.com}

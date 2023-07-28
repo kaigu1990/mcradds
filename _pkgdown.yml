@@ -2,3 +2,60 @@ url: https://kaigu1990.github.io/mcradds/
 template:
   bootstrap: 5
 
+navbar:
+  right:
+    - icon: fa-github
+      href: https://github.com/kaigu1990/mcradds/
+
+reference:
+  - title: Package
+    contents:
+      - mcradds-package
+  - title: Classes
+    contents:
+      - SampleSize
+      - MCTab
+      - BAsummary
+  - title: Constructors
+    contents:
+      - SampleSize
+      - MCTab
+      - BAsummary
+  - title: Internal Helper Functions
+    contents:
+      - cat_with_newline
+      - h_factor
+      - h_summarize
+      - h_difference
+      - h_fmt_num
+      - h_fmt_est
+      - h_fmt_range
+      - esd.critical
+  - title: Example Data
+    contents:
+      - platelet
+      - qualData
+  - title: Methods
+    contents:
+      - show
+      - getAccuracy
+      - getOutlier
+  - title: Functions
+    contents:
+      - size_one_prop
+      - size_ci_one_prop
+      - size_corr
+      - size_ci_corr
+      - diagTab
+      - blandAltman
+      - mcreg
+      - printSummary
+      - calcBias
+      - pearsonTest
+      - spearmanTest
+      - ESD_test
+  - title: Graphs
+    contents:
+      - autoplot
+
+
