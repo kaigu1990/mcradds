@@ -1,4 +1,4 @@
-#' Compute the Critical Value for ESD Test
+#' Compute Critical Value for ESD Test
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'

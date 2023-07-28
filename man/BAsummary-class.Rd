@@ -4,7 +4,7 @@
 \name{BAsummary-class}
 \alias{BAsummary-class}
 \alias{BAsummary}
-\title{BAsummary class}
+\title{BAsummary Class}
 \usage{
 BAsummary(data, stat)
 }

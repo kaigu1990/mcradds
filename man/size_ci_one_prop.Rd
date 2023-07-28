@@ -2,7 +2,7 @@
 % Please edit documentation in R/samplesize.R
 \name{size_ci_one_prop}
 \alias{size_ci_one_prop}
-\title{Sample size determination for testing a given lower confidence interval of one proportion}
+\title{Sample Size for Testing Confidence Interval of One Proportion}
 \usage{
 size_ci_one_prop(
   p,

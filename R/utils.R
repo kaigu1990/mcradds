@@ -35,7 +35,7 @@ cat_with_newline <- function(...) {
 }
 
 
-#' Factor Variable Per the Levels
+#' Factor Variable Per Levels
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
@@ -68,7 +68,7 @@ h_factor <- function(df, var, levels = NULL, ...) {
   }
 }
 
-#' Summarize the basic statistics
+#' Summarize Basic Statistics
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
@@ -105,7 +105,7 @@ h_summarize <- function(x, conf.level = 0.95) {
   )
 }
 
-#' Compute the difference for Bland-Altman
+#' Compute Difference for Bland-Altman
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
@@ -149,7 +149,7 @@ h_difference <- function(x, y, type) {
   cbind(x, y, x_ba, y_ba)
 }
 
-#' Format the numeric data
+#' Format Numeric Data
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
@@ -177,7 +177,7 @@ h_fmt_num <- function(x, digits, width = digits + 4) {
 }
 
 
-#' Format and Concatenate Strings
+#' Format and Concatenate to String
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
@@ -200,7 +200,7 @@ h_fmt_est <- function(num1, num2, digits = c(2, 2), width = c(6, 6)) {
   paste0(num1, " (", num2, ")")
 }
 
-#' Format and Concatenate Strings
+#' Format and Concatenate to Range
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'

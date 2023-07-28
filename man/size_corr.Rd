@@ -2,7 +2,7 @@
 % Please edit documentation in R/samplesize.R
 \name{size_corr}
 \alias{size_corr}
-\title{Sample size determination for testing Pearson's correlation}
+\title{Sample Size for Testing Pearson's correlation}
 \usage{
 size_corr(
   r1,

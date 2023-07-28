@@ -1,6 +1,6 @@
 # Test for One Proportion ----
 
-#' Sample size determination for testing one proportion
+#' Sample Size for Testing One Proportion
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
@@ -53,7 +53,7 @@ size_one_prop <- function(p1, p0, alpha = 0.05, power = 0.8,
 
 # Confidence Interval for One Proportion ----
 
-#' Sample size determination for testing a given lower confidence interval of one proportion
+#' Sample Size for Testing Confidence Interval of One Proportion
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
@@ -131,7 +131,7 @@ size_ci_one_prop <- function(p, lr, alpha = 0.05,
 
 # Pearson's Correlation Tests ----
 
-#' Sample size determination for testing Pearson's correlation
+#' Sample Size for Testing Pearson's correlation
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
@@ -188,8 +188,7 @@ size_corr <- function(r1, r0, alpha = 0.05, power = 0.8,
 
 # Confidence Interval for Pearson's Correlation ----
 
-#' Sample size determination for testing Pearson's correlation for a Given Lower
-#' Confidence Interval
+#' Sample Size for Testing Confidence Interval of Pearson's correlation
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'

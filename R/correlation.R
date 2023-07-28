@@ -1,4 +1,4 @@
-#' Hypothesis test for Pearson correlation coefficient
+#' Hypothesis Test for Pearson Correlation Coefficient
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
@@ -62,7 +62,7 @@ pearsonTest <- function(x, y,
   )
 }
 
-#' Hypothesis test for Spearman correlation coefficient
+#' Hypothesis Test for Spearman Correlation Coefficient
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'

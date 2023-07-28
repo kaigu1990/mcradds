@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{h_summarize}
 \alias{h_summarize}
-\title{Summarize the basic statistics}
+\title{Summarize Basic Statistics}
 \usage{
 h_summarize(x, conf.level = 0.95)
 }

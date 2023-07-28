@@ -4,7 +4,7 @@
 \name{SampleSize-class}
 \alias{SampleSize-class}
 \alias{SampleSize}
-\title{SampleSize class}
+\title{SampleSize Class}
 \usage{
 SampleSize(call, method, n, param)
 }

@@ -4,7 +4,7 @@
 \name{MCTab-class}
 \alias{MCTab-class}
 \alias{MCTab}
-\title{MCTab class}
+\title{MCTab Class}
 \usage{
 MCTab(tab, candidate, comparative)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/outlier.R
 \name{esd.critical}
 \alias{esd.critical}
-\title{Compute the Critical Value for ESD Test}
+\title{Compute Critical Value for ESD Test}
 \usage{
 esd.critical(alpha, N, i)
 }

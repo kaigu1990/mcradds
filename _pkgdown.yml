@@ -11,12 +11,7 @@ reference:
   - title: Package
     contents:
       - mcradds-package
-  - title: Classes
-    contents:
-      - SampleSize
-      - MCTab
-      - BAsummary
-  - title: Constructors
+  - title: Classes and Constructors
     contents:
       - SampleSize
       - MCTab
@@ -50,12 +45,10 @@ reference:
       - blandAltman
       - mcreg
       - printSummary
+      - getCoefficients
       - calcBias
       - pearsonTest
       - spearmanTest
       - ESD_test
-  - title: Graphs
-    contents:
-      - autoplot
 
 

@@ -1,4 +1,4 @@
-#' Calculate statistics for Bland-Altman
+#' Calculate Statistics for Bland-Altman
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'

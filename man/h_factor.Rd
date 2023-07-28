@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{h_factor}
 \alias{h_factor}
-\title{Factor Variable Per the Levels}
+\title{Factor Variable Per Levels}
 \usage{
 h_factor(df, var, levels = NULL, ...)
 }

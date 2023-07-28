@@ -2,7 +2,7 @@
 % Please edit documentation in R/correlation.R
 \name{pearsonTest}
 \alias{pearsonTest}
-\title{Hypothesis test for Pearson correlation coefficient}
+\title{Hypothesis Test for Pearson Correlation Coefficient}
 \usage{
 pearsonTest(
   x,

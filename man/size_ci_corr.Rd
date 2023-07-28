@@ -2,8 +2,7 @@
 % Please edit documentation in R/samplesize.R
 \name{size_ci_corr}
 \alias{size_ci_corr}
-\title{Sample size determination for testing Pearson's correlation for a Given Lower
-Confidence Interval}
+\title{Sample Size for Testing Confidence Interval of Pearson's correlation}
 \usage{
 size_ci_corr(
   r,

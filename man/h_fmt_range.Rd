@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{h_fmt_range}
 \alias{h_fmt_range}
-\title{Format and Concatenate Strings}
+\title{Format and Concatenate to Range}
 \usage{
 h_fmt_range(num1, num2, digits = c(2, 2), width = c(6, 6))
 }

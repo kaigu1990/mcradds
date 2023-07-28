@@ -2,7 +2,7 @@
 % Please edit documentation in R/correlation.R
 \name{spearmanTest}
 \alias{spearmanTest}
-\title{Hypothesis test for Spearman correlation coefficient}
+\title{Hypothesis Test for Spearman Correlation Coefficient}
 \usage{
 spearmanTest(
   x,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{h_fmt_est}
 \alias{h_fmt_est}
-\title{Format and Concatenate Strings}
+\title{Format and Concatenate to String}
 \usage{
 h_fmt_est(num1, num2, digits = c(2, 2), width = c(6, 6))
 }

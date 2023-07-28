@@ -1,6 +1,6 @@
 # SampleSize-class ----
 
-#' SampleSize class
+#' SampleSize Class
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
@@ -56,7 +56,7 @@ setValidity("SampleSize", function(object) {
 
 # MCTab-class ----
 
-#' MCTab class
+#' MCTab Class
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
@@ -110,7 +110,7 @@ setValidity("MCTab", function(object) {
 
 # BAsummary-class ----
 
-#' BAsummary class
+#' BAsummary Class
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'

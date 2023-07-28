@@ -2,7 +2,7 @@
 % Please edit documentation in R/blandAltman.R
 \name{blandAltman}
 \alias{blandAltman}
-\title{Calculate statistics for Bland-Altman}
+\title{Calculate Statistics for Bland-Altman}
 \usage{
 blandAltman(x, y, sid = NULL, type1 = 3, type2 = 5, conf.level = 0.95)
 }

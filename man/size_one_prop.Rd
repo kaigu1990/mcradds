@@ -2,7 +2,7 @@
 % Please edit documentation in R/samplesize.R
 \name{size_one_prop}
 \alias{size_one_prop}
-\title{Sample size determination for testing one proportion}
+\title{Sample Size for Testing One Proportion}
 \usage{
 size_one_prop(
   p1,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{h_difference}
 \alias{h_difference}
-\title{Compute the difference for Bland-Altman}
+\title{Compute Difference for Bland-Altman}
 \usage{
 h_difference(x, y, type)
 }

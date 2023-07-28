@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{h_fmt_num}
 \alias{h_fmt_num}
-\title{Format the numeric data}
+\title{Format Numeric Data}
 \usage{
 h_fmt_num(x, digits, width = digits + 4)
 }
