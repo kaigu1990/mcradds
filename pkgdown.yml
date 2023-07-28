@@ -1,0 +1,9 @@
+pandoc: 2.19.2
+pkgdown: 2.0.7
+pkgdown_sha: ~
+articles: {}
+last_built: 2023-07-28T06:19Z
+urls:
+  reference: https://kaigu1990.github.io/mcradds/reference
+  article: https://kaigu1990.github.io/mcradds/articles
+
