@@ -49,5 +49,6 @@ Collate:
     'pkg_class.R'
     'pkg_methods.R'
     'qual_stat.R'
+    'referenceRange.R'
     'samplesize.R'
     'utils.R'
