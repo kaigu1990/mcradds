@@ -7,7 +7,7 @@
 dixon_outlier(x)
 }
 \arguments{
-\item{x}{(\code{numeric})\cr numeric input}
+\item{x}{(\code{numeric})\cr numeric input.}
 }
 \value{
 A list contains outliers and vector without outliers.

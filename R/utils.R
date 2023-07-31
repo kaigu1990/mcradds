@@ -183,7 +183,7 @@ h_fmt_num <- function(x, digits, width = digits + 4) {
 #'
 #' Help function to format numeric data as strings and concatenate into a single character.
 #'
-#' @param num1 (`numeric`)\cr first numeric input
+#' @param num1 (`numeric`)\cr first numeric input.
 #' @param num2 (`numeric`)\cr second numeric input.
 #' @param digits (`integer`)\cr the desired number of digits after the decimal point.
 #' @param width (`integer`)\cr the total field width.
@@ -207,7 +207,7 @@ h_fmt_est <- function(num1, num2, digits = c(2, 2), width = c(6, 6)) {
 #' Help function to format numeric data as strings and concatenate into a
 #' single character range.
 #'
-#' @param num1 (`numeric`)\cr first numeric input
+#' @param num1 (`numeric`)\cr first numeric input.
 #' @param num2 (`numeric`)\cr second numeric input.
 #' @param digits (`integer`)\cr the desired number of digits after the decimal point.
 #' @param width (`integer`)\cr the total field width.
@@ -257,7 +257,7 @@ tukey_outlier <- function(x) {
 #' Help function detects the potential outlier with Dixon method, following the
 #' rules of EP28A3 and NMPA guideline for establishment of reference range.
 #'
-#' @param x (`numeric`)\cr numeric input
+#' @param x (`numeric`)\cr numeric input.
 #'
 #' @return A list contains outliers and vector without outliers.
 #' @export
@@ -284,7 +284,7 @@ dixon_outlier <- function(x) {
     upr <- upr[-length(upr)]
   }
   if (max(outord) != length(d)) {
-    ord1 <- or_ord[c(outord, (max(outord)+1):length(d))]
+    ord1 <- or_ord[c(outord, (max(outord) + 1):length(d))]
   }
 
   outord <- c()
@@ -296,7 +296,7 @@ dixon_outlier <- function(x) {
     lwr <- lwr[-1]
   }
   if (min(outord) != 1) {
-    ord2 <- or_ord[c(outord, 1:(min(outord)-1))]
+    ord2 <- or_ord[c(outord, 1:(min(outord) - 1))]
   }
 
   ord <- sort(c(ord1, ord2))

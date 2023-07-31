@@ -5,11 +5,11 @@
 \alias{platelet}
 \title{Example \code{platelet} Data}
 \format{
-A \link{platelet} contains 120 observations and 3 variables.
+A \link{platelet} data set contains 120 observations and 3 variables.
 \describe{
-\item{sample}{Sample id}
-\item{Comparative}{Measurement from comparative analyzer}
-\item{Candidate}{Measurement from candidate analyzer}
+\item{Sample}{Sample id}
+\item{Comparative}{Measurements from comparative analyzer}
+\item{Candidate}{Measurements from candidate analyzer}
 }
 }
 \source{
@@ -25,7 +25,7 @@ This example \code{\link{platelet}} can be used to create a data set comparing
 Platelet results from two analyzers in cells/μL.
 }
 \seealso{
-\link[mcr:creatinine]{mcr::creatinine} which contains data with with serum and plasma
+\link[mcr:creatinine]{mcr::creatinine} that contains data with with serum and plasma
 creatinin measurements in mg/dL for each sample.
 }
 \keyword{datasets}
