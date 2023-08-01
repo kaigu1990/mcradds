@@ -20,7 +20,7 @@ a vector of nonparametric reference interval
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-This nonparametric method is used to calculate the reference internal when the
+This nonparametric method is used to calculate the reference interval when the
 distribution is skewed and the sample size is above to 120 observations.
 }
 \examples{

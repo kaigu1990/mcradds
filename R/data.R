@@ -51,3 +51,23 @@
 #' @source CLSI-EP28A3 Table 4. is cited in this data set.
 #' @seealso [mcradds::platelet].
 "calcium"
+
+#' Nonparametric Rank Number of Reference Interval
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This data shows the rank number for computing the confidence interval of
+#' nonparametric reference limit when the samples within 119-1000 values. But the
+#' reference interval must be 95% and the confidence interval is 90%.
+#'
+#' @format A [mcradds::nonparRanks] data set contains 882 observations and 3 variables.
+#' \describe{
+#'    \item{SampleSize}{sample size}
+#'    \item{Lower}{lower rank}
+#'    \item{Upper}{upper rank}
+#' }
+#' @source CLSI-EP28A3 Table 8. is cited in this data set.
+#'
+#' @references EP28-A3c: Defining, Establishing, and Verifying Reference Intervals
+#' in the Clinical Laboratory; Approved Guideline—Third Edition
+"nonparRanks"

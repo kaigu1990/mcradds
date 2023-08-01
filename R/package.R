@@ -13,5 +13,5 @@
 #' @importFrom purrr map_chr
 #' @importFrom DescTools BinomCI
 #' @importFrom lifecycle deprecated
-#' @importFrom boot boot
+#' @importFrom boot boot boot.ci
 NULL

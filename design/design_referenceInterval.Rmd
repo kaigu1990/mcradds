@@ -1,0 +1,69 @@
+---
+title: "Design: Reference Interval"
+author: "Kai Gu"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+  markdown: 
+    wrap: sentence
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Reference
+
+> CLSI EP28A3 and NMPA guidelines
+
+### Example data set
+
+The data set is cited from CLSI-EP28A3 Table 4 with the reference values of Calcium 
+in 240 medical students by sex. So it should contains 240 observations and 3 variables, 
+the first column is sample id, second is reference value and last one is groups 
+(F/M) by sex.
+
+### Detecting Outlier 
+
+This package will implement two outlier methods, `Tukey` and `Dixon`. 
+
+- The former one is the common method of quartile, we need to compute the Q1, Q3 
+and IQR to compare each value with the margin. 
+- The later one is well known in reference value estimation, computing the `D/R` 
+of extreme observation to see if that one is outlier.
+
+### Establishing the Referecen Interval
+
+There are three methods are well known to establish the reference interval.
+
+- Parametric Method, following the normal distribution to compute the confidence interval.
+- Nonparametric Method, computing the 2.5th and 97.5th percentile if the range of 
+reference interval is 95%.
+- Robust Method, is a slightly complicated, but we can just follow the formulas 
+in EP28A3 that involves an iterative process. And the observations are downweighted 
+according to their distance from the central tendency that is initially estimated by 
+median and MAD(the median absolute deviation).
+
+The first two methods are also accepted by NMPA guideline, but the robust method 
+is not recommended by NMPA because if you want to establish a reference interval 
+for your assay, you must collect the at least 120 samples in China. If the number 
+is less than 120, it can not ensure the accuracy of the results. The CLSI working 
+group is hesitant to recommend this method as well, except in the most extreme 
+instances.
+
+### Confident Interval of Reference Limit
+
+For now, I'm not sure if we must calculate the confidence interval, although from 
+the statistician, the CI is preferred to be provided. But for the authority's aspect, 
+it seems that the CI is not necessary. In the sponsor's aspect, we always trend to 
+provide a bit wider confidence interval like 90%, but I feel the authority will not 
+accept it so 95% CI is default. Besides, sponsor either do not want to choose the 
+99% CI.
+
+### Class and Methods
+
+A class should be defined so that I can create show or other methods to display.

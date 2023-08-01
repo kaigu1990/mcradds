@@ -22,7 +22,7 @@ a vector of robust reference interval
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-This robust method is used to calculate the reference internal on small sample
+This robust method is used to calculate the reference interval on small sample
 size (below to 120 observations).
 }
 \examples{

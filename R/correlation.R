@@ -128,8 +128,8 @@ spearmanTest <- function(x, y,
   }
   sim <- boot(data.frame(x, y), cor.fun, R = nrep)
   ci <- c(
-    apply(sim$t, 2, quantile, probs = (1 - conf.level) / 2, type = 3),
-    apply(sim$t, 2, quantile, probs = (1 + conf.level) / 2, type = 3)
+    apply(sim$t, 2, quantile, probs = (1 - conf.level) / 2),
+    apply(sim$t, 2, quantile, probs = (1 + conf.level) / 2)
   )
 
   z <- (1 / 2 * log((1 + rho) / (1 - rho)) - 1 / 2 * log((1 + h0) / (1 - h0))) /
