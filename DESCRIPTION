@@ -17,7 +17,8 @@ BugReports: https://github.com/kaigu1990/mcradds/issues
 Encoding: UTF-8
 LazyData: true
 Depends: 
-    R (>= 3.5-0), mcr
+    R (>= 3.6), 
+    mcr
 Imports: 
     magrittr,
     checkmate,
@@ -49,6 +50,6 @@ Collate:
     'pkg_class.R'
     'pkg_methods.R'
     'qual_stat.R'
-    'referenceRange.R'
+    'referenceInterval.R'
     'samplesize.R'
     'utils.R'

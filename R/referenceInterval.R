@@ -171,6 +171,7 @@ refInterval <- function(x, out_method = c("doxin", "tukey"),
   assert_numeric(refLevel, lower = 0.7, upper = 1)
   out_method <- match.arg(out_method, c("doxin", "tukey"), several.ok = FALSE)
   RI_method <- match.arg(RI_method, c("parametric", "nonparametric", "robust"), several.ok = FALSE)
+  CI_method <- match.arg(CI_method, c("parametric", "nonparametric", "boot"), several.ok = FALSE)
   bootCI <- match.arg(bootCI, c("perc", "norm", "basic", "stud", "bca"), several.ok = FALSE)
 
   rd <- x
@@ -194,17 +195,19 @@ refInterval <- function(x, out_method = c("doxin", "tukey"),
     refLimit_upper <- mean(x) + z * sd
 
     if (CI_method != "parametric") {
-      warning("The parametric RI is selected, the parametric of CI is used automatically.")
+      warning("As the parametric RI is selected, the parametric of CI is used automatically.")
       CI_method <- "parametric"
     }
 
-    # the Var of reference limit can be calculated as
-    se <- sd * sqrt(1 / n + z^2 / (2 * (n - 1)))
-    zconf <- qnorm(1 - ((1 - confLevel) / 2))
-    refLowerLimit_lower <- refLimit_lower - zconf * se
-    refLowerLimit_upper <- refLimit_lower + zconf * se
-    refUpperLimit_lower <- refLimit_upper - zconf * se
-    refUpperLimit_upper <- refLimit_upper + zconf * se
+    if (CI_method == "parametric") {
+      # the Var of reference limit can be calculated as
+      se <- sd * sqrt(1 / n + z^2 / (2 * (n - 1)))
+      zconf <- qnorm(1 - ((1 - confLevel) / 2))
+      refLowerLimit_lower <- refLimit_lower - zconf * se
+      refLowerLimit_upper <- refLimit_lower + zconf * se
+      refUpperLimit_lower <- refLimit_upper - zconf * se
+      refUpperLimit_upper <- refLimit_upper + zconf * se
+    }
   }
 
   if (RI_method == "nonparametric") {
@@ -225,11 +228,13 @@ refInterval <- function(x, out_method = c("doxin", "tukey"),
       CI_method <- "boot"
     }
 
-    ranks <- nonparRanks[which(nonparRanks$SampleSize == n), ]
-    refLowerLimit_lower <- x[ranks$Lower]
-    refLowerLimit_upper <- x[ranks$Upper]
-    refUpperLimit_lower <- x[n + 1 - ranks$Upper]
-    refUpperLimit_upper <- x[n + 1 - ranks$Lower]
+    if (CI_method == "nonparametric") {
+      ranks <- nonparRanks[which(nonparRanks$SampleSize == n), ]
+      refLowerLimit_lower <- x[ranks$Lower]
+      refLowerLimit_upper <- x[ranks$Upper]
+      refUpperLimit_lower <- x[n + 1 - ranks$Upper]
+      refUpperLimit_upper <- x[n + 1 - ranks$Lower]
+    }
   }
 
   if (RI_method == "robust") {
