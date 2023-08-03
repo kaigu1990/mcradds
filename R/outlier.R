@@ -110,3 +110,91 @@ ESD_test <- function(x, alpha = 0.05, h = 5) {
 
   list(stat = mat, ord = mat$Obs[mat$Outlier == TRUE])
 }
+
+
+#' Detect Tukey Outlier
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' Help function detects the potential outlier with Tukey method where the number
+#' is below `Q1-1.5*IQR` and above `Q3+1.5*IQR`.
+#'
+#' @param x (`numeric`)\cr numeric input
+#'
+#' @return A list contains outliers and vector without outliers.
+#' @export
+#'
+#' @examples
+#' x <- c(13.6, 44.4, 45.9, 14.9, 41.9, 53.3, 44.7, 95.2, 44.1, 50.7, 45.2, 60.1, 89.1)
+#' tukey_outlier(x)
+tukey_outlier <- function(x) {
+  assert_numeric(x)
+
+  qt <- quantile(x)
+  q1 <- as.numeric(qt[2])
+  q3 <- as.numeric(qt[4])
+  iqr <- q3 - q1
+  ord <- which(x < (q1 - 1.5 * iqr) | x > (q3 + 1.5 * iqr))
+  list(ord = ord, out = x[ord], subset = x[-ord])
+}
+
+#' Detect Dixon Outlier
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' Help function detects the potential outlier with Dixon method, following the
+#' rules of EP28A3 and NMPA guideline for establishment of reference range.
+#'
+#' @param x (`numeric`)\cr numeric input.
+#'
+#' @return A list contains outliers and vector without outliers.
+#' @export
+#'
+#' @examples
+#' x <- c(13.6, 44.4, 45.9, 11.9, 41.9, 53.3, 44.7, 95.2, 44.1, 50.7, 45.2, 60.1, 89.1)
+#' dixon_outlier(x)
+dixon_outlier <- function(x) {
+  assert_numeric(x)
+
+  or_ord <- order(x)
+  d <- x[or_ord]
+  R <- max(d) - min(d)
+
+  upr <- which(d > median(d))
+  lwr <- which(d <= median(d))
+
+  outord <- c()
+  while (length(upr) > 1) {
+    D <- abs(d[upr[length(upr)]] - d[upr[(length(upr) - 1)]])
+    if (D / R > 1 / 3) {
+      outord <- c(outord, max(upr))
+    }
+    upr <- upr[-length(upr)]
+  }
+  if (is.null(outord)) {
+    ord1 <- outord
+  } else if (max(outord) != length(d)) {
+    ord1 <- or_ord[c(outord, (max(outord) + 1):length(d))]
+  }
+
+  outord <- c()
+  while (length(lwr) > 1) {
+    D <- abs(d[lwr[1]] - d[lwr[2]])
+    if (D / R > 1 / 3) {
+      outord <- c(outord, lwr[1])
+    }
+    lwr <- lwr[-1]
+  }
+  if (is.null(outord)) {
+    ord2 <- outord
+  } else if (max(outord) != length(d)) {
+    ord2 <- or_ord[c(outord, 1:(min(outord) - 1))]
+  }
+
+  ord <- sort(c(ord1, ord2))
+  if (is.null(ord)) {
+    list(ord = ord, out = x[ord], subset = x)
+  } else {
+    list(ord = ord, out = x[ord], subset = x[-ord])
+  }
+}

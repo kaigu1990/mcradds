@@ -5,11 +5,11 @@
 \alias{qualData}
 \title{Example \code{qualData} Data}
 \format{
-A \link{qualData} contains 200 observations and 3 variables.
+A \link{qualData} data set contains 200 observations and 3 variables.
 \describe{
-\item{sample}{Sample id}
-\item{Comparative}{Measurement from comparative analyzer with 1=positive and 0=negative}
-\item{Candidate}{Measurement from candidate analyzer with 1=positive and 0=negative}
+\item{Sample}{Sample id}
+\item{ComparativeN}{Measurements from comparative analyzer with \code{1=positive} and \code{0=negative}}
+\item{CandidateN}{Measurements from candidate analyzer with \code{1=positive} and \code{0=negative}}
 }
 }
 \usage{
@@ -22,7 +22,7 @@ This simulated data \code{\link{qualData}} can be used to calculate the
 qualitative performance such as sensitivity and specificity.
 }
 \seealso{
-\link{platelet} which contains quantitative data comparing
+\link{platelet} that contains quantitative data comparing
 platelet results from two analyzers.
 }
 \keyword{datasets}

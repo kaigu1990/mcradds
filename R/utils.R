@@ -183,7 +183,7 @@ h_fmt_num <- function(x, digits, width = digits + 4) {
 #'
 #' Help function to format numeric data as strings and concatenate into a single character.
 #'
-#' @param num1 (`numeric`)\cr first numeric input
+#' @param num1 (`numeric`)\cr first numeric input.
 #' @param num2 (`numeric`)\cr second numeric input.
 #' @param digits (`integer`)\cr the desired number of digits after the decimal point.
 #' @param width (`integer`)\cr the total field width.
@@ -207,7 +207,7 @@ h_fmt_est <- function(num1, num2, digits = c(2, 2), width = c(6, 6)) {
 #' Help function to format numeric data as strings and concatenate into a
 #' single character range.
 #'
-#' @param num1 (`numeric`)\cr first numeric input
+#' @param num1 (`numeric`)\cr first numeric input.
 #' @param num2 (`numeric`)\cr second numeric input.
 #' @param digits (`integer`)\cr the desired number of digits after the decimal point.
 #' @param width (`integer`)\cr the total field width.

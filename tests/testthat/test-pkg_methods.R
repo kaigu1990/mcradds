@@ -19,6 +19,16 @@ test_that("show works as expected for BAsummary object", {
   expect_match(result, "Confidence Interval of Mean    ( 4.469, 10.191)", fixed = TRUE)
 })
 
+test_that("show works as expected for RefInt object", {
+  data("calcium")
+  object <- refInterval(calcium$Value, RI_method = "nonparametric", CI_method = "nonparametric")
+  result <- capture_output(show(object))
+  expect_match(result, "Outliers: NULL", fixed = TRUE)
+  expect_match(result, "Reference Interval: 9.10, 10.30", fixed = TRUE)
+  expect_match(result, "RefLower Confidence Interval: 8.9000, 9.2000", fixed = TRUE)
+  expect_match(result, "Refupper Confidence Interval: 10.3000, 10.4000", fixed = TRUE)
+})
+
 # getOutlier ----
 
 test_that("getOutlier works as expected with default settings", {

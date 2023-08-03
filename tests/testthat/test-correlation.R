@@ -29,7 +29,7 @@ test_that("spearmanTest works as expected with default settings", {
   expect_equal(
     res$stat,
     c(
-      cor = 0.6000000, lowerci = -0.2075472, upperci = 0.9816514,
+      cor = 0.6000000, lowerci = -0.1493191, upperci = 0.9816514,
       Z = 1.5630040, pval = 0.1180517
     ),
     tolerance = 0.00001

@@ -7,7 +7,7 @@
 h_fmt_range(num1, num2, digits = c(2, 2), width = c(6, 6))
 }
 \arguments{
-\item{num1}{(\code{numeric})\cr first numeric input}
+\item{num1}{(\code{numeric})\cr first numeric input.}
 
 \item{num2}{(\code{numeric})\cr second numeric input.}
 

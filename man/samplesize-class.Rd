@@ -15,7 +15,7 @@ SampleSize(call, method, n, param)
 
 \item{n}{(\code{numeric})\cr number of sample size.}
 
-\item{param}{(\code{list})\cr listing of relevant parameters.}
+\item{param}{(\code{list})\cr list of relevant parameters.}
 }
 \value{
 An object of class \code{SampleSize}.
@@ -29,6 +29,12 @@ size calculation.
 \section{Slots}{
 
 \describe{
-\item{\code{slots}}{call method n param}
+\item{\code{call}}{call}
+
+\item{\code{method}}{method}
+
+\item{\code{n}}{n}
+
+\item{\code{param}}{param}
 }}
 

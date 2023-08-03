@@ -24,6 +24,8 @@ The \code{BAsummary} class is used to display the BlandAltman analysis and outli
 \section{Slots}{
 
 \describe{
-\item{\code{slots}}{data data outlier}
+\item{\code{data}}{data}
+
+\item{\code{outlier}}{outlier}
 }}
 
