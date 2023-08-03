@@ -3,7 +3,7 @@
 \docType{data}
 \name{platelet}
 \alias{platelet}
-\title{Example \code{platelet} Data}
+\title{Quantitative Measurement Data}
 \format{
 A \link{platelet} data set contains 120 observations and 3 variables.
 \describe{

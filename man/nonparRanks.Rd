@@ -27,6 +27,6 @@ reference interval must be 95\% and the confidence interval is 90\%.
 }
 \references{
 EP28-A3c: Defining, Establishing, and Verifying Reference Intervals
-in the Clinical Laboratory; Approved Guideline—Third Edition
+in the Clinical Laboratory.
 }
 \keyword{datasets}

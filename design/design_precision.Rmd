@@ -1,0 +1,57 @@
+---
+title: 'Design: Evaluation of Precision'
+author: "Kai Gu"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+  markdown: 
+    wrap: sentence
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Reference
+
+> CLSI EP05-A3, "Evaluation of Precision of Quantitative Measurement Procedures"
+
+### Design
+
+This evaluation of precision is not common used in IVD trials, but it is necessary 
+to include this process in QC procedure for end-users laboratories for verifying 
+repeatability and within-laboratory precision.
+
+So somewhere it's not very important but essential to operation, and communicating 
+with laboratories users. For example, they will ask what's the precision (%CV and SD) 
+of the within-run, between-run and between day.
+
+### Implement
+
+For now I trend to use `VCA` package instead of re-writing the nested ANOVA model to
+evaluate the precision. For one side, it can save some time to develop and reduce the 
+error rate although I have compared with `VCA` package to ensure my code is consistent 
+with it. For another, this `VCA` package was developed by Roche Team, and is the same 
+as the `mcr` package. And I have used these two R packages a lot, so I can guarantee
+the accuracy of them.
+
+```{r}
+library(VCA)
+data(dataEP05A2_2)
+res <- anovaVCA(y~day/run, dataEP05A2_2)
+res
+
+VCAinference(res)
+```
+
+However the drawback to this is that I have to import the entire `VCA` package, 
+like the same practice to `mcr` package. Actually I don't like to do that, because 
+it will lead `mcradds` package appear too bloated since I only require a partial 
+analysis of `VCA`.
+
+So if needed, I will re-write it so that in can be more focused on out target in 
+a later release update.

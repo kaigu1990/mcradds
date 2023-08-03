@@ -1,4 +1,4 @@
-#' Example `platelet` Data
+#' Quantitative Measurement Data
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
@@ -17,7 +17,7 @@
 "platelet"
 
 
-#' Example `qualData` Data
+#' Simulated Qualitative Data
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
@@ -35,7 +35,7 @@
 #' platelet results from two analyzers.
 "qualData"
 
-#' Example `calcium` Data
+#' Reference Interval Data
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
@@ -69,5 +69,24 @@
 #' @source CLSI-EP28A3 Table 8. is cited in this data set.
 #'
 #' @references EP28-A3c: Defining, Establishing, and Verifying Reference Intervals
-#' in the Clinical Laboratory; Approved Guideline—Third Edition
+#' in the Clinical Laboratory.
 "nonparRanks"
+
+#' Inermediate Precision Data
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This data set consists of the Glucose intermediate precision data in the CLSI
+#' EP05-A3 guideline.
+#'
+#' @format A [mcradds::glucose] data set contains 80 observations and 3 variables.
+#' \describe{
+#'    \item{day}{day number}
+#'    \item{run}{run number}
+#'    \item{value}{measurement value}
+#' }
+#' @source CLSI-EP05A3 Table A1. Glucose Precision Evaluation Measurements (mg/dL)
+#' is cited in this data set.
+#'
+#' @references EP05A3: Evaluation of Precision of Quantitative Measurement Procedures.
+"glucose"
