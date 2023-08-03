@@ -15,6 +15,7 @@
 #'   the console.
 #'
 #' @examples
+#' # Sample zie calculation
 #' size_one_prop(p1 = 0.95, p0 = 0.9, alpha = 0.05, power = 0.8)
 #' size_ci_corr(r = 0.9, lr = 0.85, alpha = 0.025, alternative = "greater")
 setMethod(
@@ -39,6 +40,8 @@ setMethod(
 #' @aliases show
 #'
 #' @examples
+#'
+#' # Get 2x2 Contingency Table
 #' qualData %>% diagTab(formula = ~ CandidateN + ComparativeN)
 setMethod(
   f = "show",
@@ -61,6 +64,8 @@ setMethod(
 #' @aliases show
 #'
 #' @examples
+#'
+#' # Bland-Altman analysis
 #' data("creatinine", package = "mcr")
 #' blandAltman(x = creatinine$serum.crea, y = creatinine$plasma.crea)
 setMethod(
@@ -87,6 +92,36 @@ setMethod(
     print(data.frame(res))
   }
 )
+
+#' @rdname show
+#' @aliases show
+#'
+#' @examples
+#'
+#' # Reference Interval
+#' data("calcium")
+#' refInterval(x = calcium$Value, RI_method = "nonparametric", CI_method = "nonparametric")
+setMethod(
+  f = "show",
+  signature = "RefInt",
+  definition = function(object) {
+    cat_with_newline("\n", object@method, "\n")
+    cat(" Call: ", append = FALSE)
+    show(object@call)
+    cat_with_newline("")
+    cat_with_newline("  N =", object@n)
+    cat_with_newline("  Outliers:", ifelse(length(object@outlier$out) == 0,
+      "NULL", paste(object@outlier$out, collapse = " ")
+    ))
+    refint <- h_fmt_num(object@refInt, digits = 2, width = 2)
+    cat_with_newline("  Reference Interval:", paste(refint, collapse = ", "))
+    reflower <- h_fmt_num(object@confInt$refLower, digits = 4, width = 4)
+    cat_with_newline("  RefLower Confidence Interval:", paste(reflower, collapse = ", "))
+    refupper <- h_fmt_num(object@confInt$refUpper, digits = 4, width = 4)
+    cat_with_newline("  Refupper Confidence Interval:", paste(refupper, collapse = ", "))
+  }
+)
+
 
 # getAccuracy ----
 

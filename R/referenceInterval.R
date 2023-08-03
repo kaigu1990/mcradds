@@ -165,13 +165,15 @@ refInterval <- function(x, out_method = c("doxin", "tukey"),
                         refLevel = 0.95,
                         bootCI = c("perc", "norm", "basic", "stud", "bca"),
                         confLevel = 0.9,
-                        rng.seed = NULL, tol = 1e-06, R = 1e+05) {
+                        rng.seed = NULL, tol = 1e-06, R = 1e+04) {
   assert_numeric(x, any.missing = FALSE)
   assert_logical(out_rm)
   assert_numeric(refLevel, lower = 0.7, upper = 1)
   out_method <- match.arg(out_method, c("doxin", "tukey"), several.ok = FALSE)
   RI_method <- match.arg(RI_method, c("parametric", "nonparametric", "robust"), several.ok = FALSE)
   bootCI <- match.arg(bootCI, c("perc", "norm", "basic", "stud", "bca"), several.ok = FALSE)
+
+  rd <- x
 
   if (out_method == "tukey") {
     outres <- tukey_outlier(x)
@@ -266,10 +268,11 @@ refInterval <- function(x, out_method = c("doxin", "tukey"),
     ", Confidence Interval Method: ", CI_method
   )
 
-  list(
+  RefInt(
     call = match.call(),
     method = methods,
     n = n,
+    data = rd,
     outlier = outres,
     refInt = c(refLimit_lower, refLimit_upper),
     confInt = list(

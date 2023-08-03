@@ -15,7 +15,7 @@ refInterval(
   confLevel = 0.9,
   rng.seed = NULL,
   tol = 1e-06,
-  R = 1e+05
+  R = 10000
 )
 }
 \arguments{

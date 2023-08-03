@@ -29,6 +29,10 @@ comparative measurement's information.
 \section{Slots}{
 
 \describe{
-\item{\code{slots}}{tab candidate comparative}
+\item{\code{tab}}{tab}
+
+\item{\code{candidate}}{candidate}
+
+\item{\code{comparative}}{comparative}
 }}
 

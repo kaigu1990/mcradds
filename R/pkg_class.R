@@ -7,13 +7,15 @@
 #' The `SampleSize` class serves as the store for results and parameters in sample
 #' size calculation.
 #'
-#' @slot slots call method n param
+#' @slot call call
+#' @slot method method
+#' @slot n n
+#' @slot param param
 #'
 #' @rdname SampleSize-class
 #' @aliases SampleSize
 setClass(
   "SampleSize",
-  # contains = "list",
   slots = c(
     call = "call",
     method = "character",
@@ -29,7 +31,7 @@ setClass(
 #' @param call (`call`)\cr function call.
 #' @param method (`character`)\cr method name.
 #' @param n (`numeric`)\cr number of sample size.
-#' @param param (`list`)\cr listing of relevant parameters.
+#' @param param (`list`)\cr list of relevant parameters.
 #'
 #' @return An object of class `SampleSize`.
 #'
@@ -63,7 +65,9 @@ setValidity("SampleSize", function(object) {
 #' The `MCTab` class serves as the store for 2x2 contingency table, candidate and
 #' comparative measurement's information.
 #'
-#' @slot slots tab candidate comparative
+#' @slot tab tab
+#' @slot candidate candidate
+#' @slot comparative comparative
 #'
 #' @rdname MCTab-class
 #' @aliases MCTab
@@ -116,7 +120,8 @@ setValidity("MCTab", function(object) {
 #'
 #' The `BAsummary` class is used to display the BlandAltman analysis and outliers.
 #'
-#' @slot slots data data outlier
+#' @slot data data
+#' @slot outlier outlier
 #'
 #' @rdname BAsummary-class
 #' @aliases BAsummary
@@ -146,6 +151,79 @@ BAsummary <- function(data, stat) {
 setValidity("BAsummary", function(object) {
   if (ncol(object@data) != 3 | any(names(object@data) != c("sid", "x", "y"))) {
     "@data should contain 3 columns, sid, x and y."
+  } else {
+    TRUE
+  }
+})
+
+
+# RefInt-class ----
+
+#' Reference Interval Class
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' The `RefInt` class serves as the store for results in reference
+#' Interval calculation.
+#'
+#' @slot call call
+#' @slot method method
+#' @slot n n
+#' @slot data data
+#' @slot outlier outlier
+#' @slot refInt refInt
+#' @slot confInt confInt
+#'
+#' @rdname RefInt-class
+#' @aliases RefInt
+setClass(
+  "RefInt",
+  slots = c(
+    call = "call",
+    method = "character",
+    n = "numeric",
+    data = "numeric",
+    outlier = "list",
+    refInt = "numeric",
+    confInt = "list"
+  )
+)
+
+# RefInt-constructors ----
+
+#' @rdname RefInt-class
+#'
+#' @param call (`call`)\cr function call.
+#' @param method (`character`)\cr method names of reference interval and
+#' confidence interval.
+#' @param n (`numeric`)\cr number of available samples.
+#' @param data (`numeric`)\cr numeric raw measurements, no outlier removed.
+#' @param outlier (`list`)\cr list of outliers that contains the index and number
+#' of outliers, and the data without outliers.
+#' @param refInt (`numeric`)\cr number of reference interval.
+#' @param confInt (`list`)\cr list of the confidence interval of lower and upper
+#' of reference limit.
+#'
+#' @return An object of class `RefInt`.
+#'
+RefInt <- function(call, method, n, data, outlier, refInt, confInt) {
+  new("RefInt",
+    call = call, method = method, n = n, data = data, outlier = outlier,
+    refInt = refInt, confInt = confInt
+  )
+}
+
+# RefInt-validity ----
+
+setValidity("RefInt", function(object) {
+  if (any(names(object@confInt) != c("refLower", "refUpper"))) {
+    "@confInt should contain 'refLower' and 'refUpper' confidence interval."
+  } else {
+    TRUE
+  }
+
+  if (object@refInt[1] <= min(object@data) | object@refInt[2] >= max(object@data)) {
+    "@object should within the range of @data."
   } else {
     TRUE
   }
