@@ -14,6 +14,7 @@
 #' @importFrom DescTools BinomCI
 #' @importFrom lifecycle deprecated
 #' @importFrom boot boot boot.ci
+#' @importFrom VCA anovaVCA VCAinference
 NULL
 
 # Resolve missing global definitions:

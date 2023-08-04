@@ -19,23 +19,24 @@ LazyData: true
 Depends: 
     R (>= 3.6), 
     mcr
-Imports: 
-    magrittr,
+Imports:
+    boot,
     checkmate,
+    DescTools,
     ggplot2,
+    lifecycle,
+    magrittr,
     methods,
     purrr,
-    lifecycle,
-    DescTools,
     stats,
-    boot
+    VCA
 Suggests: 
+    dplyr,
+    knitr,
+    rmarkdown,
     testthat (>= 3.0.0),
     tibble,
-    knitr,
-    usethis,
-    dplyr,
-    rmarkdown
+    usethis
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
@@ -53,3 +54,4 @@ Collate:
     'referenceInterval.R'
     'samplesize.R'
     'utils.R'
+    'vca.R'

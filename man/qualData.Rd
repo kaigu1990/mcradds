@@ -3,7 +3,7 @@
 \docType{data}
 \name{qualData}
 \alias{qualData}
-\title{Example \code{qualData} Data}
+\title{Simulated Qualitative Data}
 \format{
 A \link{qualData} data set contains 200 observations and 3 variables.
 \describe{

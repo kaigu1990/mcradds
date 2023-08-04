@@ -3,7 +3,7 @@
 \docType{data}
 \name{calcium}
 \alias{calcium}
-\title{Example \code{calcium} Data}
+\title{Reference Interval Data}
 \format{
 A \link{calcium} data set contains 240 observations and 3 variables.
 \describe{
