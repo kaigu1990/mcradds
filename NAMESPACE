@@ -2,6 +2,8 @@
 
 export("%>%")
 export(ESD_test)
+export(VCAinference)
+export(anovaVCA)
 export(blandAltman)
 export(calcBias)
 export(cat_with_newline)
