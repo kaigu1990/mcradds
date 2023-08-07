@@ -1,0 +1,50 @@
+---
+title: 'Design: Paired ROC Test'
+author: "Kai Gu"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+  markdown: 
+    wrap: sentence
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Reference
+
+> 1.  Tests of equivalence and non-inferiority for diagnostic accuracy based on the paired areas under ROC curves, Liu(2006).
+> 2.  CLSI EP05-A3, "Evaluation of Precision of Quantitative Measurement Procedures"
+
+### Sample size for Evaluating AUC
+
+Two classic references for determining sample size requirements for ROC analysis are the papers by Hanley and McNeil.
+There are three common cases as shown below but not used in clinical trials as the authority will not accept the AUC as the primary endpoint.
+Thus the sensitivity and specificity are the priority choices to evaluate the sample size.
+
+-   one-sample case
+-   two-sample case with independent samples
+-   two-sample case with both measurements performed on the same subjects (as in a paired design).
+
+Above all can be found in the EP24A2.
+
+### Measuring the AUC
+
+A non-parametric consistent estimate of the ROC curve area for a diagnostic procedure based on Mann-Whitney U statistic.
+
+Although I can use the analytical formulas that have provided in that article, I will trend to use `pROC` instead as I the two are consistent at least in AUC. And I can also be with the help of other functions like confidence interval from that package.
+
+Moreover I don't want to set up a new function to calculate the AUC, maybe a test that compare two paired AUC is more practical and in demand as well.
+
+### Comparing the AUC of Two Tests
+
+The accuracy of two tests can be compared by detecting differences in two AUC. The difference in two area under the curves, that seems AUC of the first test - AUC of the second test, has been wrapped in `pROC` package with the hypothesis of difference is zero.
+
+However in real trials, we don't compare the difference between two tests, that is not making sense. Because we want to know if these two tests are in consistent, or either of them is non-inferiority than another one. The former one is equivalence design and later one is non-inferiority design.
+
+So I need to prepare an example data first, and than a function like `aucTest()` a hypothesis test function to calculate the Z statistics and P value. Obviously the confidence interval and SE of AUC will be provided by `pROC` as well. 
