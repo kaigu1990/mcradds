@@ -48,7 +48,8 @@
 #' diagnostic accuracy based on the paired areas under ROC curves". *Statist. Med.*
 #' , 25:1219–1238. DOI: 10.1002/sim.2358.
 #'
-#' @return
+#' @return A `RefInt` object contains relevant results in comparing the paired
+#' ROC of two-sample assays.
 #' @export
 #'
 #' @examples
@@ -87,7 +88,7 @@ aucTest <- function(x, y,
 
   auc_d <- as.numeric(testroc$auc) - as.numeric(refroc$auc)
   se <- sqrt(testvar + refvar - 2 * paircov)
-  sign_z <- qnorm(1 - ((1 - conf.level)/2))
+  sign_z <- qnorm(1 - ((1 - conf.level) / 2))
   ci <- c(auc_d - sign_z * se, auc_d + sign_z * se)
 
   zstat <- (auc_d - h0) / se
@@ -105,10 +106,17 @@ aucTest <- function(x, y,
     pnorm(abs(zstat), lower.tail = F)
   }
 
-  list(
-    testROC = testroc,
-    refROC = refroc,
+  tpROC(
+    testROC = c(unclass(testroc), list(
+      ci = ci.auc(testroc)[c(1, 3)],
+      se = sqrt(var(testroc))
+    )),
+    refROC = c(unclass(refroc), list(
+      ci = ci.auc(refroc)[c(1, 3)],
+      se = sqrt(var(refroc))
+    )),
     method = method,
+    H0 = h0,
     stat = list(
       diffauc = auc_d,
       se = se,

@@ -9,7 +9,9 @@ aucTest(
   y,
   response,
   h0 = 0,
-  method = c("difference", "non-inferiority", "superiority")
+  conf.level = 0.95,
+  method = c("difference", "non-inferiority", "superiority"),
+  ...
 )
 }
 \arguments{
@@ -25,14 +27,22 @@ the two assays, default is 0 for difference method. If you select the
 non-inferiority method, the \code{h0} should be negative value. And if select
 superiority method, then it's non-negative value.}
 
+\item{conf.level}{(\code{numeric})\cr significance level between 0 and 1 (non-inclusive)
+for the returned confidence interval.}
+
 \item{method}{(\code{string})\cr string specifying the type of hypothesis test,
-must be one of "difference" (default), "non-inferiority" or "superiority".}
+must be one of "difference" (default), "non-inferiority" or "superiority".
+@param ... other arguments to be passed to \code{\link[pROC:roc]{pROC::roc()}}.}
+}
+\value{
+A \code{RefInt} object contains relevant results in comparing the paired
+ROC of two-sample assays.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 This function compares two AUC of paired two-sample diagnostic assays by
-standardized difference method, which has a little different in SE calculation
+standardized difference method, which has a little difference in SE calculation
 with unpaired design. In order to compare the two assays, this function provides
 three assessments including 'difference', 'non-inferiority' and 'superiority'.
 This method of comparing is referred from Liu(2006)'s article that can be
@@ -53,6 +63,30 @@ safer, easier to administer or cost less.
 \item \code{superiority} is to test the test the new diagnostic tests is better than the
 standard diagnostic test in a specific margin(default is zero), having better efficacy.
 }
+}
+\note{
+The test of significance for the difference is not equal to the result of EP24A2
+Appendix D. Table D2. Because the Table D2 uses the method of Hanley & McNeil
+(1982), whereas this function here uses the method of DeLong et al. (1988), which
+results in the difference of SE. Thus the corresponding Z statistic and P value
+will be not equal as well.
+}
+\examples{
+data("ldlroc")
+# H0 : Difference between areas = 0:
+aucTest(x = ldlroc$LDL, y = ldlroc$OxLDL, response = ldlroc$Diagnosis)
+
+# H0 : Superiority margin <= 0.1:
+aucTest(
+  x = ldlroc$LDL, y = ldlroc$OxLDL, response = ldlroc$Diagnosis,
+  method = "superiority", h0 = 0.1
+)
+
+# H0 : Non-inferiority margin <= -0.1:
+aucTest(
+  x = ldlroc$LDL, y = ldlroc$OxLDL, response = ldlroc$Diagnosis,
+  method = "non-inferiority", h0 = -0.1
+)
 }
 \references{
 Jen-Pei Liu (2006) "Tests of equivalence and non-inferiority for

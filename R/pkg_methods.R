@@ -122,6 +122,66 @@ setMethod(
   }
 )
 
+#' @rdname show
+#' @aliases show
+#'
+#' @examples
+#'
+#' # Comparing the Paired ROC when Non-inferiority margin <= -0.1
+#' data("ldlroc")
+#' aucTest(
+#'   x = ldlroc$LDL, y = ldlroc$OxLDL, response = ldlroc$Diagnosis,
+#'   method = "non-inferiority", h0 = -0.1
+#' )
+setMethod(
+  f = "show",
+  signature = "tpROC",
+  definition = function(object) {
+    cat_with_newline(
+      "\nThe hypothesis for testing", object@method,
+      "based on Paired ROC curve\n"
+    )
+    cat_with_newline(" Test assay:")
+    cat_with_newline(
+      "  Area under the curve:",
+      h_fmt_num(object@testROC$auc, digits = 4, width = 4)
+    )
+    cat_with_newline("  Standard Error(SE):", h_fmt_num(object@testROC$se, digits = 4, width = 4))
+    cat_with_newline(
+      "  95% Confidence Interval(CI):",
+      paste(h_fmt_num(object@testROC$ci, digits = 4, width = 4), collapse = "-"),
+      "(DeLong)"
+    )
+    cat_with_newline("\n Reference/standard assay:")
+    cat_with_newline(
+      "  Area under the curve:",
+      h_fmt_num(object@refROC$auc, digits = 4, width = 4)
+    )
+    cat_with_newline("  Standard Error(SE):", h_fmt_num(object@refROC$se, digits = 4, width = 4))
+    cat_with_newline(
+      "  95% Confidence Interval(CI):",
+      paste(h_fmt_num(object@refROC$ci, digits = 4, width = 4), collapse = "-"),
+      "(DeLong)"
+    )
+    cat_with_newline("\n Comparison of Paired AUC:")
+    cat_with_newline(
+      "  Alternative hypothesis: the difference in AUC is", object@method,
+      "to", object@H0
+    )
+    cat_with_newline(
+      "  Difference of AUC:",
+      h_fmt_num(object@stat$diffauc, digits = 4, width = 4)
+    )
+    cat_with_newline("  Standard Error(SE):", h_fmt_num(object@stat$se, digits = 4, width = 4))
+    cat_with_newline(
+      "  95% Confidence Interval(CI):",
+      paste(h_fmt_num(object@stat$ci, digits = 4, width = 4), collapse = "-"),
+      "(standardized differenec method)"
+    )
+    cat_with_newline("  Z:", h_fmt_num(object@stat$zstat, digits = 4, width = 4))
+    cat_with_newline("  Pvalue:", formatC(object@stat$pval))
+  }
+)
 
 # getAccuracy ----
 
