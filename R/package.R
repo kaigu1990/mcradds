@@ -15,6 +15,7 @@
 #' @importFrom lifecycle deprecated
 #' @importFrom boot boot boot.ci
 #' @importFrom VCA anovaVCA VCAinference
+#' @importFrom pROC roc var cov
 NULL
 
 # Resolve missing global definitions:

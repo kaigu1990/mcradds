@@ -27,6 +27,7 @@ Imports:
     lifecycle,
     magrittr,
     methods,
+    pROC,
     purrr,
     stats,
     VCA
@@ -48,6 +49,7 @@ Collate:
     'mcr.R'
     'outlier.R'
     'package.R'
+    'pairedroc.R'
     'pkg_class.R'
     'pkg_methods.R'
     'qual_stat.R'
