@@ -90,3 +90,26 @@
 #'
 #' @references EP05A3: Evaluation of Precision of Quantitative Measurement Procedures.
 "glucose"
+
+#' Two-sampled Paired Test Data
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This data set consists the measurements of low-density lipoprotein (LDL),
+#' oxidized low-density lipoprotein (OxLDL) and the corresponding diagnosis.
+#' OxLDL is thought to be the active molecule in the process of atherosclerosis,
+#' so its proponents believe that its serum concentration should provide more
+#' accurate risk stratification than the traditional LDL assay.
+#'
+#' @format A [mcradds::ldlroc] data set contains 50 observations and 3 variables.
+#' \describe{
+#'    \item{Diagnosis}{the diagnosis, 1 represents a subject has the disease or
+#'    condition of interest is present, 0 is absent}
+#'    \item{OxLDL}{oxidized low-density lipoprotein(OxLDL) measurement value}
+#'    \item{LDL}{low-density lipoprotein(LDL) measurement value}
+#' }
+#' @source CLSI-EP24A2 Table D1. OxLDL and LDL Assay Values (in U/L) for 50 Subjects.
+#'
+#' @references EP24A2 Assessment of the Diagnostic Accuracy of Laboratory Tests
+#' Using Receiver Operating Characteristic Curves.
+"ldlroc"

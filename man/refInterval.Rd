@@ -54,7 +54,7 @@ stopped in robust method.}
 \item{R}{(\code{integer})\cr number of bootstrap replicates, is used in \code{boot()} function.}
 }
 \value{
-A list contains relevant results in establishing of reference interval.
+A \code{RefInt} object contains relevant results in establishing of reference interval.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}

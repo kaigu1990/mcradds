@@ -228,3 +228,50 @@ setValidity("RefInt", function(object) {
     TRUE
   }
 })
+
+# tpROC-class ----
+
+#' Test for Paired ROC Class
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' The `tpROC` class serves as the store for results in testing the AUC of paired
+#' two-sample assays.
+#'
+#' @slot testROC testROC
+#' @slot refROC refROC
+#' @slot method method
+#' @slot stat stat
+#'
+#' @rdname tpROC-class
+#' @aliases tpROC
+setClass(
+  "tpROC",
+  slots = c(
+    testROC = "list",
+    refROC = "list",
+    method = "character",
+    H0 = "numeric",
+    stat = "list"
+  )
+)
+
+# tpROC-constructors ----
+
+#' @rdname tpROC-class
+#'
+#' @param testROC (`list`)\cr object from `pRPC::roc()` function for test assay.
+#' @param refROC (`list`)\cr object from `pRPC::roc()` function for reference/standard assay.
+#' @param method (`character`)\cr method of hypothesis test.
+#' @param H0 (`numeric`)\cr margin of test.
+#' @param stat (`list`)\cr list that contains the difference comparing results,
+#' such as the difference of AUC, standard error, confidence interval, Z statistic
+#' and P value.
+#'
+#' @return An object of class `tpROC`.
+#'
+tpROC <- function(testROC, refROC, method, H0, stat) {
+  new("tpROC",
+    testROC = testROC, refROC = refROC, method = method, H0 = H0, stat = stat
+  )
+}

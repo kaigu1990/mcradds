@@ -149,7 +149,7 @@ nonparRI <- function(x, ind = 1:length(x), conf.level = 0.95) {
 #' stopped in robust method.
 #' @param R (`integer`)\cr number of bootstrap replicates, is used in `boot()` function.
 #'
-#' @return A list contains relevant results in establishing of reference interval.
+#' @return A `RefInt` object contains relevant results in establishing of reference interval.
 #' @export
 #'
 #' @examples

@@ -6,6 +6,7 @@
 \alias{show,MCTab-method}
 \alias{show,BAsummary-method}
 \alias{show,RefInt-method}
+\alias{show,tpROC-method}
 \title{Show Method for Objects}
 \usage{
 \S4method{show}{SampleSize}(object)
@@ -15,6 +16,8 @@
 \S4method{show}{BAsummary}(object)
 
 \S4method{show}{RefInt}(object)
+
+\S4method{show}{tpROC}(object)
 }
 \arguments{
 \item{object}{(\code{any})\cr input.}
@@ -43,4 +46,11 @@ blandAltman(x = creatinine$serum.crea, y = creatinine$plasma.crea)
 # Reference Interval
 data("calcium")
 refInterval(x = calcium$Value, RI_method = "nonparametric", CI_method = "nonparametric")
+
+# Comparing the Paired ROC when Non-inferiority margin <= -0.1
+data("ldlroc")
+aucTest(
+  x = ldlroc$LDL, y = ldlroc$OxLDL, response = ldlroc$Diagnosis,
+  method = "non-inferiority", h0 = -0.1
+)
 }
