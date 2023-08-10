@@ -29,6 +29,22 @@ test_that("show works as expected for RefInt object", {
   expect_match(result, "Refupper Confidence Interval: 10.3000, 10.4000", fixed = TRUE)
 })
 
+test_that("show works as expected for tpROC object", {
+  data("ldlroc")
+  object <- expect_silent(aucTest(
+    x = ldlroc$LDL, y = ldlroc$OxLDL, response = ldlroc$Diagnosis,
+    levels = c(0, 1), direction = "<"
+  ))
+  result <- capture_output(show(object))
+  expect_match(result, "The hypothesis for testing difference based on Paired ROC curve", fixed = TRUE)
+  expect_match(result, "Test assay:\n  Area under the curve: 0.7995", fixed = TRUE)
+  expect_match(result, "Reference/standard assay:\n  Area under the curve: 0.5617", fixed = TRUE)
+  expect_match(result, "Alternative hypothesis: the difference in AUC is difference to 0", fixed = TRUE)
+  expect_match(result, "Difference of AUC: 0.2378", fixed = TRUE)
+  expect_match(result, "Standard Error(SE): 0.0790\n  95% Confidence Interval(CI): 0.0829-0.3927", fixed = TRUE)
+  expect_match(result, "Z: 3.0088\n  Pvalue: 0.002623", fixed = TRUE)
+})
+
 # getOutlier ----
 
 test_that("getOutlier works as expected with default settings", {

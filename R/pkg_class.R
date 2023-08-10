@@ -272,6 +272,6 @@ setClass(
 #'
 tpROC <- function(testROC, refROC, method, H0, stat) {
   new("tpROC",
-      testROC = testROC, refROC = refROC, method = method, H0 = H0, stat = stat
+    testROC = testROC, refROC = refROC, method = method, H0 = H0, stat = stat
   )
 }

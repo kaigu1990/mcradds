@@ -31,8 +31,9 @@ superiority method, then it's non-negative value.}
 for the returned confidence interval.}
 
 \item{method}{(\code{string})\cr string specifying the type of hypothesis test,
-must be one of "difference" (default), "non-inferiority" or "superiority".
-@param ... other arguments to be passed to \code{\link[pROC:roc]{pROC::roc()}}.}
+must be one of "difference" (default), "non-inferiority" or "superiority".}
+
+\item{...}{other arguments to be passed to \code{\link[pROC:roc]{pROC::roc()}}.}
 }
 \value{
 A \code{RefInt} object contains relevant results in comparing the paired

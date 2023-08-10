@@ -21,7 +21,7 @@
 #'  for the returned confidence interval.
 #' @param method (`string`)\cr string specifying the type of hypothesis test,
 #'  must be one of "difference" (default), "non-inferiority" or "superiority".
-#'  @param ... other arguments to be passed to [pROC::roc()].
+#' @param ... other arguments to be passed to [pROC::roc()].
 #'
 #' @details
 #' If the samples are not considered independent, such as in a paired design,
@@ -80,8 +80,8 @@ aucTest <- function(x, y,
   assert_number(h0)
   method <- match.arg(method, c("difference", "non-inferiority", "superiority"), several.ok = FALSE)
 
-  refroc <- pROC::roc(response, x)
-  testroc <- suppressMessages(pROC::roc(response, y))
+  refroc <- pROC::roc(response, x, ...)
+  testroc <- suppressMessages(pROC::roc(response, y, ...))
   paircov <- pROC::cov(refroc, testroc)
   refvar <- pROC::var(refroc)
   testvar <- pROC::var(testroc)
