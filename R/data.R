@@ -113,3 +113,29 @@
 #' @references EP24A2 Assessment of the Diagnostic Accuracy of Laboratory Tests
 #' Using Receiver Operating Characteristic Curves.
 "ldlroc"
+
+#' PD-L1 Reader Precision Data
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This dummy data set is from a PD-L1 HE stained study to estimate the reproducibility
+#' of one assay in determining the PD-L1 status of NSCLC tissue specimens. It
+#' contains three sub-data to compute the reproducibility between read (one pathologists,
+#' also called reader here, scores one specimen three times), between reader (three
+#' readers scores the same specimen) and between site (one reader in three sites
+#' scores the same specimens). These data sets don't have the reference for the each
+#' score so it can be only used in the pairwise comparison to calculate the `APA`,
+#' `ANA` and `OPA` which don't reply on the reference.
+#'
+#' @format A [mcradds::PDL1RP] data set contains 3 sub set, each sub set includes
+#' 150 specimens, 450 observations and 4 variables.
+#' \describe{
+#'    \item{Sample}{Sample id}
+#'    \item{Site}{Site id}
+#'    \item{Order}{Order of reader scoring}
+#'    \item{Reader}{Reader id, the first character represents the site id, and the
+#'    second character is the reader number}
+#'    \item{Value}{Result of scoring, `Positive` or `Negative`}
+#' }
+#'
+"PDL1RP"
