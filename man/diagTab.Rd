@@ -4,23 +4,36 @@
 \alias{diagTab}
 \title{Creates Contingency Table}
 \usage{
-diagTab(formula = ~., data, ..., rlevels = NULL, clevels = NULL)
+diagTab(
+  formula = ~.,
+  data,
+  bysort = NULL,
+  dimname = NULL,
+  levels = NULL,
+  rep = FALSE,
+  interrep = NULL
+)
 }
 \arguments{
 \item{formula}{(\code{numeric})\cr a \link{formula} object with the cross-classifying
-variables (separated by \code{+}) on the right hand side. The row name of contingency
-is represented by the variable to the left of the \code{+} sign, and the col name
-is represented by the variable to the right.}
+variables (separated by \code{+}) on the right hand side. If data is wide structure,
+the row name of contingency is represented by the variable to the left of
+the \code{+} sign, and the col name is the right. If data is long structure, the
+classified variable is put on the left of the formula, and the value variable
+is put on the right.}
 
 \item{data}{(\code{data.frame} or \code{matrix})\cr a data frame or matrix.}
 
-\item{...}{other arguments to be passed to \code{\link[=xtabs]{xtabs()}}.}
+\item{bysort}{(\code{string})\cr a sorted variable from the col names of \code{data}, and
+a grouped variable for reproducibility analysis.}
 
-\item{rlevels}{(\code{vector})\cr a character vector of known levels for row name
-of contingency table.}
+\item{dimname}{(\code{vector})\cr a character vector define the row name of contingency
+table in first variable, and col name in second variable.}
 
-\item{clevels}{(\code{vector})\cr a character vector of known levels for col name
-of contingency table.}
+\item{levels}{(\code{vector})\cr a vector of known levels for measurements.}
+
+\item{rep}{(\code{logical})\cr weather to implement the reproducibility like reader
+precision or not.}
 }
 \value{
 A object \code{matrix} contains the 2x2 contingency table.
@@ -29,15 +42,47 @@ A object \code{matrix} contains the 2x2 contingency table.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 Creates a 2x2 contingency table from the data frame or matrix for the qualitative
-performance of downstream analysis.
+performance and reader precision of downstream analysis.
+}
+\note{
+To be attention that if you would like to generate the 2x2 contingency table
+for reproducibility analysis, the original data should be long structure and
+corresponding formula.
 }
 \examples{
+# For qualitative performance with wide data structure
 data("qualData")
 qualData \%>\% diagTab(formula = ~ CandidateN + ComparativeN)
 qualData \%>\%
   diagTab(
     formula = ~ CandidateN + ComparativeN,
-    rlevels = c(1, 0), clevels = c(1, 0)
+    levels = c(1, 0)
+  )
+
+# For qualitative performance with long data structure
+dummy <- data.frame(
+  id = c("1001", "1001", "1002", "1002", "1003", "1003"),
+  value = c(1, 0, 0, 0, 1, 1),
+  type = c("Test", "Ref", "Test", "Ref", "Test", "Ref")
+)
+dummy \%>\%
+  diagTab(
+    formula = type ~ value,
+    bysort = "id",
+    dimname = c("Test", "Ref"),
+    levels = c(1, 0)
+  )
+
+# For reader precision performance in each site
+data("PDL1RP")
+reader <- PDL1RP$btw_reader
+reader \%>\%
+  diagTab(
+    formula = Reader ~ Value,
+    bysort = "Sample",
+    levels = c("Positive", "Negative"),
+    rep = TRUE,
+    interrep = "Site"
   )
 }
 \seealso{

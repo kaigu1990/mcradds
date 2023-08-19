@@ -65,7 +65,7 @@ when the new test is evaluated by comparison to a non-reference standard.
 tab <- qualData \%>\%
   diagTab(
     formula = ~ CandidateN + ComparativeN,
-    rlevels = c(1, 0), clevels = c(1, 0)
+    levels = c(1, 0)
   )
 getAccuracy(tab, method = "wilson")
 getAccuracy(tab, method = "wilson", withref = FALSE)

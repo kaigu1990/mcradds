@@ -6,18 +6,27 @@ NULL
 #' @description `r lifecycle::badge("experimental")`
 #'
 #' Creates a 2x2 contingency table from the data frame or matrix for the qualitative
-#' performance of downstream analysis.
+#' performance and reader precision of downstream analysis.
 #'
 #' @param formula (`numeric`)\cr a [formula] object with the cross-classifying
-#'  variables (separated by `+`) on the right hand side. The row name of contingency
-#'  is represented by the variable to the left of the `+` sign, and the col name
-#'  is represented by the variable to the right.
+#'  variables (separated by `+`) on the right hand side. If data is wide structure,
+#'  the row name of contingency is represented by the variable to the left of
+#'  the `+` sign, and the col name is the right. If data is long structure, the
+#'  classified variable is put on the left of the formula, and the value variable
+#'  is put on the right.
 #' @param data (`data.frame` or `matrix`)\cr a data frame or matrix.
-#' @param rlevels (`vector`)\cr a character vector of known levels for row name
-#'  of contingency table.
-#' @param clevels (`vector`)\cr a character vector of known levels for col name
-#'  of contingency table.
-#' @param ... other arguments to be passed to [xtabs()].
+#' @param bysort (`string`)\cr a sorted variable from the col names of `data`, and
+#' a grouped variable for reproducibility analysis.
+#' @param dimname (`vector`)\cr a character vector define the row name of contingency
+#' table in first variable, and col name in second variable.
+#' @param levels (`vector`)\cr a vector of known levels for measurements.
+#' @param rep (`logical`)\cr weather to implement the reproducibility like reader
+#' precision or not.
+#'
+#' @note
+#' To be attention that if you would like to generate the 2x2 contingency table
+#' for reproducibility analysis, the original data should be long structure and
+#' corresponding formula.
 #'
 #' @return A object `matrix` contains the 2x2 contingency table.
 #' @export
@@ -25,37 +34,106 @@ NULL
 #' @seealso [Summary()] for object to calculate diagnostic accuracy criteria.
 #'
 #' @examples
+#' # For qualitative performance with wide data structure
 #' data("qualData")
 #' qualData %>% diagTab(formula = ~ CandidateN + ComparativeN)
 #' qualData %>%
 #'   diagTab(
 #'     formula = ~ CandidateN + ComparativeN,
-#'     rlevels = c(1, 0), clevels = c(1, 0)
+#'     levels = c(1, 0)
 #'   )
-diagTab <- function(formula = ~., data, ..., rlevels = NULL, clevels = NULL) {
+#'
+#' # For qualitative performance with long data structure
+#' dummy <- data.frame(
+#'   id = c("1001", "1001", "1002", "1002", "1003", "1003"),
+#'   value = c(1, 0, 0, 0, 1, 1),
+#'   type = c("Test", "Ref", "Test", "Ref", "Test", "Ref")
+#' )
+#' dummy %>%
+#'   diagTab(
+#'     formula = type ~ value,
+#'     bysort = "id",
+#'     dimname = c("Test", "Ref"),
+#'     levels = c(1, 0)
+#'   )
+#'
+#' # For reader precision performance in each site
+#' data("PDL1RP")
+#' reader <- PDL1RP$btw_reader
+#' reader %>%
+#'   diagTab(
+#'     formula = Reader ~ Value,
+#'     bysort = "Sample",
+#'     levels = c("Positive", "Negative"),
+#'     rep = TRUE,
+#'     interrep = "Site"
+#'   )
+diagTab <- function(formula = ~.,
+                    data,
+                    bysort = NULL, dimname = NULL, levels = NULL,
+                    rep = FALSE, interrep = NULL) {
   assert_formula(formula)
   assert_multi_class(data, classes = c("data.frame", "matrix"))
+  assert_choice(bysort, names(data), null.ok = TRUE)
 
   if (is.matrix(data)) {
     data <- as.data.frame(data)
   }
 
-  df <- stats::model.frame(formula, data)
-  var <- labels(stats::terms(formula))
-  df[[var[1]]] <- h_factor(df, var = var[1], levels = rlevels)
-  df[[var[2]]] <- h_factor(df, var = var[2], levels = clevels)
+  if (!is.null(bysort)) {
+    data <- data[order(data[[bysort]]), ]
+  }
 
-  res <- stats::xtabs(formula = formula, data = df, ...)
+  df <- stats::model.frame(formula, data)
+  grpn <- attr(stats::terms(formula), "response")
+  if (length(grpn) != 1) {
+    stop("The left of ~ fomula should be only one variable.")
+  }
+
+  var <- attr(stats::terms(formula), "term.labels")
+  if (grpn == 0) {
+    if (length(var) == 2) {
+      rdat <- h_factor(df, var = var[1], levels = levels)
+      cdat <- h_factor(df, var = var[2], levels = levels)
+      res <- table(rdat, cdat, dnn = c(var[1], var[2]))
+    } else {
+      stop("If the left of ~ formula is missing, the right of it must have two variables.")
+    }
+  } else {
+    grp <- names(df)[grpn]
+    df <- data[, c(interrep, names(df))]
+    if (rep) {
+      byinter <- split(df, as.formula(paste("~", interrep)))
+      bylist <- lapply(byinter, function(x) {
+        byname <- t(combn(unique(x[[grp]]), 2))
+        do.call(rbind, lapply(1:nrow(byname), function(i) {
+          cbind(
+            value1 = x[[var]][x[[grp]] == byname[i, 1]],
+            value2 = x[[var]][x[[grp]] == byname[i, 2]]
+          )
+        }))
+      })
+      bydf <- data.frame(do.call(rbind, bylist))
+      rdat <- h_factor(bydf, var = "value1", levels = levels)
+      cdat <- h_factor(bydf, var = "value2", levels = levels)
+      res <- table(rdat, cdat, dnn = c("Pairwise1", "Pairwise2"))
+    } else {
+      dflist <- split(df, as.formula(paste("~", grp)))
+      nms <- if (!is.null(dimname)) {
+        dimname
+      } else {
+        names(dflist)
+      }
+      rdat <- h_factor(dflist[[nms[1]]], var = var, levels = levels)
+      cdat <- h_factor(dflist[[nms[2]]], var = var, levels = levels)
+      res <- table(rdat, cdat, dnn = nms)
+    }
+  }
+
   object <- MCTab(
-    tab = as.matrix(res),
-    candidate = list(
-      data = df[[var[1]]],
-      levels = levels(df[[var[1]]])
-    ),
-    comparative = list(
-      data = df[[var[2]]],
-      levels = levels(df[[var[2]]])
-    )
+    data = data,
+    tab = res,
+    levels = levels(rdat)
   )
   object
 }
@@ -105,7 +183,7 @@ diagTab <- function(formula = ~., data, ..., rlevels = NULL, clevels = NULL) {
 #' tab <- qualData %>%
 #'   diagTab(
 #'     formula = ~ CandidateN + ComparativeN,
-#'     rlevels = c(1, 0), clevels = c(1, 0)
+#'     levels = c(1, 0)
 #'   )
 #' getAccuracy(tab, method = "wilson")
 #' getAccuracy(tab, method = "wilson", withref = FALSE)

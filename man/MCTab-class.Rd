@@ -6,16 +6,14 @@
 \alias{MCTab}
 \title{MCTab Class}
 \usage{
-MCTab(tab, candidate, comparative)
+MCTab(data, tab, levels)
 }
 \arguments{
-\item{tab}{(\code{matrix})\cr \code{matrix} class converted from \code{\link[=xtabs]{xtabs()}} to display 2x2 contingency table.}
+\item{data}{(\code{data.frame})\cr original data set.}
 
-\item{candidate}{(\code{list})\cr candidate information, like measurements,
-positive and negative levels.}
+\item{tab}{(\code{table})\cr \code{table} class converted from \code{\link[=table]{table()}} to display 2x2 contingency table.}
 
-\item{comparative}{(\code{list})\cr comparative information, like measurements,
-positive and negative levels.}
+\item{levels}{(\code{character})\cr levels of measurements.}
 }
 \value{
 An object of class \code{MCTab}.
@@ -23,16 +21,15 @@ An object of class \code{MCTab}.
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-The \code{MCTab} class serves as the store for 2x2 contingency table, candidate and
-comparative measurement's information.
+The \code{MCTab} class serves as the store for 2x2 contingency table
 }
 \section{Slots}{
 
 \describe{
-\item{\code{tab}}{tab}
+\item{\code{data}}{data}
 
-\item{\code{candidate}}{candidate}
+\item{\code{tab}}{candidate}
 
-\item{\code{comparative}}{comparative}
+\item{\code{levels}}{levels}
 }}
 

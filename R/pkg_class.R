@@ -62,21 +62,20 @@ setValidity("SampleSize", function(object) {
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' The `MCTab` class serves as the store for 2x2 contingency table, candidate and
-#' comparative measurement's information.
+#' The `MCTab` class serves as the store for 2x2 contingency table
 #'
-#' @slot tab tab
-#' @slot candidate candidate
-#' @slot comparative comparative
+#' @slot data data
+#' @slot tab candidate
+#' @slot levels levels
 #'
 #' @rdname MCTab-class
 #' @aliases MCTab
 setClass(
   "MCTab",
   slots = c(
-    tab = "matrix",
-    candidate = "list",
-    comparative = "list"
+    data = "data.frame",
+    tab = "table",
+    levels = "character"
   )
 )
 
@@ -84,16 +83,14 @@ setClass(
 
 #' @rdname MCTab-class
 #'
-#' @param tab (`matrix`)\cr `matrix` class converted from [xtabs()] to display 2x2 contingency table.
-#' @param candidate (`list`)\cr candidate information, like measurements,
-#'  positive and negative levels.
-#' @param comparative (`list`)\cr comparative information, like measurements,
-#'  positive and negative levels.
+#' @param data (`data.frame`)\cr original data set.
+#' @param tab (`table`)\cr `table` class converted from [table()] to display 2x2 contingency table.
+#' @param levels (`character`)\cr levels of measurements.
 #'
 #' @return An object of class `MCTab`.
 #'
-MCTab <- function(tab, candidate, comparative) {
-  new("MCTab", tab = tab, candidate = candidate, comparative = comparative)
+MCTab <- function(data, tab, levels) {
+  new("MCTab", data = data, tab = tab, levels = levels)
 }
 
 # MCTab-validity ----
@@ -101,12 +98,6 @@ MCTab <- function(tab, candidate, comparative) {
 setValidity("MCTab", function(object) {
   if (any(dim(object@tab) != c(2, 2))) {
     "@tab should be 2x2 contingency table."
-  } else {
-    TRUE
-  }
-
-  if (!is.factor(object@candidate$data) | !is.factor(object@comparative$data)) {
-    "@candidate and @comparative should be all factor class."
   } else {
     TRUE
   }
