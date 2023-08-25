@@ -1,44 +1,72 @@
+# diagTab ----
+
 test_that("diagTab function works as expected with default settings", {
   data("qualData")
   res <- qualData %>% diagTab(formula = ~ CandidateN + ComparativeN)
   expect_s4_class(res, "MCTab")
-  object <- matrix(
-    c(54, 8, 16, 122),
-    nrow = 2, byrow = FALSE,
-    dimnames = list(
-      CandidateN = c("0", "1"),
-      ComparativeN = c("0", "1")
-    )
-  )
-  expect_equal(res@tab, object)
-  expect_equal(levels(res@candidate$data), c("0", "1"))
-  expect_equal(levels(res@comparative$data), c("0", "1"))
+  expect_equal(matrix(res@tab), matrix(c(54, 8, 16, 122)))
+  expect_equal(res@levels, c("0", "1"))
 })
 
-test_that("diagTab function works as expected with custom settings", {
+test_that("diagTab function works as expected for qualitative performance", {
   data("qualData")
-  res <- qualData %>% diagTab(
-    formula = ~ CandidateN + ComparativeN,
-    rlevels = c(1, 0), clevels = c(1, 0)
-  )
-  object <- matrix(
-    c(122, 16, 8, 54),
-    nrow = 2, byrow = FALSE,
-    dimnames = list(
-      CandidateN = c("1", "0"),
-      ComparativeN = c("1", "0")
+  res <- qualData %>%
+    diagTab(
+      formula = ~ CandidateN + ComparativeN,
+      levels = c(1, 0)
     )
-  )
-  expect_equal(res@tab, object)
+  expect_equal(matrix(res@tab), matrix(c(122, 16, 8, 54)))
 })
 
-test_that("diagTab function works as expected with wilson method", {
+test_that("diagTab function works as expected for within-reader performance", {
+  data("PDL1RP")
+  res <- PDL1RP$wtn_reader %>%
+    diagTab(
+      formula = Order ~ Value,
+      bysort = "Sample",
+      levels = c("Positive", "Negative"),
+      rep = TRUE,
+      across = "Site"
+    )
+  expect_equal(matrix(res@tab), matrix(c(203, 17, 7, 223)))
+})
+
+test_that("diagTab function works as expected for between-reader performance", {
+  data("PDL1RP")
+  res <- PDL1RP$btw_reader %>%
+    diagTab(
+      formula = Reader ~ Value,
+      bysort = "Sample",
+      levels = c("Positive", "Negative"),
+      rep = TRUE,
+      across = "Site"
+    )
+  expect_equal(matrix(res@tab), matrix(c(200, 15, 7, 228)))
+})
+
+test_that("diagTab function works as expected for between-site performance", {
+  data("PDL1RP")
+  res <- PDL1RP$btw_site %>%
+    diagTab(
+      formula = Site ~ Value,
+      bysort = "Sample",
+      levels = c("Positive", "Negative"),
+      rep = TRUE
+    )
+  expect_equal(matrix(res@tab), matrix(c(201, 12, 4, 233)))
+})
+
+# getAccuracy ----
+
+test_that("getAccuracy function works as expected with wilson method", {
   data("qualData")
-  tb <- qualData %>% diagTab(
-    formula = ~ CandidateN + ComparativeN,
-    rlevels = c(1, 0), clevels = c(1, 0)
-  )
-  res <- getAccuracy(tb, method = "wilson")
+  res <- qualData %>%
+    diagTab(
+      formula = ~ CandidateN + ComparativeN,
+      levels = c(1, 0)
+    ) %>%
+    getAccuracy(ref = "r", r_ci = "wilson")
+
   object <- matrix(
     c(
       "0.8841", "0.8200", "0.9274",
@@ -57,13 +85,15 @@ test_that("diagTab function works as expected with wilson method", {
   expect_equal(res, as.data.frame(object))
 })
 
-test_that("diagTab function works as expected when withref is FALSE", {
+test_that("getAccuracy function works as expected without reference", {
   data("qualData")
-  tb <- qualData %>% diagTab(
-    formula = ~ CandidateN + ComparativeN,
-    rlevels = c(1, 0), clevels = c(1, 0)
-  )
-  res <- getAccuracy(tb, method = "wilson", withref = FALSE)
+  res <- qualData %>%
+    diagTab(
+      formula = ~ CandidateN + ComparativeN,
+      levels = c(1, 0)
+    ) %>%
+    getAccuracy(ref = "nr", nr_ci = "wilson")
+
   object <- matrix(
     c(
       "0.8841", "0.8200", "0.9274",
@@ -79,30 +109,15 @@ test_that("diagTab function works as expected when withref is FALSE", {
   expect_equal(res, as.data.frame(object))
 })
 
-test_that("diagTab function works as expected with custom settings", {
-  data("qualData")
-  res <- qualData %>% diagTab(
-    formula = ~ CandidateN + ComparativeN,
-    rlevels = c(1, 0), clevels = c(1, 0)
-  )
-  object <- matrix(
-    c(122, 16, 8, 54),
-    nrow = 2, byrow = FALSE,
-    dimnames = list(
-      CandidateN = c("1", "0"),
-      ComparativeN = c("1", "0")
-    )
-  )
-  expect_equal(res@tab, object)
-})
-
 test_that("getAccuracy function works as expected with digits is 3", {
   data("qualData")
-  tb <- qualData %>% diagTab(
-    formula = ~ CandidateN + ComparativeN,
-    rlevels = c(1, 0), clevels = c(1, 0)
-  )
-  res <- getAccuracy(tb, method = "wilson", digits = 3)
+  res <- qualData %>%
+    diagTab(
+      formula = ~ CandidateN + ComparativeN,
+      levels = c(1, 0)
+    ) %>%
+    getAccuracy(ref = "r", r_ci = "wilson", digits = 3)
+
   object <- matrix(
     c(
       "0.884", "0.820", "0.927",
@@ -115,6 +130,33 @@ test_that("getAccuracy function works as expected with digits is 3", {
     nrow = 6, byrow = TRUE,
     dimnames = list(
       c("sens", "spec", "ppv", "npv", "plr", "nlr"),
+      ComparativeN = c("EST", "LowerCI", "UpperCI")
+    )
+  )
+  expect_equal(res, as.data.frame(object))
+})
+
+test_that("getAccuracy function works as expected with between-readers precision", {
+  data("PDL1RP")
+  res <- PDL1RP$btw_reader %>%
+    diagTab(
+      formula = Reader ~ Value,
+      bysort = "Sample",
+      levels = c("Positive", "Negative"),
+      rep = TRUE,
+      across = "Site"
+    ) %>%
+    getAccuracy(ref = "bnr", rng.seed = 12306)
+
+  object <- matrix(
+    c(
+      "0.9479", "0.9260", "0.9686",
+      "0.9540", "0.9342", "0.9730",
+      "0.9511", "0.9311", "0.9711"
+    ),
+    nrow = 3, byrow = TRUE,
+    dimnames = list(
+      c("apa", "ana", "opa"),
       ComparativeN = c("EST", "LowerCI", "UpperCI")
     )
   )

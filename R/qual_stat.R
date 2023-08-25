@@ -22,6 +22,9 @@ NULL
 #' @param levels (`vector`)\cr a vector of known levels for measurements.
 #' @param rep (`logical`)\cr weather to implement the reproducibility like reader
 #' precision or not.
+#' @param across (`string`)\cr the across variable to split original data set to
+#' subsets. The between-reader and within-reader precision's across variable
+#' is `site` commonly.
 #'
 #' @note
 #' To be attention that if you would like to generate the 2x2 contingency table
@@ -66,12 +69,12 @@ NULL
 #'     bysort = "Sample",
 #'     levels = c("Positive", "Negative"),
 #'     rep = TRUE,
-#'     interrep = "Site"
+#'     across = "Site"
 #'   )
 diagTab <- function(formula = ~.,
                     data,
                     bysort = NULL, dimname = NULL, levels = NULL,
-                    rep = FALSE, interrep = NULL) {
+                    rep = FALSE, across = NULL) {
   assert_formula(formula)
   assert_multi_class(data, classes = c("data.frame", "matrix"))
   assert_choice(bysort, names(data), null.ok = TRUE)
@@ -102,19 +105,34 @@ diagTab <- function(formula = ~.,
     }
   } else {
     grp <- names(df)[grpn]
-    df <- data[, c(interrep, names(df))]
+    if (!is.null(across)) {
+      df <- data[, c(across, names(df))]
+    }
+
     if (rep) {
-      byinter <- split(df, as.formula(paste("~", interrep)))
-      bylist <- lapply(byinter, function(x) {
-        byname <- t(combn(unique(x[[grp]]), 2))
-        do.call(rbind, lapply(1:nrow(byname), function(i) {
-          cbind(
-            value1 = x[[var]][x[[grp]] == byname[i, 1]],
-            value2 = x[[var]][x[[grp]] == byname[i, 2]]
-          )
-        }))
-      })
-      bydf <- data.frame(do.call(rbind, bylist))
+      if (!is.null(across)) {
+        byinter <- split(df, as.formula(paste("~", across)))
+        bylist <- lapply(byinter, function(x) {
+          byname <- t(combn(unique(x[[grp]]), 2))
+          do.call(rbind, lapply(1:nrow(byname), function(i) {
+            cbind(
+              value1 = x[[var]][x[[grp]] == byname[i, 1]],
+              value2 = x[[var]][x[[grp]] == byname[i, 2]]
+            )
+          }))
+        })
+        bydf <- data.frame(do.call(rbind, bylist))
+      } else {
+        byname <- t(combn(unique(df[[grp]]), 2))
+        bydf <- data.frame(
+          do.call(rbind, lapply(1:nrow(byname), function(i) {
+            cbind(
+              value1 = df[[var]][df[[grp]] == byname[i, 1]],
+              value2 = df[[var]][df[[grp]] == byname[i, 2]]
+            )
+          }))
+        )
+      }
       rdat <- h_factor(bydf, var = "value1", levels = levels)
       cdat <- h_factor(bydf, var = "value2", levels = levels)
       dat <- data.frame(rdat, cdat)
@@ -228,10 +246,10 @@ diagTab <- function(formula = ~.,
 #'     bysort = "Sample",
 #'     levels = c("Positive", "Negative"),
 #'     rep = TRUE,
-#'     interrep = "Site"
+#'     across = "Site"
 #'   )
-#' getAccuracy(tb2, ref = "bnr", nr_ci = "wilson")
-#' getAccuracy(tb2, ref = "bnr", nr_ci = "wilson", rng.seed = 12306)
+#' getAccuracy(tb2, ref = "bnr")
+#' getAccuracy(tb2, ref = "bnr", rng.seed = 12306)
 setMethod(
   f = "getAccuracy",
   signature = c("MCTab"),

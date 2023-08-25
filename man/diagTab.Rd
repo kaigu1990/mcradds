@@ -11,7 +11,7 @@ diagTab(
   dimname = NULL,
   levels = NULL,
   rep = FALSE,
-  interrep = NULL
+  across = NULL
 )
 }
 \arguments{
@@ -34,6 +34,10 @@ table in first variable, and col name in second variable.}
 
 \item{rep}{(\code{logical})\cr weather to implement the reproducibility like reader
 precision or not.}
+
+\item{across}{(\code{string})\cr the across variable to split original data set to
+subsets. The between-reader and within-reader precision's across variable
+is \code{site} commonly.}
 }
 \value{
 A object \code{matrix} contains the 2x2 contingency table.
@@ -82,7 +86,7 @@ reader \%>\%
     bysort = "Sample",
     levels = c("Positive", "Negative"),
     rep = TRUE,
-    interrep = "Site"
+    across = "Site"
   )
 }
 \seealso{

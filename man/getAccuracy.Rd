@@ -117,8 +117,8 @@ tb2 <- reader \%>\%
     bysort = "Sample",
     levels = c("Positive", "Negative"),
     rep = TRUE,
-    interrep = "Site"
+    across = "Site"
   )
-getAccuracy(tb2, ref = "bnr", nr_ci = "wilson")
-getAccuracy(tb2, ref = "bnr", nr_ci = "wilson", rng.seed = 12306)
+getAccuracy(tb2, ref = "bnr")
+getAccuracy(tb2, ref = "bnr", rng.seed = 12306)
 }
