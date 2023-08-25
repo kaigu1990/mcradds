@@ -1,0 +1,55 @@
+---
+title: 'Design: Reader Precision of Immunohistochemistry Assays'
+author: "Kai Gu"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+  markdown: 
+    wrap: sentence
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Reference
+
+> 1.  CLSI I/LA28-A2, "Quality Assurance for Design Control and Implementation of Immunohistochemistry Assays".
+> 2.  VENTANA PD-L1 (SP142) Assay
+
+### Object
+
+In the PDL1 assay trials, we must estimate the reader precision between different readers or reads.
+
+For example, three pathologists evaluated 60 unique urothelial carcinoma specimens (30 PD-L1 ≥ 5% IC and 30 PD-L1 < 5% IC) that were stained with VENTANA PD-L1 (SP142) Assay.
+Readers scored all specimens twice, with a minimum of 2 weeks between reads.
+
+Here we know that we need to estimate the agreement, but we can not use PPA/NPA as the endpoint because both of them must require to define which group is the reference.
+However in this example, between the reader and reads, we all can not say which one is the reference.
+So we need another endpoint like APA/ANA to help us estimate the reader precision.
+
+### Algorithm
+
+I think the APA(average positive agreement) and ANA(average negative agreement) can be regarded as the weighted average of PPA/NPA.
+
+So just following the formula, it's easy to calculate but there are two methods of confidence interval to keep in mind.
+
+-   When the ANA is in the range of 0 to 100% (non-inclusive), we should use Percentile Bootstrap method to compute CI.
+-   When the ANA is equal to 0 or 100%, we should use Transformed Wilson instead.
+
+For the bootstrap method, we can utilize `boot` package to accomplish.
+And for transformed Wilson method, can follow the steps below:
+
+1.  Let ρ represent the calculated average agreement rate (APA or ANA).
+2.  Calculate Upper and Lower bounds of the 2-sided 95% confidence interval around the rate `ρ/(2-ρ)` using the Wilson score method.
+3.  Use the transformation (`2*Lower/(1+Lower)`, `2*Upper/(1+Upper)`) to derive the confidence interval around the estimate of ρ.
+
+### Function
+
+I want to put APA/ANA calculation process into `diagTab` function and `getAccuracy` method so that we can regard this as one part of accuracy section. Thus we need think of one or two arguments in `getAccuracy` method to distinguish the reader precision with other accuracy calculation.
+
+However it's not a convenient way and will cause a bit confused to users because there have been defined other methods in `method` argument. Maybe users will be not sure the which method is used in function. 
