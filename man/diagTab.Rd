@@ -47,7 +47,7 @@ performance and reader precision of downstream analysis.
 \note{
 To be attention that if you would like to generate the 2x2 contingency table
 for reproducibility analysis, the original data should be long structure and
-corresponding formula.
+using the corresponding formula.
 }
 \examples{
 # For qualitative performance with wide data structure
@@ -73,7 +73,7 @@ dummy \%>\%
     levels = c(1, 0)
   )
 
-# For reader precision performance in each site
+# For Between-Reader precision performance
 data("PDL1RP")
 reader <- PDL1RP$btw_reader
 reader \%>\%

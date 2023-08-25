@@ -120,7 +120,7 @@
 #'
 #' This dummy data set is from a PD-L1 HE stained study to estimate the reproducibility
 #' of one assay in determining the PD-L1 status of NSCLC tissue specimens. It
-#' contains three sub-data to compute the reproducibility between read (one pathologists,
+#' contains three sub-data to compute the reproducibility within reader (one pathologists,
 #' also called reader here, scores one specimen three times), between reader (three
 #' readers scores the same specimen) and between site (one reader in three sites
 #' scores the same specimens). These data sets don't have the reference for the each

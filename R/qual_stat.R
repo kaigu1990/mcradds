@@ -26,7 +26,7 @@ NULL
 #' @note
 #' To be attention that if you would like to generate the 2x2 contingency table
 #' for reproducibility analysis, the original data should be long structure and
-#' corresponding formula.
+#' using the corresponding formula.
 #'
 #' @return A object `matrix` contains the 2x2 contingency table.
 #' @export
@@ -57,7 +57,7 @@ NULL
 #'     levels = c(1, 0)
 #'   )
 #'
-#' # For reader precision performance in each site
+#' # For Between-Reader precision performance
 #' data("PDL1RP")
 #' reader <- PDL1RP$btw_reader
 #' reader %>%
@@ -95,6 +95,7 @@ diagTab <- function(formula = ~.,
     if (length(var) == 2) {
       rdat <- h_factor(df, var = var[1], levels = levels)
       cdat <- h_factor(df, var = var[2], levels = levels)
+      dat <- data.frame(rdat, cdat)
       res <- table(rdat, cdat, dnn = c(var[1], var[2]))
     } else {
       stop("If the left of ~ formula is missing, the right of it must have two variables.")
@@ -116,6 +117,7 @@ diagTab <- function(formula = ~.,
       bydf <- data.frame(do.call(rbind, bylist))
       rdat <- h_factor(bydf, var = "value1", levels = levels)
       cdat <- h_factor(bydf, var = "value2", levels = levels)
+      dat <- data.frame(rdat, cdat)
       res <- table(rdat, cdat, dnn = c("Pairwise1", "Pairwise2"))
     } else {
       dflist <- split(df, as.formula(paste("~", grp)))
@@ -126,12 +128,13 @@ diagTab <- function(formula = ~.,
       }
       rdat <- h_factor(dflist[[nms[1]]], var = var, levels = levels)
       cdat <- h_factor(dflist[[nms[2]]], var = var, levels = levels)
+      dat <- data.frame(rdat, cdat)
       res <- table(rdat, cdat, dnn = nms)
     }
   }
 
   object <- MCTab(
-    data = data,
+    data = dat,
     tab = res,
     levels = levels(rdat)
   )
@@ -145,14 +148,36 @@ diagTab <- function(formula = ~.,
 #' Provides a concise summary of the content of [`MCTab`] objects. Computes
 #' sensitivity, specificity, positive and negative predictive values and positive
 #' and negative likelihood ratios for a diagnostic test with reference/gold standard.
-#' Computes positive and negative percent agreement, and overall percent agreement
-#' when the new test is evaluated by comparison to a non-reference standard.
+#' Computes positive/negative percent agreement, and overall percent agreement
+#' when the new test is evaluated by comparison to a non-reference standard. Computes
+#' average positive/negative agreement when the both tests are all not the
+#' reference, such as paired reader precision.
 #'
 #' @param object (`MCTab`)\cr input from [diagTab] function to create 2x2 contingency table.
-#' @param withref (`logical`)\cr weather the comparison test is reference/gold standard or not.
+#' @param ref (`character`)\cr reference condition. It is possible to choose one
+#' condition for your require. The `r` indicates that the comparative test is standard
+#' reference, `nr` indicates the comparative test is not a standard reference, and
+#' `bnr` indicates both the new test and comparative test are not references.
 #' @param alpha (`numeric`)\cr type-I-risk, \eqn{\alpha}.
-#' @param method (`string`)\cr string specifying the which method to use. Default is `wilson`.
-#' Options can be `wilson`, `wald` and `clopper-pearson`, see [DescTools::BinomCI].
+#' @param r_ci (`string`)\cr string specifying which method to calculate the
+#' confidence interval for a diagnostic test with reference/gold standard. Default
+#' is `wilson`. Options can be `wilson`, `wald` and `clopper-pearson`, see [DescTools::BinomCI].
+#' @param nr_ci (`string`)\cr string specifying which method to calculate the
+#' confidence interval for the comparative test with non-reference standard. Default
+#' is `wilson`. Options can be `wilson`, `wald` and `clopper-pearson`, see [DescTools::BinomCI].
+#' @param bnr_ci (`string`)\cr string specifying which method to calculate the
+#' confidence interval for both tests are not reference like reader precision. Default
+#' is `bootstrap`. But when the point estimate of `ANA` or `APA` is equal to 0 or 100%,
+#' the method will be changed to `transformed wilson`.
+#' @param bootCI (`string`)\cr string specifying the which bootstrap confidence
+#' interval from `boot.ci()` function in `boot` package. Default is
+#' `perc`(bootstrap percentile), options can be `norm`(normal approximation),
+#' `boot`(basic bootstrap), `stud`(studentized bootstrap) and `bca`(adjusted
+#' bootstrap percentile).
+#' @param nrep (`integer`)\cr number of replicates for bootstrapping, default is 1000.
+#' @param rng.seed (`integer`)\cr number of the random number generator seed
+#' for bootstrap sampling. If set to NULL currently in the R session used RNG
+#' setting will be used.
 #' @param digits (`integer`)\cr the desired number of digits. Default is 4.
 #' @param ... other arguments to be passed to [DescTools::BinomCI].
 #'
@@ -177,29 +202,60 @@ diagTab <- function(formula = ~.,
 #'  is evaluated by comparison with a comparative method, not reference/gold standard.
 #' - npa: Negative percent agreement, equals to specificity when the candidate method
 #'  is evaluated by comparison with a comparative method, not reference/gold standard.
+#' - opa: Overall percent agreement.
+#' - apa: Average positive agreement refers to the positive agreements and can be
+#'  regarded as weighted ppa.
+#' - ana: Average negative agreement refers to the negative agreements and can be
+#'  regarded as weighted npa.
 #'
 #' @export
 #' @examples
-#' tab <- qualData %>%
+#' # For qualitative performance
+#' tb <- qualData %>%
 #'   diagTab(
 #'     formula = ~ CandidateN + ComparativeN,
 #'     levels = c(1, 0)
 #'   )
-#' getAccuracy(tab, method = "wilson")
-#' getAccuracy(tab, method = "wilson", withref = FALSE)
+#' getAccuracy(tb, ref = "r")
+#' getAccuracy(tb, ref = "nr", nr_ci = "wilson")
+#'
+#' # For Between-Reader precision performance
+#' data("PDL1RP")
+#' reader <- PDL1RP$btw_reader
+#' tb2 <- reader %>%
+#'   diagTab(
+#'     formula = Reader ~ Value,
+#'     bysort = "Sample",
+#'     levels = c("Positive", "Negative"),
+#'     rep = TRUE,
+#'     interrep = "Site"
+#'   )
+#' getAccuracy(tb2, ref = "bnr", nr_ci = "wilson")
+#' getAccuracy(tb2, ref = "bnr", nr_ci = "wilson", rng.seed = 12306)
 setMethod(
   f = "getAccuracy",
   signature = c("MCTab"),
   definition = function(object,
-                        withref = TRUE,
-                        method = c("wilson", "wald", "clopper-pearson"),
+                        ref = c("r", "nr", "bnr"),
                         alpha = 0.05,
+                        r_ci = c("wilson", "wald", "clopper-pearson"),
+                        nr_ci = c("wilson", "wald", "clopper-pearson"),
+                        bnr_ci = "bootstrap",
+                        bootCI = c("perc", "norm", "basic", "stud", "bca"),
+                        nrep = 1000,
+                        rng.seed = NULL,
                         digits = 4,
                         ...) {
     assert_class(object, "MCTab")
-    assert_logical(withref)
-    method <- match.arg(method, c("wilson", "wald", "clopper-pearson"), several.ok = FALSE)
-    assert_choice(method, c("wilson", "wald", "clopper-pearson"))
+    assert_numeric(alpha, lower = 0, upper = 0.2)
+    ref <- match.arg(ref, c("r", "nr", "bnr"), several.ok = FALSE)
+    assert_choice(ref, c("r", "nr", "bnr"))
+    r_ci <- match.arg(r_ci, c("wilson", "wald", "clopper-pearson"), several.ok = FALSE)
+    assert_choice(r_ci, c("wilson", "wald", "clopper-pearson"))
+    nr_ci <- match.arg(nr_ci, c("wilson", "wald", "clopper-pearson"), several.ok = FALSE)
+    assert_choice(nr_ci, c("wilson", "wald", "clopper-pearson"))
+    bootCI <- match.arg(bootCI, c("perc", "norm", "basic", "stud", "bca"), several.ok = FALSE)
+    assert_choice(bootCI, c("perc", "norm", "basic", "stud", "bca"))
 
 
     tp <- object@tab[1, 1]
@@ -208,54 +264,150 @@ setMethod(
     tn <- object@tab[2, 2]
     n <- sum(object@tab)
 
-    # sens (sensitivity)
-    sens <- DescTools::BinomCI(x = tp, n = tp + fn, conf.level = 1 - alpha, method = method, ...)
-    # spec (specificity)
-    spec <- DescTools::BinomCI(x = tn, n = tn + fp, conf.level = 1 - alpha, method = method, ...)
-    # PPV (positive predictive value)
-    ppv <- DescTools::BinomCI(x = tp, n = tp + fp, conf.level = 1 - alpha, method = method, ...)
-    # NPV (negative predictive value)
-    npv <- DescTools::BinomCI(x = tn, n = tn + fn, conf.level = 1 - alpha, method = method, ...)
+    if (ref == "r") {
+      # sens (sensitivity)
+      sens <- DescTools::BinomCI(
+        x = tp, n = tp + fn,
+        conf.level = 1 - alpha,
+        method = r_ci, ...
+      )
+      # spec (specificity)
+      spec <- DescTools::BinomCI(
+        x = tn, n = tn + fp,
+        conf.level = 1 - alpha,
+        method = r_ci, ...
+      )
+      # PPV (positive predictive value)
+      ppv <- DescTools::BinomCI(
+        x = tp, n = tp + fp,
+        conf.level = 1 - alpha,
+        method = r_ci, ...
+      )
+      # NPV (negative predictive value)
+      npv <- DescTools::BinomCI(
+        x = tn, n = tn + fn,
+        conf.level = 1 - alpha,
+        method = r_ci, ...
+      )
 
-    # PLR (positive likelihood ratio)
-    p1 <- sens[1, 1]
-    p2 <- 1 - spec[1, 1]
-    x1 <- tp
-    x2 <- fp
-    plr <- p1 / p2
-    plr_ll <- plr * exp(-1.96 * sqrt((1 - p1) / x1 + (1 - p2) / x2))
-    plr_ul <- plr * exp(+1.96 * sqrt((1 - p1) / x1 + (1 - p2) / x2))
-    plr <- matrix(c(plr, plr_ll, plr_ul), byrow = FALSE, ncol = 3)
+      # PLR (positive likelihood ratio)
+      p1 <- sens[1, 1]
+      p2 <- 1 - spec[1, 1]
+      x1 <- tp
+      x2 <- fp
+      plr <- p1 / p2
+      plr_ll <- plr * exp(-1.96 * sqrt((1 - p1) / x1 + (1 - p2) / x2))
+      plr_ul <- plr * exp(+1.96 * sqrt((1 - p1) / x1 + (1 - p2) / x2))
+      plr <- matrix(c(plr, plr_ll, plr_ul), byrow = FALSE, ncol = 3)
 
-    # NLR(negative likelihood ratio)
-    p1 <- 1 - sens[1, 1]
-    p2 <- spec[1, 1]
-    x1 <- fn
-    x2 <- tn
-    nlr <- p1 / p2
-    nlr_ll <- nlr * exp(-1.96 * sqrt((1 - p1) / x1 + (1 - p2) / x2))
-    nlr_ul <- nlr * exp(+1.96 * sqrt((1 - p1) / x1 + (1 - p2) / x2))
-    nlr <- matrix(c(nlr, nlr_ll, nlr_ul), byrow = FALSE, ncol = 3)
+      # NLR(negative likelihood ratio)
+      p1 <- 1 - sens[1, 1]
+      p2 <- spec[1, 1]
+      x1 <- fn
+      x2 <- tn
+      nlr <- p1 / p2
+      nlr_ll <- nlr * exp(-1.96 * sqrt((1 - p1) / x1 + (1 - p2) / x2))
+      nlr_ul <- nlr * exp(+1.96 * sqrt((1 - p1) / x1 + (1 - p2) / x2))
+      nlr <- matrix(c(nlr, nlr_ll, nlr_ul), byrow = FALSE, ncol = 3)
 
-    # PPA (Positive percent agreement)
-    ppa <- DescTools::BinomCI(x = tp, n = tp + fn, conf.level = 0.95, method = "wilson", ...)
-
-    # NPA (Negative percent agreement)
-    npa <- DescTools::BinomCI(x = tn, n = tn + fp, conf.level = 0.95, method = "wilson", ...)
-
-    # OPA (Overall percent agreement)
-    opa <- DescTools::BinomCI(x = tp + tn, n = n, conf.level = 0.95, method = "wilson", ...)
-
-
-    if (withref) {
       res <- rbind(sens, spec, ppv, npv, plr, nlr)
       row.names(res) <- c("sens", "spec", "ppv", "npv", "plr", "nlr")
-    } else {
+    } else if (ref == "nr") {
+      # PPA (Positive percent agreement)
+      ppa <- DescTools::BinomCI(
+        x = tp, n = tp + fn,
+        conf.level = 1 - alpha,
+        method = nr_ci, ...
+      )
+
+      # NPA (Negative percent agreement)
+      npa <- DescTools::BinomCI(
+        x = tn, n = tn + fp,
+        conf.level = 1 - alpha,
+        method = nr_ci, ...
+      )
+
+      # OPA (Overall percent agreement)
+      opa <- DescTools::BinomCI(
+        x = tp + tn, n = n,
+        conf.level = 1 - alpha,
+        method = nr_ci, ...
+      )
+
       res <- rbind(ppa, npa, opa)
       row.names(res) <- c("ppa", "npa", "opa")
-    }
-    colnames(res) <- c("EST", "LowerCI", "UpperCI")
+    } else if (ref == "bnr") {
+      if (!is.null(rng.seed)) {
+        set.seed(rng.seed)
+      }
+      boot_func <- function(data, ind) {
+        tab <- table(data[ind, "rdat"], data[ind, "cdat"])
 
+        # APA (Average positive agreement)
+        apa <- 2 * tab[1, 1] / (2 * tab[1, 1] + tab[1, 2] + tab[2, 1])
+        # ANA (Average negative agreement)
+        ana <- 2 * tab[2, 2] / (2 * tab[2, 2] + tab[1, 2] + tab[2, 1])
+        # OPA (Overall percent agreement)
+        opa <- (tab[1, 1] + tab[2, 2]) / sum(tab)
+
+        c(apa, ana, opa)
+      }
+      sim <- boot(data = object@data, statistic = boot_func, R = nrep)
+
+      if (is.na(sim$t0[1])) {
+        ci1 <- c(NA, NA)
+      } else if (sim$t0[1] %in% c(0, 100)) {
+        apa_temp <- DescTools::BinomCI(
+          x = tp, n = tp + fp + fn,
+          conf.level = 1 - alpha,
+          method = "wilson", ...
+        )
+        ci1 <- c(
+          2 * apa_temp[1, 2] / (1 + apa_temp[1, 2]),
+          2 * apa_temp[1, 3] / (1 + apa_temp[1, 3])
+        )
+      } else {
+        bci1 <- boot.ci(sim, conf = 1 - alpha, type = bootCI, index = 1)
+        bootlen <- length(bci1[[4]])
+        ci1 <- c(bci1[[4]][bootlen - 1], bci1[[4]][bootlen])
+      }
+
+      if (is.na(sim$t0[2])) {
+        ci2 <- c(NA, NA)
+      } else if (sim$t0[2] %in% c(0, 100)) {
+        ana_temp <- DescTools::BinomCI(
+          x = tn, n = tn + fp + fn,
+          conf.level = 1 - alpha,
+          method = "wilson", ...
+        )
+        ci2 <- c(
+          2 * apa_temp[1, 2] / (1 + apa_temp[1, 2]),
+          2 * apa_temp[1, 3] / (1 + apa_temp[1, 3])
+        )
+      } else {
+        bci2 <- boot.ci(sim, conf = 1 - alpha, type = bootCI, index = 2)
+        bootlen <- length(bci2[[4]])
+        ci2 <- c(bci2[[4]][bootlen - 1], bci2[[4]][bootlen])
+      }
+
+      if (sim$t0[3] %in% c(0, 100)) {
+        opa_temp <- DescTools::BinomCI(
+          x = tp + tn, n = n,
+          conf.level = 1 - alpha,
+          method = "wilson", ...
+        )
+        ci3 <- c(opa_temp[1, 2], opa_temp[1, 3])
+      } else {
+        bci3 <- boot.ci(sim, conf = 1 - alpha, type = bootCI, index = 3)
+        bootlen <- length(bci2[[4]])
+        ci3 <- c(bci3[[4]][bootlen - 1], bci3[[4]][bootlen])
+      }
+
+      res <- cbind(sim$t0, rbind(ci1, ci2, ci3))
+      row.names(res) <- c("apa", "ana", "opa")
+    }
+
+    colnames(res) <- c("EST", "LowerCI", "UpperCI")
     as.data.frame(formatC(res, digits = digits, format = "f"))
   }
 )

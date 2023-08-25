@@ -9,9 +9,14 @@ getAccuracy(object, ...)
 
 \S4method{getAccuracy}{MCTab}(
   object,
-  withref = TRUE,
-  method = c("wilson", "wald", "clopper-pearson"),
+  ref = c("r", "nr", "bnr"),
   alpha = 0.05,
+  r_ci = c("wilson", "wald", "clopper-pearson"),
+  nr_ci = c("wilson", "wald", "clopper-pearson"),
+  bnr_ci = "bootstrap",
+  bootCI = c("perc", "norm", "basic", "stud", "bca"),
+  nrep = 1000,
+  rng.seed = NULL,
   digits = 4,
   ...
 )
@@ -21,12 +26,37 @@ getAccuracy(object, ...)
 
 \item{...}{other arguments to be passed to \link[DescTools:BinomCI]{DescTools::BinomCI}.}
 
-\item{withref}{(\code{logical})\cr weather the comparison test is reference/gold standard or not.}
-
-\item{method}{(\code{string})\cr string specifying the which method to use. Default is \code{wilson}.
-Options can be \code{wilson}, \code{wald} and \code{clopper-pearson}, see \link[DescTools:BinomCI]{DescTools::BinomCI}.}
+\item{ref}{(\code{character})\cr reference condition. It is possible to choose one
+condition for your require. The \code{r} indicates that the comparative test is standard
+reference, \code{nr} indicates the comparative test is not a standard reference, and
+\code{bnr} indicates both the new test and comparative test are not references.}
 
 \item{alpha}{(\code{numeric})\cr type-I-risk, \eqn{\alpha}.}
+
+\item{r_ci}{(\code{string})\cr string specifying which method to calculate the
+confidence interval for a diagnostic test with reference/gold standard. Default
+is \code{wilson}. Options can be \code{wilson}, \code{wald} and \code{clopper-pearson}, see \link[DescTools:BinomCI]{DescTools::BinomCI}.}
+
+\item{nr_ci}{(\code{string})\cr string specifying which method to calculate the
+confidence interval for the comparative test with non-reference standard. Default
+is \code{wilson}. Options can be \code{wilson}, \code{wald} and \code{clopper-pearson}, see \link[DescTools:BinomCI]{DescTools::BinomCI}.}
+
+\item{bnr_ci}{(\code{string})\cr string specifying which method to calculate the
+confidence interval for both tests are not reference like reader precision. Default
+is \code{bootstrap}. But when the point estimate of \code{ANA} or \code{APA} is equal to 0 or 100\%,
+the method will be changed to \verb{transformed wilson}.}
+
+\item{bootCI}{(\code{string})\cr string specifying the which bootstrap confidence
+interval from \code{boot.ci()} function in \code{boot} package. Default is
+\code{perc}(bootstrap percentile), options can be \code{norm}(normal approximation),
+\code{boot}(basic bootstrap), \code{stud}(studentized bootstrap) and \code{bca}(adjusted
+bootstrap percentile).}
+
+\item{nrep}{(\code{integer})\cr number of replicates for bootstrapping, default is 1000.}
+
+\item{rng.seed}{(\code{integer})\cr number of the random number generator seed
+for bootstrap sampling. If set to NULL currently in the R session used RNG
+setting will be used.}
 
 \item{digits}{(\code{integer})\cr the desired number of digits. Default is 4.}
 }
@@ -50,6 +80,11 @@ rate divided by the true negative rate.
 is evaluated by comparison with a comparative method, not reference/gold standard.
 \item npa: Negative percent agreement, equals to specificity when the candidate method
 is evaluated by comparison with a comparative method, not reference/gold standard.
+\item opa: Overall percent agreement.
+\item apa: Average positive agreement refers to the positive agreements and can be
+regarded as weighted ppa.
+\item ana: Average negative agreement refers to the negative agreements and can be
+regarded as weighted npa.
 }
 }
 \description{
@@ -58,15 +93,32 @@ is evaluated by comparison with a comparative method, not reference/gold standar
 Provides a concise summary of the content of \code{\link{MCTab}} objects. Computes
 sensitivity, specificity, positive and negative predictive values and positive
 and negative likelihood ratios for a diagnostic test with reference/gold standard.
-Computes positive and negative percent agreement, and overall percent agreement
-when the new test is evaluated by comparison to a non-reference standard.
+Computes positive/negative percent agreement, and overall percent agreement
+when the new test is evaluated by comparison to a non-reference standard. Computes
+average positive/negative agreement when the both tests are all not the
+reference, such as paired reader precision.
 }
 \examples{
-tab <- qualData \%>\%
+# For qualitative performance
+tb <- qualData \%>\%
   diagTab(
     formula = ~ CandidateN + ComparativeN,
     levels = c(1, 0)
   )
-getAccuracy(tab, method = "wilson")
-getAccuracy(tab, method = "wilson", withref = FALSE)
+getAccuracy(tb, ref = "r")
+getAccuracy(tb, ref = "nr", nr_ci = "wilson")
+
+# For Between-Reader precision performance
+data("PDL1RP")
+reader <- PDL1RP$btw_reader
+tb2 <- reader \%>\%
+  diagTab(
+    formula = Reader ~ Value,
+    bysort = "Sample",
+    levels = c("Positive", "Negative"),
+    rep = TRUE,
+    interrep = "Site"
+  )
+getAccuracy(tb2, ref = "bnr", nr_ci = "wilson")
+getAccuracy(tb2, ref = "bnr", nr_ci = "wilson", rng.seed = 12306)
 }
