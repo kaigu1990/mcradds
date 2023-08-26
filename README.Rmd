@@ -30,16 +30,17 @@ The `mcradds` R package is a complement to `mcr` package, contains common and so
 
 The package provides a series of typical functionality, as shown below:
 
-- Regression methods in method comparison
-- Bland-Altman analysis and plots for numeric data
-- Outlier detection, including 4E method from EP09A2 and ESD method from EP09A3
-- Correlation, adding hypothesis test and confidence interval 
-- Estimating bias in medical decision level
-- Computing Reference Range/Interval from CLSI EP28-A3 or NMPA guideline
-- ROC/AUC for non-inferiority trials
-- Diagnostic accuracy criteria
-- Precision analysis
-- Descriptive statistics, proportion/ratios
+- Estimation of sample size, NMPA guideline.
+- Regression methods in method comparison, CLSI EP09-A3.
+- Bland-Altman analysis and plots for quantitative measurements.
+- Outlier detection, including 4E method from CLSI EP09-A2 and ESD method from CLSI EP09-A3.
+- Correlation, adding hypothesis test and confidence interval.
+- Evaluation of bias in medical decision level, CLSI EP09-A3.
+- Computing Reference Range/Interval, CLSI EP28-A3 and NMPA guideline.
+- Paired ROC/AUC test for superiority and non-inferiority trials, CLSI EP05-A3/EP15-A3.
+- Diagnostic accuracy criteria with/without reference, CLSI EP12-A2.
+- Evaluation of precision of quantitative measurements, CLSI EP05-A3.
+- Reproducibility analysis (reader precision) for immunohistochemical assays, CLSI I/LA28-A2 and NMPA guideline.
 
 ## Installation
 
