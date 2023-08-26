@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">mcradds</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,30 +45,44 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.2.0" id="mcradds-020">mcradds 0.2.0<a class="anchor" aria-label="anchor" href="#mcradds-020"></a></h2>
+<div class="section level4">
+<h4 id="new-features-0-2-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-2-0"></a></h4>
+<ul><li>Added <code>tukey_outlier</code> and <code>dixon_outlier</code> to detect outliers ahead of establishing reference range.</li>
+<li>Added <code>robustRI</code> and <code>nonparRI</code> to compute robust and non-parametric reference range, and integrated into the main program <code>refInterval</code>.</li>
+<li>Wrapped <code>anovaVCA</code> and <code>VCAinference</code> from <code>VCA</code> package to analyze the variance components with ANOVA model.</li>
+<li>Added <code>aucTest</code> to do the AUC test for paired two-sample measurements in the designs of difference, non-inferiority and superiority.</li>
+<li>Added <code>RefInt</code> and <code>tpROC</code> classes and corresponding <code>show</code> method.</li>
+<li>Added <code>calcium</code>, <code>glucose</code>, <code>ldlroc</code> and <code>PDL1RP</code> data sets for example and testing use, and <code>nonparRanks</code> data set for internal function use.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="enhancements-0-2-0">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-2-0"></a></h4>
+<ul><li>Enhanced <code>diagTab</code> and <code>getAccuracy</code> so that they can support the reader precision ananlysis not only qualitative performance.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="miscellaneous-0-2-0">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-0-2-0"></a></h4>
+<ul><li>Added a series of helper function to format and concatenate to string.</li>
+<li>Uniform the capital and lower-case letters in roxygen documents.</li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.0" id="mcradds-010">mcradds 0.1.0<a class="anchor" aria-label="anchor" href="#mcradds-010"></a></h2>
 <ul><li>First release of the <code>mcradds</code> package, contains basic quantitative or qualitative performance methods and functions as shown below.</li>
 </ul><div class="section level5">
 <h5 id="sample-size-0-1-0">Sample Size<a class="anchor" aria-label="anchor" href="#sample-size-0-1-0"></a></h5>
-<ul><li>
-<code>size_one_prop</code> and <code>size_ci_one_prop</code> for sample size of qualitative trials, <code>size_corr</code> and <code>size_ci_corr</code> for quantitative trails.</li>
+<ul><li>Added <code>size_one_prop</code> and <code>size_ci_one_prop</code> for sample size of qualitative trials, <code>size_corr</code> and <code>size_ci_corr</code> for quantitative trails.</li>
 </ul></div>
 <div class="section level5">
 <h5 id="classes-and-datasets-0-1-0">Classes and Datasets<a class="anchor" aria-label="anchor" href="#classes-and-datasets-0-1-0"></a></h5>
-<ul><li>
-<code>SampleSize</code>, <code>MCTab</code> and <code>BAsummary</code> classes for <code>show</code> method.</li>
-<li>
-<code>platelet</code> and <code>qualData</code> data sets for example and testing use.</li>
+<ul><li>Added <code>SampleSize</code>, <code>MCTab</code> and <code>BAsummary</code> classes for <code>show</code> method.</li>
+<li>Added <code>platelet</code> and <code>qualData</code> data sets for example and testing use.</li>
 </ul></div>
 <div class="section level5">
 <h5 id="analyzing-functions-and-methods-0-1-0">Analyzing Functions and Methods<a class="anchor" aria-label="anchor" href="#analyzing-functions-and-methods-0-1-0"></a></h5>
-<ul><li>
-<code>diagTab</code> function to get 2x2 contingency table, and <code>getAccuracy</code> method to compute the qualitative diagnostic accuracy criteria.</li>
-<li>
-<code>blandAltman</code> function to calculate statistics for Bland-Altman, and <code>getOutlier</code> method to detect the potential outliers.</li>
-<li>
-<code>pearsonTest</code> and <code>spearmanTest</code>, more efficient functions to compute the confidence interval and hypothesis test.</li>
-<li>
-<code>mcreg</code> and <code>calcBias</code> methods of <code>mcr</code> package are wrapped for regression analysis.</li>
+<ul><li>Added <code>diagTab</code> function to get 2x2 contingency table, and <code>getAccuracy</code> method to compute the qualitative diagnostic accuracy criteria.</li>
+<li>Added <code>blandAltman</code> function to calculate statistics for Bland-Altman, and <code>getOutlier</code> method to detect the potential outliers.</li>
+<li>Added <code>pearsonTest</code> and <code>spearmanTest</code>, more efficient functions to compute the confidence interval and hypothesis test.</li>
+<li>Added <code>mcreg</code> and <code>calcBias</code> methods of <code>mcr</code> package are wrapped for regression analysis.</li>
 </ul></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

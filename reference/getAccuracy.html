@@ -3,13 +3,17 @@
 Provides a concise summary of the content of MCTab objects. Computes
 sensitivity, specificity, positive and negative predictive values and positive
 and negative likelihood ratios for a diagnostic test with reference/gold standard.
-Computes positive and negative percent agreement, and overall percent agreement
-when the new test is evaluated by comparison to a non-reference standard."><title>Summary Method for MCTab Objects — getAccuracy • mcradds</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Summary Method for MCTab Objects — getAccuracy"><meta property="og:description" content="
+Computes positive/negative percent agreement, and overall percent agreement
+when the new test is evaluated by comparison to a non-reference standard. Computes
+average positive/negative agreement when the both tests are all not the
+reference, such as paired reader precision."><title>Summary Method for MCTab Objects — getAccuracy • mcradds</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Summary Method for MCTab Objects — getAccuracy"><meta property="og:description" content="
 Provides a concise summary of the content of MCTab objects. Computes
 sensitivity, specificity, positive and negative predictive values and positive
 and negative likelihood ratios for a diagnostic test with reference/gold standard.
-Computes positive and negative percent agreement, and overall percent agreement
-when the new test is evaluated by comparison to a non-reference standard."><meta property="og:image" content="https://kaigu1990.github.io/mcradds/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
+Computes positive/negative percent agreement, and overall percent agreement
+when the new test is evaluated by comparison to a non-reference standard. Computes
+average positive/negative agreement when the both tests are all not the
+reference, such as paired reader precision."><meta property="og:image" content="https://kaigu1990.github.io/mcradds/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body>
@@ -20,7 +24,7 @@ when the new test is evaluated by comparison to a non-reference standard."><meta
     
     <a class="navbar-brand me-2" href="../index.html">mcradds</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,8 +64,10 @@ when the new test is evaluated by comparison to a non-reference standard."><meta
 <p>Provides a concise summary of the content of <code><a href="MCTab-class.html">MCTab</a></code> objects. Computes
 sensitivity, specificity, positive and negative predictive values and positive
 and negative likelihood ratios for a diagnostic test with reference/gold standard.
-Computes positive and negative percent agreement, and overall percent agreement
-when the new test is evaluated by comparison to a non-reference standard.</p>
+Computes positive/negative percent agreement, and overall percent agreement
+when the new test is evaluated by comparison to a non-reference standard. Computes
+average positive/negative agreement when the both tests are all not the
+reference, such as paired reader precision.</p>
     </div>
 
     <div class="section level2">
@@ -71,9 +77,14 @@ when the new test is evaluated by comparison to a non-reference standard.</p>
 <span><span class="co"># S4 method for MCTab</span></span>
 <span><span class="fu">getAccuracy</span><span class="op">(</span></span>
 <span>  <span class="va">object</span>,</span>
-<span>  withref <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wilson"</span>, <span class="st">"wald"</span>, <span class="st">"clopper-pearson"</span><span class="op">)</span>,</span>
+<span>  ref <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"r"</span>, <span class="st">"nr"</span>, <span class="st">"bnr"</span><span class="op">)</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>  r_ci <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wilson"</span>, <span class="st">"wald"</span>, <span class="st">"clopper-pearson"</span><span class="op">)</span>,</span>
+<span>  nr_ci <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wilson"</span>, <span class="st">"wald"</span>, <span class="st">"clopper-pearson"</span><span class="op">)</span>,</span>
+<span>  bnr_ci <span class="op">=</span> <span class="st">"bootstrap"</span>,</span>
+<span>  bootCI <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"perc"</span>, <span class="st">"norm"</span>, <span class="st">"basic"</span>, <span class="st">"stud"</span>, <span class="st">"bca"</span><span class="op">)</span>,</span>
+<span>  nrep <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>  rng.seed <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  digits <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -89,17 +100,52 @@ when the new test is evaluated by comparison to a non-reference standard.</p>
 <dd><p>other arguments to be passed to <a href="https://andrisignorell.github.io/DescTools/reference/BinomCI.html" class="external-link">DescTools::BinomCI</a>.</p></dd>
 
 
-<dt>withref</dt>
-<dd><p>(<code>logical</code>)<br> weather the comparison test is reference/gold standard or not.</p></dd>
-
-
-<dt>method</dt>
-<dd><p>(<code>string</code>)<br> string specifying the which method to use. Default is <code>wilson</code>.
-Options can be <code>wilson</code>, <code>wald</code> and <code>clopper-pearson</code>, see <a href="https://andrisignorell.github.io/DescTools/reference/BinomCI.html" class="external-link">DescTools::BinomCI</a>.</p></dd>
+<dt>ref</dt>
+<dd><p>(<code>character</code>)<br> reference condition. It is possible to choose one
+condition for your require. The <code>r</code> indicates that the comparative test is standard
+reference, <code>nr</code> indicates the comparative test is not a standard reference, and
+<code>bnr</code> indicates both the new test and comparative test are not references.</p></dd>
 
 
 <dt>alpha</dt>
 <dd><p>(<code>numeric</code>)<br> type-I-risk, \(\alpha\).</p></dd>
+
+
+<dt>r_ci</dt>
+<dd><p>(<code>string</code>)<br> string specifying which method to calculate the
+confidence interval for a diagnostic test with reference/gold standard. Default
+is <code>wilson</code>. Options can be <code>wilson</code>, <code>wald</code> and <code>clopper-pearson</code>, see <a href="https://andrisignorell.github.io/DescTools/reference/BinomCI.html" class="external-link">DescTools::BinomCI</a>.</p></dd>
+
+
+<dt>nr_ci</dt>
+<dd><p>(<code>string</code>)<br> string specifying which method to calculate the
+confidence interval for the comparative test with non-reference standard. Default
+is <code>wilson</code>. Options can be <code>wilson</code>, <code>wald</code> and <code>clopper-pearson</code>, see <a href="https://andrisignorell.github.io/DescTools/reference/BinomCI.html" class="external-link">DescTools::BinomCI</a>.</p></dd>
+
+
+<dt>bnr_ci</dt>
+<dd><p>(<code>string</code>)<br> string specifying which method to calculate the
+confidence interval for both tests are not reference like reader precision. Default
+is <code>bootstrap</code>. But when the point estimate of <code>ANA</code> or <code>APA</code> is equal to 0 or 100%,
+the method will be changed to <code>transformed wilson</code>.</p></dd>
+
+
+<dt>bootCI</dt>
+<dd><p>(<code>string</code>)<br> string specifying the which bootstrap confidence
+interval from <code>boot.ci()</code> function in <code>boot</code> package. Default is
+<code>perc</code>(bootstrap percentile), options can be <code>norm</code>(normal approximation),
+<code>boot</code>(basic bootstrap), <code>stud</code>(studentized bootstrap) and <code>bca</code>(adjusted
+bootstrap percentile).</p></dd>
+
+
+<dt>nrep</dt>
+<dd><p>(<code>integer</code>)<br> number of replicates for bootstrapping, default is 1000.</p></dd>
+
+
+<dt>rng.seed</dt>
+<dd><p>(<code>integer</code>)<br> number of the random number generator seed
+for bootstrap sampling. If set to NULL currently in the R session used RNG
+setting will be used.</p></dd>
 
 
 <dt>digits</dt>
@@ -127,16 +173,22 @@ rate divided by the true negative rate.</p></li>
 is evaluated by comparison with a comparative method, not reference/gold standard.</p></li>
 <li><p>npa: Negative percent agreement, equals to specificity when the candidate method
 is evaluated by comparison with a comparative method, not reference/gold standard.</p></li>
+<li><p>opa: Overall percent agreement.</p></li>
+<li><p>apa: Average positive agreement refers to the positive agreements and can be
+regarded as weighted ppa.</p></li>
+<li><p>ana: Average negative agreement refers to the negative agreements and can be
+regarded as weighted npa.</p></li>
 </ul></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="va">qualData</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># For qualitative performance</span></span></span>
+<span class="r-in"><span><span class="va">tb</span> <span class="op">&lt;-</span> <span class="va">qualData</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="diagTab.html">diagTab</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    formula <span class="op">=</span> <span class="op">~</span> <span class="va">CandidateN</span> <span class="op">+</span> <span class="va">ComparativeN</span>,</span></span>
-<span class="r-in"><span>    rlevels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>, clevels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">getAccuracy</span><span class="op">(</span><span class="va">tab</span>, method <span class="op">=</span> <span class="st">"wilson"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">getAccuracy</span><span class="op">(</span><span class="va">tb</span>, ref <span class="op">=</span> <span class="st">"r"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         EST LowerCI UpperCI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sens 0.8841  0.8200  0.9274</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> spec 0.8710  0.7655  0.9331</span>
@@ -144,11 +196,33 @@ is evaluated by comparison with a comparative method, not reference/gold standar
 <span class="r-out co"><span class="r-pr">#&gt;</span> npv  0.7714  0.6605  0.8541</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> plr  6.8514  3.5785 13.1181</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> nlr  0.1331  0.0832  0.2131</span>
-<span class="r-in"><span><span class="fu">getAccuracy</span><span class="op">(</span><span class="va">tab</span>, method <span class="op">=</span> <span class="st">"wilson"</span>, withref <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">getAccuracy</span><span class="op">(</span><span class="va">tb</span>, ref <span class="op">=</span> <span class="st">"nr"</span>, nr_ci <span class="op">=</span> <span class="st">"wilson"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        EST LowerCI UpperCI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ppa 0.8841  0.8200  0.9274</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> npa 0.8710  0.7655  0.9331</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> opa 0.8800  0.8277  0.9180</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># For Between-Reader precision performance</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"PDL1RP"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">reader</span> <span class="op">&lt;-</span> <span class="va">PDL1RP</span><span class="op">$</span><span class="va">btw_reader</span></span></span>
+<span class="r-in"><span><span class="va">tb2</span> <span class="op">&lt;-</span> <span class="va">reader</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="diagTab.html">diagTab</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    formula <span class="op">=</span> <span class="va">Reader</span> <span class="op">~</span> <span class="va">Value</span>,</span></span>
+<span class="r-in"><span>    bysort <span class="op">=</span> <span class="st">"Sample"</span>,</span></span>
+<span class="r-in"><span>    levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Positive"</span>, <span class="st">"Negative"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    rep <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>    across <span class="op">=</span> <span class="st">"Site"</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">getAccuracy</span><span class="op">(</span><span class="va">tb2</span>, ref <span class="op">=</span> <span class="st">"bnr"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        EST LowerCI UpperCI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> apa 0.9479  0.9239  0.9696</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ana 0.9540  0.9339  0.9727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> opa 0.9511  0.9311  0.9711</span>
+<span class="r-in"><span><span class="fu">getAccuracy</span><span class="op">(</span><span class="va">tb2</span>, ref <span class="op">=</span> <span class="st">"bnr"</span>, rng.seed <span class="op">=</span> <span class="fl">12306</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        EST LowerCI UpperCI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> apa 0.9479  0.9260  0.9686</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ana 0.9540  0.9342  0.9730</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> opa 0.9511  0.9311  0.9711</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

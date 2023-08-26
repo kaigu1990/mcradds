@@ -8,8 +8,8 @@
 <meta name="description" content="A complement to mcr package, adding methods and functions to 
     analyze the quantitative or qualitative performance for diagnostic tests. 
     And outliers detection, reader precision and reference range are discussed. 
-    Most of the methods and algorithms refer to CLSI recommendations. In 
-    additional, relevant plots are constructed by ggplot statement.">
+    Most of the methods and algorithms refer to CLSI recommendations and NMPA 
+    guidelines. In additional, relevant plots are constructed by ggplot statements.">
 <title>Processing and analyzing of In Vitro Diagnostic Data • mcradds</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -25,8 +25,8 @@
 <meta property="og:description" content="A complement to mcr package, adding methods and functions to 
     analyze the quantitative or qualitative performance for diagnostic tests. 
     And outliers detection, reader precision and reference range are discussed. 
-    Most of the methods and algorithms refer to CLSI recommendations. In 
-    additional, relevant plots are constructed by ggplot statement.">
+    Most of the methods and algorithms refer to CLSI recommendations and NMPA 
+    guidelines. In additional, relevant plots are constructed by ggplot statements.">
 <meta property="og:image" content="https://kaigu1990.github.io/mcradds/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -41,7 +41,7 @@
     
     <a class="navbar-brand me-2" href="index.html">mcradds</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,16 +86,17 @@
 <p>The <code>mcradds</code> R package is a complement to <code>mcr</code> package, contains common and solid functions for designing, analyzing and visualization in In Vitro Diagnostic trials. Most of the methods and algorithms refer to CLSI recommendations and NMPA guidelines.</p>
 <p>The package provides a series of typical functionality, as shown below:</p>
 <ul>
-<li>Regression methods in method comparison</li>
-<li>Bland-Altman analysis and plots for numeric data</li>
-<li>Outlier detection, including 4E method from EP09A2 and ESD method from EP09A3</li>
-<li>Correlation, adding hypothesis test and confidence interval</li>
-<li>Estimating bias in medical decision level</li>
-<li>Computing Reference Range/Interval from CLSI EP28-A3 or NMPA guideline</li>
-<li>ROC/AUC for non-inferiority trials</li>
-<li>Diagnostic accuracy criteria</li>
-<li>Precision analysis</li>
-<li>Descriptive statistics, proportion/ratios</li>
+<li>Estimation of sample size, NMPA guideline.</li>
+<li>Regression methods in method comparison, CLSI EP09-A3.</li>
+<li>Bland-Altman analysis and plots for quantitative measurements.</li>
+<li>Outlier detection, including 4E method from CLSI EP09-A2 and ESD method from CLSI EP09-A3.</li>
+<li>Correlation, adding hypothesis test and confidence interval.</li>
+<li>Evaluation of bias in medical decision level, CLSI EP09-A3.</li>
+<li>Computing Reference Range/Interval, CLSI EP28-A3 and NMPA guideline.</li>
+<li>Paired ROC/AUC test for superiority and non-inferiority trials, CLSI EP05-A3/EP15-A3.</li>
+<li>Diagnostic accuracy criteria with/without reference, CLSI EP12-A2.</li>
+<li>Evaluation of precision of quantitative measurements, CLSI EP05-A3.</li>
+<li>Reproducibility analysis (reader precision) for immunohistochemical assays, CLSI I/LA28-A2 and NMPA guideline.</li>
 </ul>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>

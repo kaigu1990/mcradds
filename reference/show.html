@@ -12,7 +12,7 @@ A show method that displays essential information of objects."><meta property="o
     
     <a class="navbar-brand me-2" href="../index.html">mcradds</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,6 +61,12 @@ A show method that displays essential information of objects."><meta property="o
 <span><span class="fu">show</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for BAsummary</span></span>
+<span><span class="fu">show</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for RefInt</span></span>
+<span><span class="fu">show</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for tpROC</span></span>
 <span><span class="fu">show</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -80,7 +86,8 @@ the console.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="size_one_prop.html">size_one_prop</a></span><span class="op">(</span>p1 <span class="op">=</span> <span class="fl">0.95</span>, p0 <span class="op">=</span> <span class="fl">0.9</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, power <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Sample zie calculation</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="size_one_prop.html">size_one_prop</a></span><span class="op">(</span>p1 <span class="op">=</span> <span class="fl">0.95</span>, p0 <span class="op">=</span> <span class="fl">0.9</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, power <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Sample size determination for one Proportion </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -98,16 +105,18 @@ the console.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    optimal sample size: n = 86 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    r:0.9 lr:0.85 alpha:0.025 interval:c(10, 1e+05) tol:1e-05 alternative:greater</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Get 2x2 Contingency Table</span></span></span>
 <span class="r-in"><span><span class="va">qualData</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="diagTab.html">diagTab</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="op">~</span> <span class="va">CandidateN</span> <span class="op">+</span> <span class="va">ComparativeN</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Contingency Table: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Contingency Table: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   candidate has 2 levels: 0 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   comparative has 2 levels: 0 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> levels: 0 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           ComparativeN</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CandidateN  0   1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          0 54  16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          1  8 122</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CandidateN   0   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          0  54  16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          1   8 122</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Bland-Altman analysis</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"creatinine"</span>, package <span class="op">=</span> <span class="st">"mcr"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="blandAltman.html">blandAltman</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">creatinine</span><span class="op">$</span><span class="va">serum.crea</span>, y <span class="op">=</span> <span class="va">creatinine</span><span class="op">$</span><span class="va">plasma.crea</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                             Absolute.difference Relative.difference</span>
@@ -118,6 +127,49 @@ the console.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Min, Max                       (-0.330,  0.490)    (-0.305,  0.464)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Limit of Agreement             (-0.299,  0.314)    (-0.275,  0.273)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Confidence Interval of Mean    (-0.022,  0.037)    (-0.027,  0.026)</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Reference Interval</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"calcium"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="refInterval.html">refInterval</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">calcium</span><span class="op">$</span><span class="va">Value</span>, RI_method <span class="op">=</span> <span class="st">"nonparametric"</span>, CI_method <span class="op">=</span> <span class="st">"nonparametric"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Reference Interval Method: nonparametric, Confidence Interval Method: nonparametric </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Call: refInterval(x = calcium$Value, RI_method = "nonparametric", CI_method = "nonparametric")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   N = 240</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Outliers: NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Reference Interval: 9.10, 10.30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   RefLower Confidence Interval: 8.9000, 9.2000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Refupper Confidence Interval: 10.3000, 10.4000</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Comparing the Paired ROC when Non-inferiority margin &lt;= -0.1</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ldlroc"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="aucTest.html">aucTest</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  x <span class="op">=</span> <span class="va">ldlroc</span><span class="op">$</span><span class="va">LDL</span>, y <span class="op">=</span> <span class="va">ldlroc</span><span class="op">$</span><span class="va">OxLDL</span>, response <span class="op">=</span> <span class="va">ldlroc</span><span class="op">$</span><span class="va">Diagnosis</span>,</span></span>
+<span class="r-in"><span>  method <span class="op">=</span> <span class="st">"non-inferiority"</span>, h0 <span class="op">=</span> <span class="op">-</span><span class="fl">0.1</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Setting levels: control = 0, case = 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Setting direction: controls &lt; cases</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> The hypothesis for testing non-inferiority based on Paired ROC curve</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Test assay:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Area under the curve: 0.7995</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Standard Error(SE): 0.0620</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   95% Confidence Interval(CI): 0.6781-0.9210 (DeLong)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Reference/standard assay:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Area under the curve: 0.5617</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Standard Error(SE): 0.0836</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   95% Confidence Interval(CI): 0.3979-0.7255 (DeLong)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Comparison of Paired AUC:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Alternative hypothesis: the difference in AUC is non-inferiority to -0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Difference of AUC: 0.2378</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Standard Error(SE): 0.0790</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   95% Confidence Interval(CI): 0.0829-0.3927 (standardized differenec method)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Z: 4.2739</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Pvalue: 9.606e-06</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

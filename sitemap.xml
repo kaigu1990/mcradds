@@ -22,16 +22,37 @@
     <loc>https://kaigu1990.github.io/mcradds/reference/MCTab-class.html</loc>
   </url>
   <url>
+    <loc>https://kaigu1990.github.io/mcradds/reference/PDL1RP.html</loc>
+  </url>
+  <url>
+    <loc>https://kaigu1990.github.io/mcradds/reference/RefInt-class.html</loc>
+  </url>
+  <url>
+    <loc>https://kaigu1990.github.io/mcradds/reference/VCAinference.html</loc>
+  </url>
+  <url>
+    <loc>https://kaigu1990.github.io/mcradds/reference/anovaVCA.html</loc>
+  </url>
+  <url>
+    <loc>https://kaigu1990.github.io/mcradds/reference/aucTest.html</loc>
+  </url>
+  <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/blandAltman.html</loc>
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/calcBias.html</loc>
   </url>
   <url>
+    <loc>https://kaigu1990.github.io/mcradds/reference/calcium.html</loc>
+  </url>
+  <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/cat_with_newline.html</loc>
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/diagTab.html</loc>
+  </url>
+  <url>
+    <loc>https://kaigu1990.github.io/mcradds/reference/dixon_outlier.html</loc>
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/esd.critical.html</loc>
@@ -44,6 +65,9 @@
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/getOutlier.html</loc>
+  </url>
+  <url>
+    <loc>https://kaigu1990.github.io/mcradds/reference/glucose.html</loc>
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/h_difference.html</loc>
@@ -67,10 +91,19 @@
     <loc>https://kaigu1990.github.io/mcradds/reference/index.html</loc>
   </url>
   <url>
+    <loc>https://kaigu1990.github.io/mcradds/reference/ldlroc.html</loc>
+  </url>
+  <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/mcradds-package.html</loc>
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/mcreg.html</loc>
+  </url>
+  <url>
+    <loc>https://kaigu1990.github.io/mcradds/reference/nonparRI.html</loc>
+  </url>
+  <url>
+    <loc>https://kaigu1990.github.io/mcradds/reference/nonparRanks.html</loc>
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/pearsonTest.html</loc>
@@ -86,6 +119,12 @@
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/qualData.html</loc>
+  </url>
+  <url>
+    <loc>https://kaigu1990.github.io/mcradds/reference/refInterval.html</loc>
+  </url>
+  <url>
+    <loc>https://kaigu1990.github.io/mcradds/reference/robustRI.html</loc>
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/samplesize-class.html</loc>
@@ -107,5 +146,11 @@
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/spearmanTest.html</loc>
+  </url>
+  <url>
+    <loc>https://kaigu1990.github.io/mcradds/reference/tpROC-class.html</loc>
+  </url>
+  <url>
+    <loc>https://kaigu1990.github.io/mcradds/reference/tukey_outlier.html</loc>
   </url>
 </urlset>
