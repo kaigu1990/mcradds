@@ -29,6 +29,9 @@
 #'
 #' # with sample id as input sid
 #' blandAltman(x = platelet$Comparative, y = platelet$Candidate, sid = platelet$Sample)
+#'
+#' # Specifiy the type for difference
+#' blandAltman(x = platelet$Comparative, y = platelet$Candidate, type1 = 1, type2 = 4)
 blandAltman <- function(x, y, sid = NULL, type1 = 3, type2 = 5, conf.level = 0.95) {
   assert_numeric(x)
   assert_numeric(x)
@@ -53,11 +56,17 @@ blandAltman <- function(x, y, sid = NULL, type1 = 3, type2 = 5, conf.level = 0.9
   rownames(ba_tab) <- c("absolute_difference", "relative_difference")
 
   BAsummary(
+    call = match.call(),
     data = data,
     stat = list(
       tab = ba_tab,
       absolute_diff = abs_diff[, "y_ba"],
       relative_diff = rel_diff[, "y_ba"]
+    ),
+    param = list(
+      type1 = type1,
+      type2 = type2,
+      conf.level = conf.level
     )
   )
 }

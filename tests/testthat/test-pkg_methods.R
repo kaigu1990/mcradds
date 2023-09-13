@@ -13,6 +13,8 @@ test_that("show works as expected for BAsummary object", {
   data("platelet")
   object <- blandAltman(x = platelet$Comparative, y = platelet$Candidate)
   result <- capture_output(show(object))
+  expect_match(result, "Absolute difference type:  Y-X", fixed = TRUE)
+  expect_match(result, "Relative difference type:  (Y-X)/(0.5*(X+Y))", fixed = TRUE)
   expect_match(result, "Absolute.difference Relative.difference", fixed = TRUE)
   expect_match(result, "Mean (SD)                        7.330 (15.990)", fixed = TRUE)
   expect_match(result, "Limit of Agreement            (-24.011, 38.671)", fixed = TRUE)

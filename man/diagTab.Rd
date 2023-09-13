@@ -32,7 +32,7 @@ table in first variable, and col name in second variable.}
 
 \item{levels}{(\code{vector})\cr a vector of known levels for measurements.}
 
-\item{rep}{(\code{logical})\cr weather to implement the reproducibility like reader
+\item{rep}{(\code{logical})\cr whether to implement the reproducibility like reader
 precision or not.}
 
 \item{across}{(\code{string})\cr the across variable to split original data set to

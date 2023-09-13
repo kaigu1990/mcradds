@@ -20,7 +20,7 @@ NULL
 #' @param dimname (`vector`)\cr a character vector define the row name of contingency
 #' table in first variable, and col name in second variable.
 #' @param levels (`vector`)\cr a vector of known levels for measurements.
-#' @param rep (`logical`)\cr weather to implement the reproducibility like reader
+#' @param rep (`logical`)\cr whether to implement the reproducibility like reader
 #' precision or not.
 #' @param across (`string`)\cr the across variable to split original data set to
 #' subsets. The between-reader and within-reader precision's across variable
