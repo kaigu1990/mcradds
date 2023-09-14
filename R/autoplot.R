@@ -22,10 +22,15 @@ NULL
 #' @param label.digits (`integer`)\cr the number of digits after the decimal point.
 #' @param label.params (`list`)\cr parameters (color, size, fontface) for the
 #'  argument 'label'.
+#' @param x.nbreak,y.nbreak (`integer`)\cr an integer guiding the number of major
+#'  breaks of X/Y axis.
 #' @param x.title,y.title,main.title (`string`)\cr the x axis, y axis and main
 #'  title of plot.
 #'
 #' @seealso [h_difference()] to see the type details.
+#'
+#' @note If you'd like to alter any part that this `autoplot` function haven't
+#'  provided, adding other `ggplot` statements are suggested.
 #'
 #' @return A `ggplot` based Bland-Altman plot that can be easily customized using
 #' additional `ggplot` functions.
@@ -67,12 +72,13 @@ NULL
 #'   ref.line.params = list(col = "grey"),
 #'   loa.line.params = list(col = "grey"),
 #'   label.digits = 2,
-#'   label.params = list(col = "grey", size = 3)
+#'   label.params = list(col = "grey", size = 3, fontface = "italic")
 #' )
 #'
-#' # Add main title, X and Y axis titles
+#' # Add main title, X and Y axis titles, and adjust X ticks.
 #' autoplot(object,
 #'   type = "absolute",
+#'   x.nbreak = 6,
 #'   main.title = "Bland-Altman Plot",
 #'   x.title = "Mean of Test and Reference Methods",
 #'   y.title = "Reference - Test"
@@ -96,6 +102,8 @@ setMethod(
                         label = TRUE,
                         label.digits = 4,
                         label.params = list(col = "black", size = 4),
+                        x.nbreak = NULL,
+                        y.nbreak = NULL,
                         x.title = NULL,
                         y.title = NULL,
                         main.title = NULL) {
@@ -111,6 +119,12 @@ setMethod(
     assert_logical(loa.line)
     assert_logical(label)
     assert_int(label.digits)
+    assert_int(x.nbreak, null.ok = TRUE)
+    assert_int(x.nbreak, null.ok = TRUE)
+    assert_subset(names(ref.line.params), c("col", "linetype", "size"))
+    assert_subset(names(ci.line.params), c("col", "linetype", "size"))
+    assert_subset(names(loa.line.params), c("col", "linetype", "size"))
+    assert_subset(names(label.params), c("col", "size", "fontface"))
 
     x <- object@data$x
     y <- object@data$y
@@ -172,13 +186,12 @@ setMethod(
     }
 
     if (ref.line) {
-      # p <- p + geom_hline(yintercept = statmat["mean"], syms(ref_line_param)[[1]])
       p <- p +
         geom_hline(
           yintercept = statmat["mean"],
-          col = ifelse(is.null(ref.line.params[["col"]]), 1, ref.line.params[["col"]]),
-          linetype = ifelse(is.null(ref.line.params[["linetype"]]), 1, ref.line.params[["linetype"]]),
-          size = ifelse(is.null(ref.line.params[["size"]]), 0.9, ref.line.params[["size"]])
+          col = if (is.null(ref.line.params[["col"]])) 1 else ref.line.params[["col"]],
+          linetype = if (is.null(ref.line.params[["linetype"]])) 1 else ref.line.params[["linetype"]],
+          size = if (is.null(ref.line.params[["size"]])) 0.9 else ref.line.params[["size"]]
         )
 
       if (label) {
@@ -186,9 +199,9 @@ setMethod(
           geom_text(
             x = Inf, y = statmat[["mean"]] + mgn, hjust = 1,
             label = paste0("Mean = ", formatC(statmat[["mean"]], format = "f", label.digits)),
-            col = ifelse(is.null(label.params[["col"]]), 1, label.params[["col"]]),
-            size = ifelse(is.null(label.params[["size"]]), 4, label.params[["size"]]),
-            fontface = ifelse(is.null(label.params[["fontface"]]), "plain", label.params[["fontface"]])
+            col = if (is.null(label.params[["col"]])) 1 else label.params[["col"]],
+            size = if (is.null(label.params[["size"]])) 4 else label.params[["size"]],
+            fontface = if (is.null(label.params[["fontface"]])) "plain" else label.params[["fontface"]]
           )
       }
     }
@@ -197,15 +210,15 @@ setMethod(
       p <- p +
         geom_hline(
           yintercept = statmat["ci_lr"],
-          col = ifelse(is.null(ci.line.params[["col"]]), 1, ci.line.params[["col"]]),
-          linetype = ifelse(is.null(ci.line.params[["linetype"]]), 1, ci.line.params[["linetype"]]),
-          size = ifelse(is.null(ci.line.params[["size"]]), 0.8, ci.line.params[["size"]])
+          col = if (is.null(ci.line.params[["col"]])) 1 else ci.line.params[["col"]],
+          linetype = if (is.null(ci.line.params[["linetype"]])) 1 else ci.line.params[["linetype"]],
+          size = if (is.null(ci.line.params[["size"]])) 0.8 else ci.line.params[["size"]]
         ) +
         geom_hline(
           yintercept = statmat["ci_ur"],
-          col = ifelse(is.null(ci.line.params[["col"]]), 1, ci.line.params[["col"]]),
-          linetype = ifelse(is.null(ci.line.params[["linetype"]]), 1, ci.line.params[["linetype"]]),
-          size = ifelse(is.null(ci.line.params[["size"]]), 0.8, ci.line.params[["size"]])
+          col = if (is.null(ci.line.params[["col"]])) 1 else ci.line.params[["col"]],
+          linetype = if (is.null(ci.line.params[["linetype"]])) 1 else ci.line.params[["linetype"]],
+          size = if (is.null(ci.line.params[["size"]])) 0.8 else ci.line.params[["size"]]
         )
 
       if (label) {
@@ -213,14 +226,16 @@ setMethod(
           geom_text(
             x = Inf, y = statmat[["ci_lr"]] + mgn, hjust = 1,
             label = paste0("Lower CI = ", formatC(statmat[["ci_lr"]], format = "f", label.digits)),
-            col = ifelse(is.null(label.params[["col"]]), 1, label.params[["col"]]),
-            size = ifelse(is.null(label.params[["size"]]), 4, label.params[["size"]])
+            col = if (is.null(label.params[["col"]])) 1 else label.params[["col"]],
+            size = if (is.null(label.params[["size"]])) 4 else label.params[["size"]],
+            fontface = if (is.null(label.params[["fontface"]])) "plain" else label.params[["fontface"]]
           ) +
           geom_text(
             x = Inf, y = statmat[["ci_ur"]] + mgn, hjust = 1,
             label = paste0("Upper CI = ", formatC(statmat[["ci_ur"]], format = "f", label.digits)),
-            col = ifelse(is.null(label.params[["col"]]), 1, label.params[["col"]]),
-            size = ifelse(is.null(label.params[["size"]]), 4, label.params[["size"]])
+            col = if (is.null(label.params[["col"]])) 1 else label.params[["col"]],
+            size = if (is.null(label.params[["size"]])) 4 else label.params[["size"]],
+            fontface = if (is.null(label.params[["fontface"]])) "plain" else label.params[["fontface"]]
           )
       }
     }
@@ -229,15 +244,15 @@ setMethod(
       p <- p +
         geom_hline(
           yintercept = statmat["limit_lr"],
-          col = ifelse(is.null(loa.line.params[["col"]]), 1, loa.line.params[["col"]]),
-          linetype = ifelse(is.null(loa.line.params[["linetype"]]), 1, loa.line.params[["linetype"]]),
-          size = ifelse(is.null(loa.line.params[["size"]]), 0.8, loa.line.params[["size"]])
+          col = if (is.null(loa.line.params[["col"]])) 1 else loa.line.params[["col"]],
+          linetype = if (is.null(loa.line.params[["linetype"]])) 1 else loa.line.params[["linetype"]],
+          size = if (is.null(loa.line.params[["size"]])) 0.8 else loa.line.params[["size"]]
         ) +
         geom_hline(
           yintercept = statmat["limit_ur"],
-          col = ifelse(is.null(loa.line.params[["col"]]), 1, loa.line.params[["col"]]),
-          linetype = ifelse(is.null(loa.line.params[["linetype"]]), 1, loa.line.params[["linetype"]]),
-          size = ifelse(is.null(loa.line.params[["size"]]), 0.8, loa.line.params[["size"]])
+          col = if (is.null(loa.line.params[["col"]])) 1 else loa.line.params[["col"]],
+          linetype = if (is.null(loa.line.params[["linetype"]])) 1 else loa.line.params[["linetype"]],
+          size = if (is.null(loa.line.params[["size"]])) 0.8 else loa.line.params[["size"]]
         )
 
       if (label) {
@@ -245,27 +260,37 @@ setMethod(
           geom_text(
             x = Inf, y = statmat[["limit_lr"]] + mgn, hjust = 1,
             label = paste0("Lower LoA = ", formatC(statmat[["limit_lr"]], format = "f", label.digits)),
-            col = ifelse(is.null(label.params[["col"]]), 1, label.params[["col"]]),
-            size = ifelse(is.null(label.params[["size"]]), 4, label.params[["size"]])
+            col = if (is.null(label.params[["col"]])) 1 else label.params[["col"]],
+            size = if (is.null(label.params[["size"]])) 4 else label.params[["size"]],
+            fontface = if (is.null(label.params[["fontface"]])) "plain" else label.params[["fontface"]]
           ) +
           geom_text(
             x = Inf, y = statmat[["limit_ur"]] + mgn, hjust = 1,
             label = paste0("Upper LoA = ", formatC(statmat[["limit_ur"]], format = "f", label.digits)),
-            col = ifelse(is.null(label.params[["col"]]), 1, label.params[["col"]]),
-            size = ifelse(is.null(label.params[["size"]]), 4, label.params[["size"]])
+            col = if (is.null(label.params[["col"]])) 1 else label.params[["col"]],
+            size = if (is.null(label.params[["size"]])) 4 else label.params[["size"]],
+            fontface = if (is.null(label.params[["fontface"]])) "plain" else label.params[["fontface"]]
           )
       }
     }
 
-    p <- p + ggplot2::labs(x = x.title, y = y.title, title = main.title)
-
     p <- p +
-      xlim(c(0, xrange[2] + diff(xrange) * 0.1)) +
-      ylim(c(-1, 1) * max(abs(yrange)) * 1.1)
+      ggplot2::labs(x = x.title, y = y.title, title = main.title) +
+      scale_x_continuous(
+        limits = c(0, xrange[2] + diff(xrange) / 50),
+        breaks = if (is.null(x.nbreak)) scales::pretty_breaks(6) else waiver(),
+        n.breaks = x.nbreak
+      ) +
+      scale_y_continuous(
+        limits = c(c(-1, 1) * (max(abs(yrange)) + diff(yrange) / 50)),
+        breaks = if (is.null(y.nbreak)) scales::pretty_breaks(6) else waiver(),
+        n.breaks = y.nbreak
+      )
 
     p <- p +
       theme_light() +
       theme(
+        plot.title = element_text(hjust = 0.5),
         axis.title.x = element_text(size = 12, margin = margin(c(5, 0, 0, 0))),
         axis.title.y = element_text(size = 12, margin = margin(c(0, 5, 0, 0))),
         plot.margin = margin(c(15, 15, 10, 10))
