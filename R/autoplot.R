@@ -3,7 +3,6 @@ NULL
 
 #' @rdname autoplot
 #'
-#' @param object (`BAsummary`)\cr input.
 #' @param type (`string`)\cr difference type from input, default is 'absolute'.
 #' @param color,fill (`string`)\cr point colors.
 #' @param size (`numeric`)\cr the size of points.
@@ -19,21 +18,16 @@ NULL
 #'  eg. ref.line.params = list(col = "blue", linetype = "solid", size = 1).
 #' @param label (`logical`)\cr whether to add specific value label for each line
 #'  (ref.line, ci.line and loa.line). Only be shown when the line is defined as TRUE.
-#' @param label.digits (`integer`)\cr the number of digits after the decimal point.
+#' @param label.digits (`integer`)\cr the number of digits after the decimal point
+#'  in the each label.
 #' @param label.params (`list`)\cr parameters (color, size, fontface) for the
 #'  argument 'label'.
 #' @param x.nbreak,y.nbreak (`integer`)\cr an integer guiding the number of major
-#'  breaks of X/Y axis.
-#' @param x.title,y.title,main.title (`string`)\cr the x axis, y axis and main
+#'  breaks of x-axis and y-axis.
+#' @param x.title,y.title,main.title (`string`)\cr the x-axis, y-axis and main
 #'  title of plot.
 #'
 #' @seealso [h_difference()] to see the type details.
-#'
-#' @note If you'd like to alter any part that this `autoplot` function haven't
-#'  provided, adding other `ggplot` statements are suggested.
-#'
-#' @return A `ggplot` based Bland-Altman plot that can be easily customized using
-#' additional `ggplot` functions.
 #'
 #' @export
 #'
@@ -287,7 +281,7 @@ setMethod(
         n.breaks = y.nbreak
       )
 
-    p <- p +
+    p +
       theme_light() +
       theme(
         plot.title = element_text(hjust = 0.5),
@@ -295,6 +289,178 @@ setMethod(
         axis.title.y = element_text(size = 12, margin = margin(c(0, 5, 0, 0))),
         plot.margin = margin(c(15, 15, 10, 10))
       )
-    p
+  }
+)
+
+#' @rdname autoplot
+#'
+#' @param identity (`logical`)\cr whether to add identity line, default is TRUE.
+#' @param reg (`logical`)\cr whether to add regression line where the slope and
+#'  intercept are obtained from [mcr::mcreg()] function, default is TRUE.
+#' @param identity.params,reg.params (`list`)\cr parameters (color, linetype)
+#'  for the argument 'identity' and 'reg'; eg. identity.params = list(col = "gray",
+#'  linetype = "dashed").
+#' @param equal.axis (`logical`)\cr whether to adjust the ranges of x-axis and y-axis
+#'  are identical. If `equal.axis = TRUE`, x-axis will be equal to y-axis.
+#' @param legend.title (`logical`)\cr whether to present the title in the legend.
+#' @param legend.digits (`integer`)\cr the number of digits after the decimal point
+#'  in the legend.
+#'
+#' @seealso [mcr::mcreg()] to see the regression parameters.
+#'
+#' @export
+#'
+#' @examples
+#'
+#' # Using the default arguments for regression plot
+#' data(creatinine, package = "mcr")
+#' fit <- mcreg(
+#'   x = platelet$Comparative, y = platelet$Candidate,
+#'   method.reg = "Deming", method.ci = "jackknife"
+#' )
+#' autoplot(fit)
+#'
+#' # Only present the regression line and alter the color and shape.
+#' autoplot(fit,
+#'   identity = FALSE,
+#'   reg.params = list(col = "grey", linetype = "dashed"),
+#'   legend.title = FALSE,
+#'   legend.digits = 4
+#' )
+setMethod(
+  f = "autoplot",
+  signature = c("MCResult"),
+  definition = function(object,
+                        color = "black",
+                        fill = "lightgray",
+                        size = 1.5,
+                        shape = 21,
+                        jitter = FALSE,
+                        identity = TRUE,
+                        identity.params = list(col = "gray", linetype = "dashed"),
+                        reg = TRUE,
+                        reg.params = list(col = "blue", linetype = "solid"),
+                        equal.axis = FALSE,
+                        legend.title = TRUE,
+                        legend.digits = 2,
+                        x.title = NULL,
+                        y.title = NULL,
+                        main.title = NULL) {
+    assert_class(object, "MCResult")
+
+    df <- object@data %>% na.omit()
+    xrange <- range(df[["x"]])
+    yrange <- range(df[["y"]])
+
+    slope <- formatC(object@glob.coef[2], format = "f", legend.digits)
+    intercept <- formatC(object@glob.coef[1], format = "f", legend.digits)
+    fm_text <- paste0("Y = ", slope, " * X + ", intercept)
+
+    p <- ggplot(data = df, aes(x = x, y = y))
+
+    if (jitter) {
+      p <- p + geom_point(
+        position = "jitter", color = color, fill = fill,
+        size = size, shape = shape
+      )
+    } else {
+      p <- p + geom_point(
+        color = color, fill = fill,
+        size = size, shape = shape
+      )
+    }
+
+    if (reg) {
+      p <- p +
+        geom_abline(
+          aes(
+            slope = as.numeric(slope), intercept = as.numeric(intercept),
+            linetype = fm_text, color = fm_text
+          ),
+          key_glyph = draw_key_path
+        )
+    }
+
+    if (identity) {
+      p <- p +
+        geom_abline(
+          aes(
+            slope = 1, intercept = 0,
+            linetype = "Identity", color = "Identity"
+          ),
+          key_glyph = draw_key_path
+        )
+    }
+
+    legend_title <- paste0(
+      object@regmeth, " RegressionFit", " (n=", nrow(object@data), ")"
+    )
+    shapes <- stats::setNames(
+      c(
+        ifelse(is.null(reg.params[["linetype"]]), 1 , reg.params[["linetype"]]),
+        ifelse(is.null(identity.params[["linetype"]]), 1 , identity.params[["linetype"]])
+      ),
+      c(fm_text, "Identity")
+    )
+    cols <- stats::setNames(
+      c(
+        ifelse(is.null(reg.params[["col"]]), 1, reg.params[["col"]]),
+        ifelse(is.null(identity.params[["col"]]), 1 , identity.params[["col"]])
+      ),
+      c(fm_text, "Identity")
+    )
+    p <- p +
+      scale_linetype_manual(
+        name = legend_title,
+        values = shapes
+      ) +
+      scale_color_manual(
+        name = legend_title,
+        values = cols
+      )
+
+    p <- p + ggplot2::labs(
+      x = object@mnames[1], y = object@mnames[2], title = main.title
+    )
+
+    if (equal.axis) {
+      max_axis <- max(xrange[2] + diff(xrange) * 0.1, yrange[2] + diff(yrange) * 0.1)
+      p <- p +
+        scale_x_continuous(
+          limits = c(0, max_axis),
+          breaks = if (is.null(x.nbreak)) scales::pretty_breaks(6) else waiver(),
+          n.breaks = x.nbreak
+        ) +
+        scale_y_continuous(
+          limits = c(0, max_axis),
+          breaks = if (is.null(y.nbreak)) scales::pretty_breaks(6) else waiver(),
+          n.breaks = y.nbreak
+        )
+    } else {
+      p <- p +
+        scale_x_continuous(
+          limits = c(0, xrange[2] + diff(xrange) * 0.1),
+          breaks = if (is.null(x.nbreak)) scales::pretty_breaks(6) else waiver(),
+          n.breaks = x.nbreak
+        ) +
+        scale_y_continuous(
+          limits = c(0, yrange[2] + diff(yrange) * 0.1),
+          breaks = if (is.null(y.nbreak)) scales::pretty_breaks(6) else waiver(),
+          n.breaks = y.nbreak
+        )
+    }
+
+    p +
+      theme_light() +
+      theme(
+        legend.position = c(0.02, 0.98),
+        legend.justification = c("left", "top"),
+        legend.background = element_rect(fill = "transparent"),
+        legend.title = if (!legend.title) element_blank(),
+        plot.title = element_text(hjust = 0.5),
+        axis.title.x = element_text(size = 12, margin = margin(c(5, 0, 0, 0))),
+        axis.title.y = element_text(size = 12, margin = margin(c(0, 5, 0, 0))),
+        plot.margin = margin(c(15, 15, 10, 10))
+      )
   }
 )

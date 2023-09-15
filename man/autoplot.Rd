@@ -3,6 +3,7 @@
 \name{autoplot}
 \alias{autoplot}
 \alias{autoplot,BAsummary-method}
+\alias{autoplot,MCResult-method}
 \title{Generate a \code{ggplot} for Bland-Altman Plot and Regression Plot}
 \usage{
 autoplot(object, ...)
@@ -24,13 +25,35 @@ autoplot(object, ...)
   label = TRUE,
   label.digits = 4,
   label.params = list(col = "black", size = 4),
+  x.nbreak = NULL,
+  y.nbreak = NULL,
+  x.title = NULL,
+  y.title = NULL,
+  main.title = NULL
+)
+
+\S4method{autoplot}{MCResult}(
+  object,
+  color = "black",
+  fill = "lightgray",
+  size = 1.5,
+  shape = 21,
+  jitter = FALSE,
+  identity = TRUE,
+  identity.params = list(col = "gray", linetype = "dashed"),
+  reg = TRUE,
+  reg.params = list(col = "blue", linetype = "solid"),
+  equal.axis = FALSE,
+  legend.title = TRUE,
+  legend.digits = 2,
   x.title = NULL,
   y.title = NULL,
   main.title = NULL
 )
 }
 \arguments{
-\item{object}{(\code{BAsummary})\cr input.}
+\item{object}{(\code{BAsummary}, \code{MCResult})\cr input, depending on which function
+you have done, \code{blandAltman()} or \code{mcreg()}.}
 
 \item{type}{(\code{string})\cr difference type from input, default is 'absolute'.}
 
@@ -57,17 +80,38 @@ default is FALSE.}
 \item{label}{(\code{logical})\cr whether to add specific value label for each line
 (ref.line, ci.line and loa.line). Only be shown when the line is defined as TRUE.}
 
-\item{label.digits}{(\code{integer})\cr the number of digits after the decimal point.}
+\item{label.digits}{(\code{integer})\cr the number of digits after the decimal point
+in the each label.}
 
 \item{label.params}{(\code{list})\cr parameters (color, size, fontface) for the
 argument 'label'.}
 
-\item{x.title, y.title, main.title}{(\code{string})\cr the x axis, y axis and main
+\item{x.nbreak, y.nbreak}{(\code{integer})\cr an integer guiding the number of major
+breaks of x-axis and y-axis.}
+
+\item{x.title, y.title, main.title}{(\code{string})\cr the x-axis, y-axis and main
 title of plot.}
+
+\item{identity}{(\code{logical})\cr whether to add identity line, default is TRUE.}
+
+\item{identity.params, reg.params}{(\code{list})\cr parameters (color, linetype)
+for the argument 'identity' and 'reg'; eg. identity.params = list(col = "gray",
+linetype = "dashed").}
+
+\item{reg}{(\code{logical})\cr whether to add regression line where the slope and
+intercept are obtained from \code{\link[mcr:mcreg]{mcr::mcreg()}} function, default is TRUE.}
+
+\item{equal.axis}{(\code{logical})\cr whether to adjust the ranges of x-axis and y-axis
+are identical. If \code{equal.axis = TRUE}, x-axis will be equal to y-axis.}
+
+\item{legend.title}{(\code{logical})\cr whether to present the title in the legend.}
+
+\item{legend.digits}{(\code{integer})\cr the number of digits after the decimal point
+in the legend.}
 }
 \value{
-A \code{ggplot} based Bland-Altman plot that can be easily customized using
-additional \code{ggplot} functions.
+A \code{ggplot} based Bland-Altman plot or regression plot that can be
+easily customized using additional \code{ggplot} functions.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
@@ -75,6 +119,10 @@ additional \code{ggplot} functions.
 Draw a ggplot-based difference Bland-Altman plot of reference assay vs. test assay
 for \code{BAsummary} object, and a regression plot for \code{MCResult}. Also Providing
 the necessary and useful option arguments for presentation.
+}
+\note{
+If you'd like to alter any part that this \code{autoplot} function haven't
+provided, adding other \code{ggplot} statements are suggested.
 }
 \examples{
 # Using creatinine dataset from `mcr` package
@@ -111,17 +159,36 @@ autoplot(object,
   ref.line.params = list(col = "grey"),
   loa.line.params = list(col = "grey"),
   label.digits = 2,
-  label.params = list(col = "grey", size = 3)
+  label.params = list(col = "grey", size = 3, fontface = "italic")
 )
 
-# Add main title, X and Y axis titles
+# Add main title, X and Y axis titles, and adjust X ticks.
 autoplot(object,
   type = "absolute",
+  x.nbreak = 6,
   main.title = "Bland-Altman Plot",
   x.title = "Mean of Test and Reference Methods",
   y.title = "Reference - Test"
 )
+
+# Using the default arguments for regression plot
+data(creatinine, package = "mcr")
+fit <- mcreg(
+  x = platelet$Comparative, y = platelet$Candidate,
+  method.reg = "Deming", method.ci = "jackknife"
+)
+autoplot(fit)
+
+# Only present the regression line and alter the color and shape.
+autoplot(fit,
+  identity = FALSE,
+  reg.params = list(col = "grey", linetype = "dashed"),
+  legend.title = FALSE,
+  legend.digits = 4
+)
 }
 \seealso{
 \code{\link[=h_difference]{h_difference()}} to see the type details.
+
+\code{\link[mcr:mcreg]{mcr::mcreg()}} to see the regression parameters.
 }

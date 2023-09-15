@@ -340,6 +340,15 @@ setMethod(
 #' for `BAsummary` object, and a regression plot for `MCResult`. Also Providing
 #' the necessary and useful option arguments for presentation.
 #'
+#' @param object (`BAsummary`, `MCResult`)\cr input, depending on which function
+#'  you have done, `blandAltman()` or `mcreg()`.
+#'
+#' @note If you'd like to alter any part that this `autoplot` function haven't
+#'  provided, adding other `ggplot` statements are suggested.
+#'
+#' @return A `ggplot` based Bland-Altman plot or regression plot that can be
+#'  easily customized using additional `ggplot` functions.
+#'
 #' @rdname autoplot
 #' @aliases autoplot
 #'
