@@ -209,7 +209,7 @@ setGeneric("getAccuracy", function(object, ...) standardGeneric("getAccuracy"))
 # getOutlier ----
 
 #' @rdname getOutlier
-#' @param ... additional arguments.
+#' @param ... not used.
 setGeneric("getOutlier", function(object, ...) standardGeneric("getOutlier"))
 
 #' Detect Outliers From `BAsummary` Object
@@ -342,6 +342,7 @@ setMethod(
 #'
 #' @param object (`BAsummary`, `MCResult`)\cr input, depending on which function
 #'  you have done, `blandAltman()` or `mcreg()`.
+#' @param ... not used.
 #'
 #' @note If you'd like to alter any part that this `autoplot` function haven't
 #'  provided, adding other `ggplot` statements are suggested.

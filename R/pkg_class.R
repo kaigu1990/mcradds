@@ -132,6 +132,7 @@ setClass(
 
 #' @rdname BAsummary-class
 #'
+#' @param call (`call`)\cr function call.
 #' @param data (`data.frame`)\cr stores the raw data from input.
 #' @param stat (`list`)\cr contains several statistics for numeric data.
 #' @param param (`list`)\cr list of relevant parameters.

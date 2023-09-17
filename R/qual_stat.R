@@ -1,6 +1,3 @@
-#' @include pkg_methods.R
-NULL
-
 #' Creates Contingency Table
 #'
 #' @description `r lifecycle::badge("experimental")`

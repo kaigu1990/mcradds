@@ -46,6 +46,8 @@ autoplot(object, ...)
   equal.axis = FALSE,
   legend.title = TRUE,
   legend.digits = 2,
+  x.nbreak = NULL,
+  y.nbreak = NULL,
   x.title = NULL,
   y.title = NULL,
   main.title = NULL
@@ -54,6 +56,8 @@ autoplot(object, ...)
 \arguments{
 \item{object}{(\code{BAsummary}, \code{MCResult})\cr input, depending on which function
 you have done, \code{blandAltman()} or \code{mcreg()}.}
+
+\item{...}{not used.}
 
 \item{type}{(\code{string})\cr difference type from input, default is 'absolute'.}
 

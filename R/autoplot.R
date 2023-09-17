@@ -1,6 +1,3 @@
-#' @include pkg_methods.R
-NULL
-
 #' @rdname autoplot
 #'
 #' @param type (`string`)\cr difference type from input, default is 'absolute'.
@@ -343,10 +340,26 @@ setMethod(
                         equal.axis = FALSE,
                         legend.title = TRUE,
                         legend.digits = 2,
+                        x.nbreak = NULL,
+                        y.nbreak = NULL,
                         x.title = NULL,
                         y.title = NULL,
                         main.title = NULL) {
     assert_class(object, "MCResult")
+    assert_character(color)
+    assert_character(fill)
+    assert_number(size)
+    assert_int(shape)
+    assert_logical(jitter)
+    assert_logical(reg)
+    assert_logical(identity)
+    assert_logical(equal.axis)
+    assert_logical(legend.title)
+    assert_int(legend.digits)
+    assert_int(x.nbreak, null.ok = TRUE)
+    assert_int(x.nbreak, null.ok = TRUE)
+    assert_subset(names(identity.params), c("col", "linetype"))
+    assert_subset(names(reg.params), c("col", "linetype"))
 
     df <- object@data %>% na.omit()
     xrange <- range(df[["x"]])
@@ -356,7 +369,7 @@ setMethod(
     intercept <- formatC(object@glob.coef[1], format = "f", legend.digits)
     fm_text <- paste0("Y = ", slope, " * X + ", intercept)
 
-    p <- ggplot(data = df, aes(x = x, y = y))
+    p <- ggplot(data = df, aes(x = .data$x, y = .data$y))
 
     if (jitter) {
       p <- p + geom_point(

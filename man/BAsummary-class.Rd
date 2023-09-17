@@ -9,6 +9,8 @@
 BAsummary(call, data, stat, param)
 }
 \arguments{
+\item{call}{(\code{call})\cr function call.}
+
 \item{data}{(\code{data.frame})\cr stores the raw data from input.}
 
 \item{stat}{(\code{list})\cr contains several statistics for numeric data.}
