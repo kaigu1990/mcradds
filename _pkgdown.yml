@@ -43,6 +43,7 @@ reference:
   - show
   - getAccuracy
   - getOutlier
+  - autoplot
 - title: Functions
   contents:
   - size_one_prop
