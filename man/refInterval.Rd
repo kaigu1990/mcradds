@@ -23,7 +23,7 @@ refInterval(
 
 \item{out_method}{(\code{string})\cr string specifying the which outlier detection to use.}
 
-\item{out_rm}{(\code{logical})\cr weather the outliers is removed or not.}
+\item{out_rm}{(\code{logical})\cr whether the outliers is removed or not.}
 
 \item{RI_method}{(\code{string})\cr string specifying the which method for computing
 reference interval to use. Default is \code{parametric}, options can be \code{nonparametric}

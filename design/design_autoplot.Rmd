@@ -1,0 +1,39 @@
+---
+title: 'Design: Add `autoplot` method to generate ggplot for `BAsummary` and `MCResult`'
+author: "Kai Gu"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+  markdown: 
+    wrap: sentence
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Object
+
+A plot method called `autoplot` to generate Bland-Altman plot and regression plot for `BAsummary` and `MCResult` objects via the ggplot framework.
+
+### Bland-Altman plot
+
+The Bland-Altman plot is a kind of scatter plot for showing the difference between two measurements. The x axis is from the original numbers of two measurements, like average of both or ratio. And the y axis is the difference, absolute or relative difference from the `BAsummary` object.
+
+Except the basic scatter plot construct, there are two addition horizontal lines for showing the limit of agreement, sometimes also including the confidence interval of mean lines. A better option is to present the label text for each line, to tell users what's the limit of agreement and confidence interval.
+
+In addition, in order to make user more friendly not adding extra ggplot statements, we would prefer to add some arguments to alter the color, point size and so on.
+
+#### Regression plot
+
+The regression plot is also a kind of scatter plot to showing the related between two measurements. The x axis represents the reference assay, and the y axis is test assay. It  includes a line, not the horizontal line but the diagonal line to show the best condition between two assays as the slope is equal to 1.
+
+Besides I also consider to add a rectangles for confidence interval, but that is not necessary for regulators, so just a optional argument. As for the foreseeable, the points will be intensive and overlapped when the sample size is very large, so a `jitter` argument is required. And the annotation text or legend is necessary for users to know what's the slope and intercept.
+
+#### Conclusion
+
+Above all, I will create an `autoplot` method to draw Bland-Altman and regression plots according to the different classes.

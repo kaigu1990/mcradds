@@ -6,12 +6,16 @@
 \alias{BAsummary}
 \title{BAsummary Class}
 \usage{
-BAsummary(data, stat)
+BAsummary(call, data, stat, param)
 }
 \arguments{
+\item{call}{(\code{call})\cr function call.}
+
 \item{data}{(\code{data.frame})\cr stores the raw data from input.}
 
 \item{stat}{(\code{list})\cr contains several statistics for numeric data.}
+
+\item{param}{(\code{list})\cr list of relevant parameters.}
 }
 \value{
 An object of class \code{BAsummary}.
@@ -24,8 +28,12 @@ The \code{BAsummary} class is used to display the BlandAltman analysis and outli
 \section{Slots}{
 
 \describe{
+\item{\code{call}}{call}
+
 \item{\code{data}}{data}
 
 \item{\code{outlier}}{outlier}
+
+\item{\code{param}}{param}
 }}
 

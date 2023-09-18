@@ -19,4 +19,4 @@ BuildType: Package
 PackageUseDevtools: Yes
 PackagePath: C:/Users/TJ0695/Documents/mcradds
 PackageInstallArgs: --no-multiarch --with-keep.source
-PackageRoxygenize: rd,collate,namespace
+PackageRoxygenize: rd,namespace

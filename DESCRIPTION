@@ -37,12 +37,16 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0),
     tibble,
-    usethis
+    usethis,
+    vdiffr
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Collate: 
+    'pkg_class.R'
+    'pkg_methods.R'
+    'autoplot.R'
     'blandAltman.R'
     'correlation.R'
     'data.R'
@@ -50,8 +54,6 @@ Collate:
     'outlier.R'
     'package.R'
     'pairedroc.R'
-    'pkg_class.R'
-    'pkg_methods.R'
     'qual_stat.R'
     'referenceInterval.R'
     'samplesize.R'

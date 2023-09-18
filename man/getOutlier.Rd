@@ -19,7 +19,7 @@ getOutlier(object, ...)
 \item{object}{(\code{BAsummary})\cr input from \link{blandAltman} function to generate the Bland-Altman
 analysis result that contains the absolute and relative differences.}
 
-\item{...}{additional arguments.}
+\item{...}{not used.}
 
 \item{method}{(\code{string})\cr string specifying which method to use. Default is \code{ESD}.}
 

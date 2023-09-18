@@ -85,6 +85,26 @@ setMethod(
     )
     colnames(res) <- c("Absolute difference", "Relative difference")
 
+    if (object@param$type1 == 1) {
+      typedes1 <- "Y-X"
+    } else if (object@param$type1 == 3) {
+      typedes1 <- "Y-X"
+    }
+
+    if (object@param$type2 == 2) {
+      typedes2 <- "(Y-X)/X"
+    } else if (object@param$type2 == 4) {
+      typedes2 <- "(Y-X)/X"
+    } else if (object@param$type2 == 5) {
+      typedes2 <- "(Y-X)/(0.5*(X+Y))"
+    }
+
+    cat(" Call: ", append = FALSE)
+    show(object@call)
+    cat_with_newline("")
+    cat_with_newline("  Absolute difference type: ", typedes1)
+    cat_with_newline("  Relative difference type: ", typedes2)
+    cat_with_newline("")
     print(data.frame(res))
   }
 )
@@ -189,7 +209,7 @@ setGeneric("getAccuracy", function(object, ...) standardGeneric("getAccuracy"))
 # getOutlier ----
 
 #' @rdname getOutlier
-#' @param ... additional arguments.
+#' @param ... not used.
 setGeneric("getOutlier", function(object, ...) standardGeneric("getOutlier"))
 
 #' Detect Outliers From `BAsummary` Object
@@ -309,3 +329,28 @@ setMethod(
     }
   }
 )
+
+# autoplot ----
+
+#' Generate a `ggplot` for Bland-Altman Plot and Regression Plot
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' Draw a ggplot-based difference Bland-Altman plot of reference assay vs. test assay
+#' for `BAsummary` object, and a regression plot for `MCResult`. Also Providing
+#' the necessary and useful option arguments for presentation.
+#'
+#' @param object (`BAsummary`, `MCResult`)\cr input, depending on which function
+#'  you have done, `blandAltman()` or `mcreg()`.
+#' @param ... not used.
+#'
+#' @note If you'd like to alter any part that this `autoplot` function haven't
+#'  provided, adding other `ggplot` statements are suggested.
+#'
+#' @return A `ggplot` based Bland-Altman plot or regression plot that can be
+#'  easily customized using additional `ggplot` functions.
+#'
+#' @rdname autoplot
+#' @aliases autoplot
+#'
+setGeneric("autoplot", function(object, ...) standardGeneric("autoplot"))

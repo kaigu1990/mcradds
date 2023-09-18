@@ -127,7 +127,7 @@ nonparRI <- function(x, ind = 1:length(x), conf.level = 0.95) {
 #'
 #' @param x (`numeric`)\cr numeric measurements from target population.
 #' @param out_method (`string`)\cr string specifying the which outlier detection to use.
-#' @param out_rm (`logical`)\cr weather the outliers is removed or not.
+#' @param out_rm (`logical`)\cr whether the outliers is removed or not.
 #' @param RI_method (`string`)\cr string specifying the which method for computing
 #' reference interval to use. Default is `parametric`, options can be `nonparametric`
 #' and `robust`.

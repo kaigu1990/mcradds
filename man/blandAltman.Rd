@@ -41,6 +41,9 @@ blandAltman(x = platelet$Comparative, y = platelet$Candidate)
 
 # with sample id as input sid
 blandAltman(x = platelet$Comparative, y = platelet$Candidate, sid = platelet$Sample)
+
+# Specifiy the type for difference
+blandAltman(x = platelet$Comparative, y = platelet$Candidate, type1 = 1, type2 = 4)
 }
 \seealso{
 \code{\link[=h_difference]{h_difference()}} to see the type details.

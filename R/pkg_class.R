@@ -111,16 +111,20 @@ setValidity("MCTab", function(object) {
 #'
 #' The `BAsummary` class is used to display the BlandAltman analysis and outliers.
 #'
+#' @slot call call
 #' @slot data data
 #' @slot outlier outlier
+#' @slot param param
 #'
 #' @rdname BAsummary-class
 #' @aliases BAsummary
 setClass(
   "BAsummary",
   slots = c(
+    call = "call",
     data = "data.frame",
-    stat = "list"
+    stat = "list",
+    param = "list"
   )
 )
 
@@ -128,13 +132,15 @@ setClass(
 
 #' @rdname BAsummary-class
 #'
+#' @param call (`call`)\cr function call.
 #' @param data (`data.frame`)\cr stores the raw data from input.
 #' @param stat (`list`)\cr contains several statistics for numeric data.
+#' @param param (`list`)\cr list of relevant parameters.
 #'
 #' @return An object of class `BAsummary`.
 #'
-BAsummary <- function(data, stat) {
-  new("BAsummary", data = data, stat = stat)
+BAsummary <- function(call, data, stat, param) {
+  new("BAsummary", call = call, data = data, stat = stat, param = param)
 }
 
 # BAsummary-validity ----
