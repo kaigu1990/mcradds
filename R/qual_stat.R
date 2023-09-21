@@ -226,6 +226,7 @@ diagTab <- function(formula = ~.,
 #' @export
 #' @examples
 #' # For qualitative performance
+#' data("qualData")
 #' tb <- qualData %>%
 #'   diagTab(
 #'     formula = ~ CandidateN + ComparativeN,

@@ -1,0 +1,483 @@
+---
+title: "Introduction to `mcradds`"
+package: mcradds
+output: 
+  rmarkdown::html_document:
+    theme: "spacelab"
+    highlight: "kate"
+    toc: true
+    toc_float: true
+vignette: >
+  %\VignetteIndexEntry{Introduction to mcradds}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options:
+  chunk_output_type: console
+  markdown:
+    wrap: 72
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+---
+
+This vignette shows the general purpose and usage of the `mcradds` R package.
+
+`mcradds` is a successor of the `mcr` R package that is developed by Roche, and therefore the fundamental coding ideas for method comparison regression have been borrowed from it. In addition, I supplement a series of useful functions and methods based on several reference documents from CLSI and NMPA guidance. You can perform the statistical analysis and graphics in different IVD trials utilizing these analytical functions.
+
+```{r}
+browseVignettes(package = "mcradds")
+```
+
+However, unfortunately these functions and methods have not been validated and QC'ed, I can not guarantee that all of them are entirely proper and error-free. But I always strive to compare the results to other resources in order to obtain a consistent for them. And because some of them were utilized in my past usual work process, so I believe the quality of this package is temporarily sufficient to use.
+
+In this vignette you are going to learn how to:
+
+* Estimate of sample size for trials, following NMPA guideline.
+* Evaluate diagnostic accuracy with/without reference, following CLSI EP12-A2.
+* Perform regression methods analysis and plots, following CLSI EP09-A3.
+* Perform bland-Altman analysis and plots, following CLSI EP09-A3.
+* Detect outliers with 4E method from CLSI EP09-A2 and ESD from CLSI EP09-A3.
+* Estimate bias in medical decision level, following CLSI EP09-A3.
+* Perform Pearson and Spearman correlation analysis adding hypothesis test and confidence interval.
+* Evaluate Reference Range/Interval, following CLSI EP28-A3 and NMPA guideline.
+* Add paired ROC/AUC test for superiority and non-inferiority trials, following CLSI EP05-A3/EP15-A3.
+* Perform reproducibility analysis (reader precision) for immunohistochemical assays, following CLSI I/LA28-A2 and NMPA guideline.
+* Evaluate precision of quantitative measurements, following CLSI EP05-A3.
+
+The reference of `mcradds` functions is available on [the mcradds website functions reference](https://kaigu1990.github.io/mcradds/reference/index.html).
+
+---
+
+## Common IVD Trials Analyses
+
+Every above analysis purpose can be achieved by few functions or S4 methods from `mcradds` package, I will present the general usage below.
+
+The packages used in this vignette are:
+
+```{r}
+library(mcradds)
+```
+
+The data sets with different purposes used in this vignette are:
+
+```{r}
+data("qualData")
+data("platelet")
+data(creatinine, package = "mcr")
+data("calcium")
+data("ldlroc")
+data("PDL1RP")
+data("glucose")
+```
+
+### Estimation of Sample Size
+
+#### Example 1.1
+
+Suppose that the expected sensitivity criteria of an new assay is `0.9`, and the clinical acceptable criteria is `0.85`. If we conduct a two-sided normal Z-test at a significance level of `α = 0.05` and achieve a power of 80%, the total sample is `363`.
+
+```{r}
+size_one_prop(p1 = 0.9, p0 = 0.85, alpha = 0.05, power = 0.8)
+```
+
+#### Example 1.2
+
+Suppose that the expected sensitivity criteria of an new assay is `0.85`, and the lower 95% confidence interval of Wilson Score at a significance level of `α = 0.05` for criteria is `0.8`, the total sample is `246`.
+
+```{r}
+size_ci_one_prop(p = 0.85, lr = 0.8, alpha = 0.05, method = "wilson")
+```
+
+If we don't want to use the CI of Wilson Score just following the NMPA's suggestion in the appendix, the CI of Simple-asymptotic is recommended with the `196` of sample size, as shown below.
+
+```{r}
+size_ci_one_prop(p = 0.85, lr = 0.8, alpha = 0.05, method = "simple-asymptotic")
+```
+
+#### Example 1.3
+
+Suppose that the expected correlation coefficient between test and reference assays is `0.95`, and the clinical acceptable criteria is `0.9`. If we conduct an one-sided test at a significance level of `α = 0.025` and achieve a power of 80%, the total sample is `64`.
+
+```{r}
+size_corr(r1 = 0.95, r0 = 0.9, alpha = 0.025, power = 0.8, alternative = "greater")
+```
+
+#### Example 1.4
+
+Suppose that the expected correlation coefficient between test and reference assays is `0.9`, and the lower 95% confidence interval at a significance level of `α = 0.025` for the criteria is greater than `0.85`, the total sample is `86`.
+
+```{r}
+size_ci_corr(r = 0.9, lr = 0.85, alpha = 0.025, alternative = "greater")
+```
+
+
+### Evaluation of Diagnostic Accuracy
+
+#### Create 2x2 contingency table
+
+Assume that you have a wide structure data like `qualData` contains the measurements of candidate and comparative assays.
+
+```{r}
+head(qualData)
+```
+
+In this scenario, you'd better define the `formula` with candidate assay first, followed by comparative assay to the right of formula, such as right of `~`. If not, you should add the `dimname` argument to indicate which the row and column names 2x2 contingency table, and then define the order of levels you prefer to.
+
+```{r}
+tb <- qualData %>% 
+  diagTab(
+    formula = ~ CandidateN + ComparativeN,
+    levels = c(1, 0)
+  )
+tb
+```
+
+Assume that there is a long structure data needs to be summarized, a dummy data is shown below. The formula should be define in another format. The left of formula is the type of assay, and the right of it is the measurement.
+
+```{r}
+dummy <- data.frame(
+  id = c("1001", "1001", "1002", "1002", "1003", "1003"),
+  value = c(1, 0, 0, 0, 1, 1),
+  type = c("Test", "Ref", "Test", "Ref", "Test", "Ref")
+) %>%
+  diagTab(
+    formula = type ~ value,
+    bysort = "id",
+    dimname = c("Test", "Ref"),
+    levels = c(1, 0)
+  )
+dummy
+```
+
+#### With Reference/Gold Standard
+
+Next step is to utilize the `getAccuracy` method to calculate the diagnostic accuracy. If the reference assay is gold standard, the argument `ref` should be `r` which means 'reference'. The output will present several indicators, sensitivity (`sens`), specificity (`spec`), positive/negative predictive value (`ppv`/`npv`) and positive/negative likelihood ratio (`plr`/`nlr`). More details can been found in `?getAccuracy`.
+
+```{r}
+# Default method is Wilson score, and digit is 4.
+tb %>% getAccuracy(ref = "r")
+
+# Alter the number of digit to 2.
+tb %>% getAccuracy(ref = "r", digit = 2)
+
+# Alter the number of digit to 2.
+tb %>% getAccuracy(ref = "r", r_ci = "clopper-pearson")
+```
+
+#### Without Reference/Gold Standard
+
+If the reference assay is not the gold standard, for example, a comparative assay that has been approved for market sale, the `ref` should be `nr` which means 'not reference'. The output will present the indicators, positive/negative percent agreement (`ppa`/`npa`) and overall percent agreement (`opa`).
+
+```{r}
+# When the reference is a comparative assay, not gold standard.
+tb %>% getAccuracy(ref = "nr", nr_ci = "wilson")
+```
+
+
+### Regression coefficient and bias in medical decision level
+
+#### Estimating Regression coefficient
+
+Regression agreement is a very important criteria in method comparison trials that can be achieved by `mcr` package that has provided a series of regression methods, such as 'Deming', 'Passing-Bablok',' weighted Deming' and so on. The main and key functions have been wrapped in the `mcradds`, such as `mcreg`, `getCoefficients` and `calcBias`. If you would like to utilize the entire functions in `mcr` package, just adding the specific package name in front of each of them, like `mcr::calcBias()`, so that it looks the function is called from `mcr` package.
+
+```{r}
+# Deming regression
+fit <- mcreg(
+  x = platelet$Comparative, y = platelet$Candidate, 
+  error.ratio = 1, method.reg = "Deming", method.ci = "jackknife"
+)
+printSummary(fit)
+getCoefficients(fit)
+```
+
+#### Estimating Bias in Medical Decision Level
+
+Once you have obtained this regression equation, whether 'Deming' or 'Passing-Bablok', you can use it to estimate the bias in medical decision level. Suppose that you know the medical decision level of one assay is `30`, obviously this is a make-up number. Then you can use the `fit` object above to estimate the bias using `calcBias` function.
+
+```{r}
+# absolute bias.
+calcBias(fit, x.levels = c(30))
+
+# proportional bias.
+calcBias(fit, x.levels = c(30), type = "proportional")
+```
+
+
+### Bland-Altman Analysis
+
+The Bland-Altman analysis is also an agreement criteria in method comparison trials. And in term of authority's request, we will normally present two categories: absolute difference and relative difference, in order to evaluate the agreements in both aspects. The outputs are descriptive statistics, including 'mean', 'median', 'Q1', 'Q3', 'min', 'max', 'CI' (confidence interval of mean) and 'LoA' (Limit of Agreement). 
+
+Please make sure the difference type before calculation, answer the question how to define the absolute and relative difference. More details information can be found in `?h_difference`, where has five types available as the option. Default is that the absolute difference is derived by `Y-X`, and relative difference is `(Y-X)/(0.5*(X+Y))`. Sometime if you think the reference (`X`) is the gold standard and has a good agreement with test (`Y`), the relative difference type can be `type2 = 4`.
+
+```{r}
+# Default difference type
+blandAltman(
+  x = platelet$Comparative, y = platelet$Candidate,
+  type1 = 3, type2 = 5
+)
+
+# Change relative different type to 4.
+blandAltman(
+  x = platelet$Comparative, y = platelet$Candidate,
+  type1 = 3, type2 = 4
+)
+```
+
+
+### Detecting Outliers
+
+As we all know, there are numerous statistical methodologies to detect the outliers. Here I try to show which methods will be commonly used in IVD trials with different purposes.
+
+First and foremost, only quantitative data will generate outliers, so the detecting process only occurred in quantitative trials. And then in the method comparison trials, the detected outliers will be used for sensitive analysis in common. For example, if you detect 5 outliers in a 200 subjects trial, you should conduct a sensitive analysis with and without outliers to interpret there is no difference in both scenarios. Here there are two CLSI's recommended approaches,4E and ESD, wit the latter one being recommended in the most recent version.
+
+In `mcradds` package, you can utilize the `getOutlier` method to detect outliers with the `method` argument to define the which method you'd like, and `difference` arguments for which difference type like 'absolute' or 'relative' would be used.
+
+```{r}
+# ESD approach
+ba <- blandAltman(x = platelet$Comparative, y = platelet$Candidate)
+out <- getOutlier(ba, method = "ESD", difference = "rel")
+out$stat
+out$outmat
+
+# 4E approach
+ba2 <- blandAltman(x = creatinine$serum.crea, y = creatinine$plasma.crea)
+out2 <- getOutlier(ba2, method = "4E")
+out2$stat
+out2$outmat
+```
+
+In addition, `mcradds` also provides outlier methods for evaluating Reference Range, such as 'Tukey' and 'Dixon' that have been wrapped in `refInterval()` function.
+
+
+### Hypothesis of Pearson and Spearman
+
+The correlation coefficient of Pearson is a helpful criteria for assessing the agreement between test and reference assays. To compute the coefficient and P value in R, the `cor.test()` function is commonly used. However the P value relies on the hypothesis of `H0=0`, which doesn't meet the requirement from authority. Because we are required to provide the P value with `H0=0.7` sometimes. Thus in this case, I suggest you should use the `pearsonTest()` function instead, and the hypothesis is based on Fisher's Z transformation of the correlation.
+
+```{r}
+x <- c(44.4, 45.9, 41.9, 53.3, 44.7, 44.1, 50.7, 45.2, 60.1)
+y <- c(2.6, 3.1, 2.5, 5.0, 3.6, 4.0, 5.2, 2.8, 3.8)
+pearsonTest(x, y, h0 = 0.5, alternative = "greater")
+```
+
+Since the `cor.test()` function can not provide the confidence interval and special hypothesis for Spearman, the `spearmanTest()` function is recommended. This function computes the CI using bootstrap method, and the hypothesis is based on Fisher's Z transformation of the correlation, but with the variance proposed by Bonett and Wright (2000), not the same as Pearson's.
+
+```{r}
+x <- c(44.4, 45.9, 41.9, 53.3, 44.7, 44.1, 50.7, 45.2, 60.1)
+y <- c(2.6, 3.1, 2.5, 5.0, 3.6, 4.0, 5.2, 2.8, 3.8)
+spearmanTest(x, y, h0 = 0.5, alternative = "greater")
+```
+
+
+### Establishing Reference Range/Interval
+
+The `refInterval` function provides two outlier methods `Tukey` and `Dixon`, and three methods mentioned in CLSI to establish the reference interval (RI).
+
+The first is parametric method that follows the normal distribution to compute the confidence interval.
+
+```{r}
+refInterval(x = calcium$Value, RI_method = "parametric", CI_method = "parametric")
+```
+
+The second one is nonparametric method that computes the 2.5th and 97.5th percentile if the range of reference interval is 95%.
+
+```{r}
+refInterval(x = calcium$Value, RI_method = "nonparametric", CI_method = "nonparametric")
+```
+
+The third one is robust method, which is slightly complicated and involves an iterative procedure based on the formulas in EP28A3. And the observations are weighted according to their distance from the central tendency that is initially estimated by median and MAD(the median absolute deviation).
+
+```{r}
+refInterval(x = calcium$Value, RI_method = "robust", CI_method = "boot")
+```
+
+The first two methods are also accepted by NMPA guideline, but the robust method is not recommended by NMPA because if you want to establish a reference interval for your assay, you must collect the at least 120 samples in China. If the number is less than 120, it can not ensure the accuracy of the results. The CLSI working group is hesitant to recommend this method as well, except in the most extreme instances.
+
+By default, the confidence interval (CI) will be presented depending on which RI method is utilized. 
+
+* If the RI method is `parametric`, the CI method should be `parametric` as well.
+* If the RI method is `nonparametric` and the sample size is up to 120 observations, the `nonparametric` of CI is suggested. Otherwise if the sample size is below to 120, the `boot` method of CI is the better choice. You need to be aware that the `nonparametric` method for CI only allows the `refLevel = 0.95` and `confLevel = 0.9` arguments, if not the `boot` methods of CI will be used automatically.
+* If the RI method is `robust` method, the method of CI must be `boot`.
+
+If you would like to compute the 90% reference interval rather than 90%, just alter `refLevel = 0.9`. So the confidence interval is similar to be altered to `confLevel = 0.95` if you would like compute the 95% confidence interval for each limit of reference interval.
+
+
+### Paired AUC Test
+
+The `aucTest` function compares two AUC of paired two-sample diagnostic assays using the standardized difference method, which has a small difference in SE computation when compared to unpaired design. Because the samples in a paired design are not considered independent, the SE can not be computed directly by the Delong's method in `pROC` package.
+
+In order to evaluate two paired assays, the `aucTest` function has three assessment methods including 'difference', 'non-inferiority' and 'superiority', as shown in Liu(2006)'s article below.
+
+>Jen-Pei Liu (2006) "Tests of equivalence and non-inferiority for diagnostic accuracy based on the paired areas under ROC curves". *Statist. Med.*, 25:1219–1238. DOI: 10.1002/sim.2358.
+
+Suppose that you want to compare the paired AUC from OxLDL and LDL assays in `ldlroc` data set, and the null hypothesis is there is no difference of AUC area.
+```{r}
+# H0 : Difference between areas = 0:
+aucTest(x = ldlroc$LDL, y = ldlroc$OxLDL, response = ldlroc$Diagnosis)
+```
+
+Suppose that you want to see if the OxLDL assay is superior to LDL assay when the margin is equal to `0.1`. In this case the null hypothesis is the difference is less than `0.1`.
+
+```{r}
+# H0 : Superiority margin <= 0.1:
+aucTest(
+  x = ldlroc$LDL, y = ldlroc$OxLDL, response = ldlroc$Diagnosis,
+  method = "superiority", h0 = 0.1
+)
+```
+
+Suppose that you want to see if the OxLDL assay is non-inferior to LDL assay when the margin is equal to `-0.1`. In this case the null hypothesis is the difference is less than `-0.1`.
+
+```{r}
+# H0 : Non-inferiority margin <= -0.1:
+aucTest(
+  x = ldlroc$LDL, y = ldlroc$OxLDL, response = ldlroc$Diagnosis,
+  method = "non-inferiority", h0 = -0.1
+)
+```
+
+
+### Reproducibility Analysis (Reader Precision)
+
+In the PDL1 assay trials, we must estimate the reader precision between different readers or reads or sites, using the `APA`, `ANA` and `OPA` as the primary endpoint. The `getAccuracy` function can implement the computations as the reader precision trials belong to qualitative trials. The only distinction is that in this trial, there is no comparative assay, just each stained specimen will be scored by different pathologists (readers). So you can not determine which one can be as the reference, instead that they compare each other in each comparison.
+
+In the `PDL1RP` example data, 150 specimens were stained with one PD-L1 assay in three different sites, 50 specimens for each. For `PDL1RP$wtn_reader` sub-data, 3 readers were selected from three different sites and each of them were responsible for scoring 50 specimens once. Thus you might want to evaluate the reproducibility within three readers through three site.
+
+```{r}
+reader <- PDL1RP$btw_reader
+tb1 <- reader %>%
+  diagTab(
+    formula = Reader ~ Value,
+    bysort = "Sample",
+    levels = c("Positive", "Negative"),
+    rep = TRUE,
+    across = "Site"
+)
+getAccuracy(tb1, ref = "bnr", rng.seed = 12306)
+```
+
+For `PDL1RP$wtn_reader` sub-data, one reader was selected from three different sites and each of them was responsible for scoring 50 specimens 3 times with a minimum of 2 weeks between reads that means the process of score. Thus you might want to evaluate the reproducibility within three reads through all specimens.
+
+```{r}
+read <- PDL1RP$wtn_reader
+tb2 <- read %>%
+  diagTab(
+    formula = Order ~ Value,
+    bysort = "Sample",
+    levels = c("Positive", "Negative"),
+    rep = TRUE,
+    across = "Sample"
+)
+getAccuracy(tb2, ref = "bnr", rng.seed = 12306)
+```
+
+For `PDL1RP$btw_site` sub-data, one reader was selected from three different sites and all of them were responsible for scoring 150 specimens once, that collected from those three sites. Thus you might want to evaluate the reproducibility within three site.
+
+```{r}
+site <- PDL1RP$btw_site
+tb3 <- site %>%
+  diagTab(
+    formula = Site ~ Value,
+    bysort = "Sample",
+    levels = c("Positive", "Negative"),
+    rep = TRUE,
+    across = "Sample"
+)
+getAccuracy(tb2, ref = "bnr", rng.seed = 12306)
+```
+
+
+### Precision Evaluation
+
+This precision evaluation is not commonly used in IVD trials, but it is necessary to include this process in end-users laboratories' QC procedure for verifying repeatability and within-laboratory precision. I have wrapped the main and key functions from Roche's `VCA`, as well as the `mcr` package. It's recommended to read the details in `?anovaVCA` and `?VCAinference` functions or CLSI-EP05 to help understanding the outputs, such as `CV%`.
+
+```{r}
+fit <- anovaVCA(value ~ day / run, glucose)
+VCAinference(fit)
+```
+
+
+## Common Visualizations
+
+In term of the visualizations of IVD trials, two common plots will be presented in the clinical reports, Bland-Altman plot and Regression plot. You don't use two different functions to draw plots, both of them have been included in `autoplot()` function. So these plots can be obtained by just call `autoplot()` to an object.
+
+### Bland-Altman plot
+
+To generate the Bland-Altman plot, you should create the object from `blandAltman()` function and then call `autoplot` straightforward where you can choose which Bland-Altman type do you require, 'absolute' or 'relative'.
+
+```{r}
+object <- blandAltman(x = platelet$Comparative, y = platelet$Candidate)
+
+# Absolute difference plot
+autoplot(object, type = "absolute")
+
+# Relative difference plot
+autoplot(object, type = "relative")
+```
+
+Add more drawing arguments if you would like to adjust the format. More detailed arguments can be found in `?autoplot`.
+
+```{r}
+autoplot(
+    object,
+    type = "absolute",
+    jitter = TRUE,
+    fill = "lightblue",
+    color = "grey",
+    size = 2,
+    ref.line.params = list(col = "grey"),
+    loa.line.params = list(col = "grey"),
+    label.digits = 2,
+    label.params = list(col = "grey", size = 3, fontface = "italic"),
+    x.nbreak = 6,
+    main.title = "Bland-Altman Plot",
+    x.title = "Mean of Test and Reference Methods",
+    y.title = "Reference - Test"
+  )
+```
+
+### Regression plot
+
+To generate the regression plot, you should create the object from `mcreg()` function and then call `autoplot` straightforward.
+
+```{r}
+fit <- mcreg(
+  x = platelet$Comparative, y = platelet$Candidate,
+  method.reg = "PaBa", method.ci = "bootstrap"
+)
+autoplot(fit)
+```
+
+More arguments can be used as shown below.
+
+```{r}
+autoplot(
+  fit,
+  identity.params = list(col = "blue", linetype = "solid"),
+  reg.params = list(col = "red", linetype = "solid"),
+  equal.axis = TRUE,
+  legend.title = FALSE,
+  legend.digits = 3,
+  x.title = "Reference",
+  y.title = "Test"
+)
+```
+
+## Summary
+
+In summary, `mcradds` contains multiple functions and methods for internal statistical analyses or QC procedure in IVD trials. The design of the package aims to expand the analysis scope of the `mcr` package , and give users a lot of flexibility in meeting their analysis needs. Given this package has not been validated by the GCP process, it's not recommended to use this in regulatory submissions. However it can give the assist for you with the supplementary analysis needs from the regulatory.
+
+## Session Info
+
+Here is the output of `sessionInfo()` on the system.
+
+```{r sessionInfo, echo=FALSE}
+sessionInfo()
+```

@@ -3,3 +3,8 @@
 .RData
 .Ruserdata
 docs
+inst/doc
+vignettes/*.html
+vignettes/*.pdf
+vignettes/*.R
+design/*.html
