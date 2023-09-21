@@ -30,21 +30,27 @@ The `mcradds` R package is a complement to `mcr` package, contains common and so
 
 The package provides a series of typical functionality, as shown below:
 
-- Estimation of sample size, NMPA guideline.
-- Regression methods in method comparison, CLSI EP09-A3.
-- Bland-Altman analysis and plots for quantitative measurements.
-- Outlier detection, including 4E method from CLSI EP09-A2 and ESD method from CLSI EP09-A3.
-- Correlation, adding hypothesis test and confidence interval.
+- Estimation of sample size for trials, NMPA guideline.
+- Diagnostic accuracy with/without standard/golden reference, CLSI EP12-A2.
+- Regression analysis and plot in method comparison, CLSI EP09-A3.
+- Bland-Altman analysis and plot in method comparison, CLSI EP09-A3.
+- Outlier detection with 4E method from CLSI EP09-A2 and ESD from CLSI EP09-A3.
 - Evaluation of bias in medical decision level, CLSI EP09-A3.
-- Computing Reference Range/Interval, CLSI EP28-A3 and NMPA guideline.
+- Pearson and Spearman correlation adding hypothesis test and confidence interval.
+- Establishing of Reference Range/Interval, CLSI EP28-A3 and NMPA guideline.
 - Paired ROC/AUC test for superiority and non-inferiority trials, CLSI EP05-A3/EP15-A3.
-- Diagnostic accuracy criteria with/without reference, CLSI EP12-A2.
-- Evaluation of precision of quantitative measurements, CLSI EP05-A3.
 - Reproducibility analysis (reader precision) for immunohistochemical assays, CLSI I/LA28-A2 and NMPA guideline.
+- Evaluation of precision of quantitative measurements, CLSI EP05-A3.
 
 ## Installation
 
-You can install the development version from GitHub with:
+`mcradds` is available on CRAN and you can install the latest released version with:
+
+```{r, eval = FALSE}
+install.packages("mcradds")
+```
+
+or you can install the development version directly from GitHub with:
 
 ```{r gh-installation, eval = FALSE}
 if (!require("devtools")) {

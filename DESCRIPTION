@@ -1,23 +1,23 @@
 Package: mcradds
 Type: Package
-Title: Processing and analyzing of In Vitro Diagnostic Data
+Title: Processing and Analyzing of IVD Trials
 Version: 0.2.0
 Authors@R: c(
-    person("Kai", "Gu", , "gukai1212@163.com", role = c("aut", "cre"))
+    person("Kai", "Gu", , "gukai1212@163.com", role = c("aut", "cre", "cph"))
     )
 Maintainer: Kai Gu <gukai1212@163.com>
 Description: A complement to 'mcr' package, adding methods and functions to 
-    analyze the quantitative or qualitative performance for diagnostic tests. 
+    analyze the quantitative or qualitative performance for diagnostic assays. 
     And outliers detection, reader precision and reference range are discussed. 
     Most of the methods and algorithms refer to CLSI recommendations and NMPA 
     guidelines. In additional, relevant plots are constructed by ggplot statements.
 License: GPL (>= 3)
-URL: https://github.com/kaigu1990/mcradds/, https://kaigu1990.github.io/mcradds/
+URL: https://github.com/kaigu1990/mcradds, https://kaigu1990.github.io/mcradds/
 BugReports: https://github.com/kaigu1990/mcradds/issues
 Encoding: UTF-8
 LazyData: true
 Depends: 
-    R (>= 3.6), 
+    R (>= 3.6),
     mcr
 Imports:
     boot,

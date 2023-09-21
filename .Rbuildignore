@@ -9,3 +9,5 @@
 design/*
 ^data-raw$
 ^\.github$
+^cran-comments\.md$
+^revdep$

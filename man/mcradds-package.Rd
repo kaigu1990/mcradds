@@ -11,13 +11,13 @@
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/kaigu1990/mcradds/}
+  \item \url{https://github.com/kaigu1990/mcradds}
   \item \url{https://kaigu1990.github.io/mcradds/}
   \item Report bugs at \url{https://github.com/kaigu1990/mcradds/issues}
 }
 
 }
 \author{
-\strong{Maintainer}: Kai Gu \email{gukai1212@163.com}
+\strong{Maintainer}: Kai Gu \email{gukai1212@163.com} [copyright holder]
 
 }
