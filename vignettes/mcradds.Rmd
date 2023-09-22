@@ -132,7 +132,7 @@ head(qualData)
 In this scenario, you'd better define the `formula` with candidate assay first, followed by comparative assay to the right of formula, such as right of `~`. If not, you should add the `dimname` argument to indicate which the row and column names 2x2 contingency table, and then define the order of levels you prefer to.
 
 ```{r}
-tb <- qualData %>% 
+tb <- qualData %>%
   diagTab(
     formula = ~ CandidateN + ComparativeN,
     levels = c(1, 0)
@@ -191,7 +191,7 @@ Regression agreement is a very important criteria in method comparison trials th
 ```{r}
 # Deming regression
 fit <- mcreg(
-  x = platelet$Comparative, y = platelet$Candidate, 
+  x = platelet$Comparative, y = platelet$Candidate,
   error.ratio = 1, method.reg = "Deming", method.ci = "jackknife"
 )
 printSummary(fit)
@@ -359,7 +359,7 @@ tb1 <- reader %>%
     levels = c("Positive", "Negative"),
     rep = TRUE,
     across = "Site"
-)
+  )
 getAccuracy(tb1, ref = "bnr", rng.seed = 12306)
 ```
 
@@ -374,7 +374,7 @@ tb2 <- read %>%
     levels = c("Positive", "Negative"),
     rep = TRUE,
     across = "Sample"
-)
+  )
 getAccuracy(tb2, ref = "bnr", rng.seed = 12306)
 ```
 
@@ -389,7 +389,7 @@ tb3 <- site %>%
     levels = c("Positive", "Negative"),
     rep = TRUE,
     across = "Sample"
-)
+  )
 getAccuracy(tb2, ref = "bnr", rng.seed = 12306)
 ```
 
@@ -426,21 +426,21 @@ Add more drawing arguments if you would like to adjust the format. More detailed
 
 ```{r}
 autoplot(
-    object,
-    type = "absolute",
-    jitter = TRUE,
-    fill = "lightblue",
-    color = "grey",
-    size = 2,
-    ref.line.params = list(col = "grey"),
-    loa.line.params = list(col = "grey"),
-    label.digits = 2,
-    label.params = list(col = "grey", size = 3, fontface = "italic"),
-    x.nbreak = 6,
-    main.title = "Bland-Altman Plot",
-    x.title = "Mean of Test and Reference Methods",
-    y.title = "Reference - Test"
-  )
+  object,
+  type = "absolute",
+  jitter = TRUE,
+  fill = "lightblue",
+  color = "grey",
+  size = 2,
+  ref.line.params = list(col = "grey"),
+  loa.line.params = list(col = "grey"),
+  label.digits = 2,
+  label.params = list(col = "grey", size = 3, fontface = "italic"),
+  x.nbreak = 6,
+  main.title = "Bland-Altman Plot",
+  x.title = "Mean of Test and Reference Methods",
+  y.title = "Reference - Test"
+)
 ```
 
 ### Regression plot
@@ -448,7 +448,7 @@ autoplot(
 To generate the regression plot, you should create the object from `mcreg()` function and then call `autoplot` straightforward.
 
 ```{r}
-fit <- mcreg(
+fit <- mcreg2(
   x = platelet$Comparative, y = platelet$Candidate,
   method.reg = "PaBa", method.ci = "bootstrap"
 )

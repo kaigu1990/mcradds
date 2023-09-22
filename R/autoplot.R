@@ -303,15 +303,14 @@ setMethod(
 #' @param legend.digits (`integer`)\cr the number of digits after the decimal point
 #'  in the legend.
 #'
-#' @seealso [mcr::mcreg()] to see the regression parameters.
+#' @seealso [MCR-class] or [mcr::mcreg()] to see the regression parameters.
 #'
 #' @export
 #'
 #' @examples
-#'
 #' # Using the default arguments for regression plot
-#' data(creatinine, package = "mcr")
-#' fit <- mcreg(
+#' data("platelet")
+#' fit <- mcreg2(
 #'   x = platelet$Comparative, y = platelet$Candidate,
 #'   method.reg = "Deming", method.ci = "jackknife"
 #' )
@@ -326,7 +325,7 @@ setMethod(
 #' )
 setMethod(
   f = "autoplot",
-  signature = c("MCResult"),
+  signature = c("MCR"),
   definition = function(object,
                         color = "black",
                         fill = "lightgray",
@@ -345,7 +344,7 @@ setMethod(
                         x.title = NULL,
                         y.title = NULL,
                         main.title = NULL) {
-    assert_class(object, "MCResult")
+    assert_class(object, "MCR")
     assert_character(color)
     assert_character(fill)
     assert_number(size)
@@ -365,8 +364,8 @@ setMethod(
     xrange <- range(df[["x"]])
     yrange <- range(df[["y"]])
 
-    slope <- formatC(object@glob.coef[2], format = "f", legend.digits)
-    intercept <- formatC(object@glob.coef[1], format = "f", legend.digits)
+    slope <- formatC(object@coef[2], format = "f", legend.digits)
+    intercept <- formatC(object@coef[1], format = "f", legend.digits)
     fm_text <- paste0("Y = ", slope, " * X + ", intercept)
 
     p <- ggplot(data = df, aes(x = .data$x, y = .data$y))
@@ -410,15 +409,15 @@ setMethod(
     )
     shapes <- stats::setNames(
       c(
-        ifelse(is.null(reg.params[["linetype"]]), 1 , reg.params[["linetype"]]),
-        ifelse(is.null(identity.params[["linetype"]]), 1 , identity.params[["linetype"]])
+        ifelse(is.null(reg.params[["linetype"]]), 1, reg.params[["linetype"]]),
+        ifelse(is.null(identity.params[["linetype"]]), 1, identity.params[["linetype"]])
       ),
       c(fm_text, "Identity")
     )
     cols <- stats::setNames(
       c(
         ifelse(is.null(reg.params[["col"]]), 1, reg.params[["col"]]),
-        ifelse(is.null(identity.params[["col"]]), 1 , identity.params[["col"]])
+        ifelse(is.null(identity.params[["col"]]), 1, identity.params[["col"]])
       ),
       c(fm_text, "Identity")
     )

@@ -65,6 +65,7 @@ ananlysis
 apa
 ci
 clopper
+coef
 confInt
 creatinin
 dL
@@ -81,6 +82,7 @@ lipoprotein
 loa
 magrittr
 mcr
+mnames
 nlr
 npa
 npv
@@ -97,6 +99,7 @@ quasilinear
 quations
 refInt
 refROC
+regmeth
 regmethod
 repo
 reproducibility

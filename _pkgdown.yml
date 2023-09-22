@@ -15,6 +15,7 @@ reference:
   - BAsummary
   - RefInt
   - tpROC
+  - MCR
 - title: Internal Helper Functions
   contents:
   - cat_with_newline

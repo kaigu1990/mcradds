@@ -3,7 +3,7 @@
 \name{autoplot}
 \alias{autoplot}
 \alias{autoplot,BAsummary-method}
-\alias{autoplot,MCResult-method}
+\alias{autoplot,MCR-method}
 \title{Generate a \code{ggplot} for Bland-Altman Plot and Regression Plot}
 \usage{
 autoplot(object, ...)
@@ -32,7 +32,7 @@ autoplot(object, ...)
   main.title = NULL
 )
 
-\S4method{autoplot}{MCResult}(
+\S4method{autoplot}{MCR}(
   object,
   color = "black",
   fill = "lightgray",
@@ -174,10 +174,9 @@ autoplot(object,
   x.title = "Mean of Test and Reference Methods",
   y.title = "Reference - Test"
 )
-
 # Using the default arguments for regression plot
-data(creatinine, package = "mcr")
-fit <- mcreg(
+data("platelet")
+fit <- mcreg2(
   x = platelet$Comparative, y = platelet$Candidate,
   method.reg = "Deming", method.ci = "jackknife"
 )
@@ -194,5 +193,5 @@ autoplot(fit,
 \seealso{
 \code{\link[=h_difference]{h_difference()}} to see the type details.
 
-\code{\link[mcr:mcreg]{mcr::mcreg()}} to see the regression parameters.
+\linkS4class{MCR} or \code{\link[mcr:mcreg]{mcr::mcreg()}} to see the regression parameters.
 }

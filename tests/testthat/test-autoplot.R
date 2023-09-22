@@ -33,7 +33,7 @@ test_that("autoplot works as expected for BAsummary class with multiple argument
 
 test_that("autoplot works as expected for MCResult class with default arguments", {
   data(creatinine, package = "mcr")
-  object <- mcreg(
+  object <- mcreg2(
     x = platelet$Comparative, y = platelet$Candidate,
     method.reg = "Deming", method.ci = "jackknife"
   )
@@ -44,7 +44,7 @@ test_that("autoplot works as expected for MCResult class with default arguments"
 
 test_that("autoplot works as expected for MCResult class with multiple arguments", {
   data(creatinine, package = "mcr")
-  object <- mcreg(
+  object <- mcreg2(
     x = platelet$Comparative, y = platelet$Candidate,
     method.reg = "PaBa", method.ci = "bootstrap"
   )

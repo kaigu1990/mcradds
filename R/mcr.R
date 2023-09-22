@@ -69,6 +69,26 @@ mcreg <- function(...) {
   mcr::mcreg(...)
 }
 
+#' @rdname mcreg
+#' @aliases mcreg
+#'
+#' @export
+#' @examples
+#'
+#' # use `MCR` class instead of `MCResult` class in `mcr` package
+#' mcreg2(
+#'   x = platelet$Comparative, y = platelet$Candidate,
+#'   method.reg = "Deming", method.ci = "jackknife"
+#' )
+mcreg2 <- function(...) {
+  fit <- mcr::mcreg(...)
+  MCR(
+    data = fit@data,
+    coef = fit@glob.coef,
+    mnames = fit@mnames,
+    regmeth = fit@regmeth
+  )
+}
 
 # calcBias ----
 

@@ -22,7 +22,7 @@ platelet
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 This example \code{\link{platelet}} can be used to create a data set comparing
-Platelet results from two analyzers in cells/μL.
+Platelet results from two analyzers in cells.
 }
 \seealso{
 \link[mcr:creatinine]{mcr::creatinine} that contains data with with serum and plasma

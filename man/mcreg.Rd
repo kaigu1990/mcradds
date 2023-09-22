@@ -2,9 +2,12 @@
 % Please edit documentation in R/mcr.R
 \name{mcreg}
 \alias{mcreg}
+\alias{mcreg2}
 \title{Comparison of Two Measurement Methods Using Regression Analysis}
 \usage{
 mcreg(...)
+
+mcreg2(...)
 }
 \arguments{
 \item{...}{
@@ -67,6 +70,12 @@ fit <- mcreg(
 )
 printSummary(fit)
 getCoefficients(fit)
+
+# use `MCR` class instead of `MCResult` class in `mcr` package
+mcreg2(
+  x = platelet$Comparative, y = platelet$Candidate,
+  method.reg = "Deming", method.ci = "jackknife"
+)
 }
 \seealso{
 \code{\link[mcr:mcreg]{mcr::mcreg()}}
