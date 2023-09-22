@@ -3,7 +3,7 @@
 #' @description `r lifecycle::badge("experimental")`
 #'
 #' This example [`mcradds::platelet`] can be used to create a data set comparing
-#' Platelet results from two analyzers in cells/μL.
+#' Platelet results from two analyzers in cells.
 #'
 #' @format A [mcradds::platelet] data set contains 120 observations and 3 variables.
 #' \describe{
