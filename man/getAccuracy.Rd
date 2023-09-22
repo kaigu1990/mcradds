@@ -100,6 +100,7 @@ reference, such as paired reader precision.
 }
 \examples{
 # For qualitative performance
+data("qualData")
 tb <- qualData \%>\%
   diagTab(
     formula = ~ CandidateN + ComparativeN,
