@@ -1,3 +1,13 @@
+# mcradds 1.0.0
+
+### Meta
+* First public release of the `mcradds` package.
+* Submission to `CRAN`.
+
+### New features
+* Added `autoplot` method for Bland-Altman and regression plots.
+
+
 # mcradds 0.2.0
 
 ### New features
@@ -14,6 +24,7 @@
 ### Miscellaneous
 * Added a series of helper function to format and concatenate to string.
 * Uniform the capital and lower-case letters in roxygen documents.
+
 
 # mcradds 0.1.0
 * First release of the `mcradds` package, contains basic quantitative or qualitative performance methods and functions as shown below.
