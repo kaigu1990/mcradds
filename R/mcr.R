@@ -16,11 +16,9 @@
 #'   method.reg = "Deming", method.ci = "jackknife"
 #' )
 #' printSummary(fit)
-printSummary <- function(...) {
-  mcr::printSummary(...)
-}
-
-
+# printSummary <- function(...) {
+#   mcr::printSummary(...)
+# }
 # getCoefficients ----
 
 #' Get Regression Coefficients
@@ -39,11 +37,9 @@ printSummary <- function(...) {
 #'   method.reg = "Deming", method.ci = "jackknife"
 #' )
 #' getCoefficients(fit)
-getCoefficients <- function(...) {
-  mcr::getCoefficients(...)
-}
-
-
+# getCoefficients <- function(...) {
+#   mcr::getCoefficients(...)
+# }
 # mcreg ----
 
 #' Comparison of Two Measurement Methods Using Regression Analysis
@@ -65,9 +61,9 @@ getCoefficients <- function(...) {
 #' )
 #' printSummary(fit)
 #' getCoefficients(fit)
-mcreg <- function(...) {
-  mcr::mcreg(...)
-}
+# mcreg <- function(...) {
+#   mcr::mcreg(...)
+# }
 
 #' @rdname mcreg
 #' @aliases mcreg
@@ -80,16 +76,15 @@ mcreg <- function(...) {
 #'   x = platelet$Comparative, y = platelet$Candidate,
 #'   method.reg = "Deming", method.ci = "jackknife"
 #' )
-mcreg2 <- function(...) {
-  fit <- mcr::mcreg(...)
-  MCR(
-    data = fit@data,
-    coef = fit@glob.coef,
-    mnames = fit@mnames,
-    regmeth = fit@regmeth
-  )
-}
-
+# mcreg2 <- function(...) {
+#   fit <- mcr::mcreg(...)
+#   MCR(
+#     data = fit@data,
+#     coef = fit@glob.coef,
+#     mnames = fit@mnames,
+#     regmeth = fit@regmeth
+#   )
+# }
 # calcBias ----
 
 #' Systematical Bias Between Reference Method and Test Method
@@ -114,6 +109,6 @@ mcreg2 <- function(...) {
 #' calcBias(fit, x.levels = c(30, 200))
 #' calcBias(fit, x.levels = c(30, 200), type = "proportional")
 #' calcBias(fit, x.levels = c(30, 200), type = "proportional", percent = FALSE)
-calcBias <- function(...) {
-  mcr::calcBias(...)
-}
+# calcBias <- function(...) {
+#   mcr::calcBias(...)
+# }

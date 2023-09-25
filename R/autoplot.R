@@ -11,8 +11,8 @@
 #'  default is FALSE.
 #' @param loa.line (`logical`)\cr whether to plot limit of agreement line, default is TRUE.
 #' @param ref.line.params,ci.line.params,loa.line.params (`list`)\cr parameters
-#'  (color, linetype, size) for the argument 'ref.line', 'ci.line' and 'loa.line';
-#'  eg. ref.line.params = list(col = "blue", linetype = "solid", size = 1).
+#'  (color, linetype, linewidth) for the argument 'ref.line', 'ci.line' and 'loa.line';
+#'  eg. ref.line.params = list(col = "blue", linetype = "solid", linewidth = 1).
 #' @param label (`logical`)\cr whether to add specific value label for each line
 #'  (ref.line, ci.line and loa.line). Only be shown when the line is defined as TRUE.
 #' @param label.digits (`integer`)\cr the number of digits after the decimal point
@@ -29,16 +29,10 @@
 #' @export
 #'
 #' @examples
-#' # Using creatinine dataset from `mcr` package
-#' data(creatinine, package = "mcr")
-#' object <- blandAltman(x = creatinine$serum.crea, y = creatinine$plasma.crea)
-#' autoplot(object)
-#' autoplot(object, type = "relative")
-#'
 #' # Specify the type for difference plot
 #' data("platelet")
 #' object <- blandAltman(x = platelet$Comparative, y = platelet$Candidate)
-#' autoplot(object, type = "absolute")
+#' autoplot(object)
 #' autoplot(object, type = "relative")
 #'
 #' # Set the addition parameters for `geom_point`
@@ -182,7 +176,7 @@ setMethod(
           yintercept = statmat["mean"],
           col = if (is.null(ref.line.params[["col"]])) 1 else ref.line.params[["col"]],
           linetype = if (is.null(ref.line.params[["linetype"]])) 1 else ref.line.params[["linetype"]],
-          size = if (is.null(ref.line.params[["size"]])) 0.9 else ref.line.params[["size"]]
+          linewidth = if (is.null(ref.line.params[["linewidth"]])) 0.9 else ref.line.params[["linewidth"]]
         )
 
       if (label) {
@@ -203,13 +197,13 @@ setMethod(
           yintercept = statmat["ci_lr"],
           col = if (is.null(ci.line.params[["col"]])) 1 else ci.line.params[["col"]],
           linetype = if (is.null(ci.line.params[["linetype"]])) 1 else ci.line.params[["linetype"]],
-          size = if (is.null(ci.line.params[["size"]])) 0.8 else ci.line.params[["size"]]
+          linewidth = if (is.null(ci.line.params[["linewidth"]])) 0.8 else ci.line.params[["size"]]
         ) +
         geom_hline(
           yintercept = statmat["ci_ur"],
           col = if (is.null(ci.line.params[["col"]])) 1 else ci.line.params[["col"]],
           linetype = if (is.null(ci.line.params[["linetype"]])) 1 else ci.line.params[["linetype"]],
-          size = if (is.null(ci.line.params[["size"]])) 0.8 else ci.line.params[["size"]]
+          linewidth = if (is.null(ci.line.params[["linewidth"]])) 0.8 else ci.line.params[["linewidth"]]
         )
 
       if (label) {
@@ -237,13 +231,13 @@ setMethod(
           yintercept = statmat["limit_lr"],
           col = if (is.null(loa.line.params[["col"]])) 1 else loa.line.params[["col"]],
           linetype = if (is.null(loa.line.params[["linetype"]])) 1 else loa.line.params[["linetype"]],
-          size = if (is.null(loa.line.params[["size"]])) 0.8 else loa.line.params[["size"]]
+          linewidth = if (is.null(loa.line.params[["linewidth"]])) 0.8 else loa.line.params[["linewidth"]]
         ) +
         geom_hline(
           yintercept = statmat["limit_ur"],
           col = if (is.null(loa.line.params[["col"]])) 1 else loa.line.params[["col"]],
           linetype = if (is.null(loa.line.params[["linetype"]])) 1 else loa.line.params[["linetype"]],
-          size = if (is.null(loa.line.params[["size"]])) 0.8 else loa.line.params[["size"]]
+          linewidth = if (is.null(loa.line.params[["linewidth"]])) 0.8 else loa.line.params[["linewidth"]]
         )
 
       if (label) {
@@ -308,6 +302,7 @@ setMethod(
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Using the default arguments for regression plot
 #' data("platelet")
 #' fit <- mcreg2(
@@ -323,6 +318,7 @@ setMethod(
 #'   legend.title = FALSE,
 #'   legend.digits = 4
 #' )
+#' }
 setMethod(
   f = "autoplot",
   signature = c("MCR"),

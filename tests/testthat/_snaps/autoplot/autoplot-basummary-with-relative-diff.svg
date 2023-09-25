@@ -176,7 +176,7 @@
 <circle cx='504.76' cy='289.51' r='1.95' style='stroke-width: 0.71; fill: #D3D3D3;' />
 <circle cx='565.73' cy='264.35' r='1.95' style='stroke-width: 0.71; fill: #D3D3D3;' />
 <circle cx='663.36' cy='265.34' r='1.95' style='stroke-width: 0.71; fill: #D3D3D3;' />
-<line x1='45.79' y1='254.28' x2='705.06' y2='254.28' style='stroke-width: 2.13; stroke: #0000FF; stroke-linecap: butt;' />
+<line x1='45.79' y1='254.28' x2='705.06' y2='254.28' style='stroke-width: 1.92; stroke: #0000FF; stroke-linecap: butt;' />
 <text x='705.06' y='250.75' text-anchor='end' style='font-size: 11.38px; font-family: sans;' textLength='76.26px' lengthAdjust='spacingAndGlyphs'>Mean = 0.0636</text>
 <text x='705.06' y='250.75' text-anchor='end' style='font-size: 11.38px; font-family: sans;' textLength='76.26px' lengthAdjust='spacingAndGlyphs'>Mean = 0.0636</text>
 <text x='705.06' y='250.75' text-anchor='end' style='font-size: 11.38px; font-family: sans;' textLength='76.26px' lengthAdjust='spacingAndGlyphs'>Mean = 0.0636</text>

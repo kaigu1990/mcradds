@@ -33,7 +33,6 @@ Imports:
 Suggests: 
     dplyr,
     knitr,
-    mcr,
     rmarkdown,
     spelling,
     testthat (>= 3.0.0),

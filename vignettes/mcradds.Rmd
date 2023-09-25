@@ -1,5 +1,5 @@
 ---
-title: "Introduction to `mcradds`"
+title: "Introduction to mcradds"
 package: mcradds
 output: 
   rmarkdown::html_document:
@@ -32,7 +32,7 @@ This vignette shows the general purpose and usage of the `mcradds` R package.
 
 `mcradds` is a successor of the `mcr` R package that is developed by Roche, and therefore the fundamental coding ideas for method comparison regression have been borrowed from it. In addition, I supplement a series of useful functions and methods based on several reference documents from CLSI and NMPA guidance. You can perform the statistical analysis and graphics in different IVD trials utilizing these analytical functions.
 
-```{r}
+```{r eval = FALSE}
 browseVignettes(package = "mcradds")
 ```
 
@@ -71,7 +71,7 @@ The data sets with different purposes used in this vignette are:
 ```{r}
 data("qualData")
 data("platelet")
-data(creatinine, package = "mcr")
+# data(creatinine, package = "mcr")
 data("calcium")
 data("ldlroc")
 data("PDL1RP")
@@ -186,9 +186,11 @@ tb %>% getAccuracy(ref = "nr", nr_ci = "wilson")
 
 #### Estimating Regression coefficient
 
-Regression agreement is a very important criteria in method comparison trials that can be achieved by `mcr` package that has provided a series of regression methods, such as 'Deming', 'Passing-Bablok',' weighted Deming' and so on. The main and key functions have been wrapped in the `mcradds`, such as `mcreg`, `getCoefficients` and `calcBias`. If you would like to utilize the entire functions in `mcr` package, just adding the specific package name in front of each of them, like `mcr::calcBias()`, so that it looks the function is called from `mcr` package.
+Regression agreement is a very important criteria in method comparison trials that can be achieved by `mcr` package that has provided a series of regression methods, such as 'Deming', 'Passing-Bablok',' weighted Deming' and so on. The main and key functions have been wrapped in the `mcradds`, such as `mcreg`, `getCoefficients` and `calcBias`. If you would like to utilize the entire functions in `mcr` package, just adding the specific package name in front of each of them, like `mcr::calcBias()`, so that it looks the function is called from `mcr` package. 
 
-```{r}
+Please to be noted that the `mcr` package is not available in CRAN, so the `mcreg` or `mcreg2` function can not be used temporarily.
+
+```{r eval = FALSE}
 # Deming regression
 fit <- mcreg(
   x = platelet$Comparative, y = platelet$Candidate,
@@ -202,7 +204,9 @@ getCoefficients(fit)
 
 Once you have obtained this regression equation, whether 'Deming' or 'Passing-Bablok', you can use it to estimate the bias in medical decision level. Suppose that you know the medical decision level of one assay is `30`, obviously this is a make-up number. Then you can use the `fit` object above to estimate the bias using `calcBias` function.
 
-```{r}
+Please to be noted that the `mcr` package is not available in CRAN, so the `calcBias` function can not be used temporarily.
+
+```{r eval = FALSE}
 # absolute bias.
 calcBias(fit, x.levels = c(30))
 
@@ -248,7 +252,7 @@ out$stat
 out$outmat
 
 # 4E approach
-ba2 <- blandAltman(x = creatinine$serum.crea, y = creatinine$plasma.crea)
+ba2 <- blandAltman(x = platelet$Comparative, y = platelet$Candidate)
 out2 <- getOutlier(ba2, method = "4E")
 out2$stat
 out2$outmat
@@ -445,9 +449,11 @@ autoplot(
 
 ### Regression plot
 
-To generate the regression plot, you should create the object from `mcreg()` function and then call `autoplot` straightforward.
+To generate the regression plot, you should create the object from `mcreg()` function and then call `autoplot` straightforward. 
 
-```{r}
+Please to be noted that the `mcr` package is not available in CRAN, so the `mcreg` or `mcreg2` function can not be used temporarily.
+
+```{r eval = FALSE}
 fit <- mcreg2(
   x = platelet$Comparative, y = platelet$Candidate,
   method.reg = "PaBa", method.ci = "bootstrap"
@@ -457,7 +463,7 @@ autoplot(fit)
 
 More arguments can be used as shown below.
 
-```{r}
+```{r eval = FALSE}
 autoplot(
   fit,
   identity.params = list(col = "blue", linetype = "solid"),

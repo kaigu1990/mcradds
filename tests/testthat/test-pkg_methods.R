@@ -65,11 +65,10 @@ test_that("getOutlier works as expected with sample id", {
 })
 
 test_that("getOutlier works as expected with 4E method", {
-  data("creatinine", package = "mcr")
-  ba <- blandAltman(x = creatinine$serum.crea, y = creatinine$plasma.crea)
+  ba <- blandAltman(x = c(1:10), y = c(2:8, 50, 20, 30))
   object <- getOutlier(ba, method = "4E")
-  expect_equal(dim(object$stat), c(6, 8))
-  expect_identical(object$ord, c(4L, 51L, 96L, 97L, 106L, 108L))
+  expect_equal(dim(object$stat), c(1, 8))
+  expect_identical(object$ord, c(8L))
 })
 
 test_that("getOutlier works as expected to print no outlier", {

@@ -157,7 +157,7 @@ nonparRI <- function(x, ind = 1:length(x), conf.level = 0.95) {
 #' x <- calcium$Value
 #' refInterval(x, RI_method = "parametric", CI_method = "parametric")
 #' refInterval(x, RI_method = "nonparametric", CI_method = "nonparametric")
-#' refInterval(x, RI_method = "robust", CI_method = "boot")
+#' refInterval(x, RI_method = "robust", CI_method = "boot", R = 1000)
 refInterval <- function(x, out_method = c("doxin", "tukey"),
                         out_rm = FALSE,
                         RI_method = c("parametric", "nonparametric", "robust"),

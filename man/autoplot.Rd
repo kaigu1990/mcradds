@@ -73,8 +73,8 @@ to the location of points.}
 \item{ref.line}{(\code{logical})\cr whether to plot a 'mean' line, default is TRUE.}
 
 \item{ref.line.params, ci.line.params, loa.line.params}{(\code{list})\cr parameters
-(color, linetype, size) for the argument 'ref.line', 'ci.line' and 'loa.line';
-eg. ref.line.params = list(col = "blue", linetype = "solid", size = 1).}
+(color, linetype, linewidth) for the argument 'ref.line', 'ci.line' and 'loa.line';
+eg. ref.line.params = list(col = "blue", linetype = "solid", linewidth = 1).}
 
 \item{ci.line}{(\code{logical})\cr whether to plot a confidence interval line of 'mean',
 default is FALSE.}
@@ -129,16 +129,10 @@ If you'd like to alter any part that this \code{autoplot} function haven't
 provided, adding other \code{ggplot} statements are suggested.
 }
 \examples{
-# Using creatinine dataset from `mcr` package
-data(creatinine, package = "mcr")
-object <- blandAltman(x = creatinine$serum.crea, y = creatinine$plasma.crea)
-autoplot(object)
-autoplot(object, type = "relative")
-
 # Specify the type for difference plot
 data("platelet")
 object <- blandAltman(x = platelet$Comparative, y = platelet$Candidate)
-autoplot(object, type = "absolute")
+autoplot(object)
 autoplot(object, type = "relative")
 
 # Set the addition parameters for `geom_point`
@@ -174,6 +168,7 @@ autoplot(object,
   x.title = "Mean of Test and Reference Methods",
   y.title = "Reference - Test"
 )
+\dontrun{
 # Using the default arguments for regression plot
 data("platelet")
 fit <- mcreg2(
@@ -189,6 +184,7 @@ autoplot(fit,
   legend.title = FALSE,
   legend.digits = 4
 )
+}
 }
 \seealso{
 \code{\link[=h_difference]{h_difference()}} to see the type details.

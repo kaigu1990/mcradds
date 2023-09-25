@@ -64,7 +64,6 @@ ba3 <- blandAltman(x = platelet$Comparative, y = platelet$Candidate, type2 = 4)
 getOutlier(ba3, method = "ESD", difference = "rel")
 
 # Using "4E" as the method input
-data("creatinine", package = "mcr")
-ba4 <- blandAltman(x = creatinine$serum.crea, y = creatinine$plasma.crea)
+ba4 <- blandAltman(x = platelet$Comparative, y = platelet$Candidate)
 getOutlier(ba4, method = "4E")
 }
