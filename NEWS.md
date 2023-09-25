@@ -1,3 +1,8 @@
+# mcradds 1.0.1
+
+### Meta
+* Remove `mcr` package related codes as it's not available in the CRAN.
+
 # mcradds 1.0.0
 
 ### Meta
