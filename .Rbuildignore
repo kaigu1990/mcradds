@@ -11,3 +11,4 @@ design/*
 ^\.github$
 ^cran-comments\.md$
 ^revdep$
+^CRAN-SUBMISSION$
