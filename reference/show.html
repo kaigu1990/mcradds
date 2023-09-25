@@ -12,7 +12,7 @@ A show method that displays essential information of objects."><meta property="o
     
     <a class="navbar-brand me-2" href="../index.html">mcradds</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,7 +20,10 @@ A show method that displays essential information of objects."><meta property="o
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="active nav-item">
+      <ul class="navbar-nav me-auto"><li class="nav-item">
+  <a class="nav-link" href="../articles/mcradds.html">Get started</a>
+</li>
+<li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
 <li class="nav-item">
@@ -117,16 +120,21 @@ the console.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          1   8 122</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Bland-Altman analysis</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"creatinine"</span>, package <span class="op">=</span> <span class="st">"mcr"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="blandAltman.html">blandAltman</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">creatinine</span><span class="op">$</span><span class="va">serum.crea</span>, y <span class="op">=</span> <span class="va">creatinine</span><span class="op">$</span><span class="va">plasma.crea</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"platelet"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="blandAltman.html">blandAltman</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">platelet</span><span class="op">$</span><span class="va">Comparative</span>, y <span class="op">=</span> <span class="va">platelet</span><span class="op">$</span><span class="va">Candidate</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Call: blandAltman(x = platelet$Comparative, y = platelet$Candidate)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Absolute difference type:  Y-X</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Relative difference type:  (Y-X)/(0.5*(X+Y))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                             Absolute.difference Relative.difference</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> N                                           108                 108</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mean (SD)                        0.008 ( 0.156)     -0.001 ( 0.140)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Median                                   -0.020              -0.017</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Q1, Q3                         (-0.090,  0.112)    (-0.097,  0.080)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Min, Max                       (-0.330,  0.490)    (-0.305,  0.464)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Limit of Agreement             (-0.299,  0.314)    (-0.275,  0.273)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Confidence Interval of Mean    (-0.022,  0.037)    (-0.027,  0.026)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> N                                           120                 120</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mean (SD)                        7.330 (15.990)      0.064 ( 0.145)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Median                                    6.350               0.055</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Q1, Q3                         ( 0.150, 15.750)    ( 0.001,  0.118)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Min, Max                      (-47.800, 42.100)    (-0.412,  0.667)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Limit of Agreement            (-24.011, 38.671)    (-0.220,  0.347)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Confidence Interval of Mean    ( 4.469, 10.191)    ( 0.038,  0.089)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Reference Interval</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"calcium"</span><span class="op">)</span></span></span>

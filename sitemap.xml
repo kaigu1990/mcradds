@@ -4,6 +4,12 @@
     <loc>https://kaigu1990.github.io/mcradds/404.html</loc>
   </url>
   <url>
+    <loc>https://kaigu1990.github.io/mcradds/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://kaigu1990.github.io/mcradds/articles/mcradds.html</loc>
+  </url>
+  <url>
     <loc>https://kaigu1990.github.io/mcradds/authors.html</loc>
   </url>
   <url>
@@ -17,6 +23,9 @@
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/ESD_test.html</loc>
+  </url>
+  <url>
+    <loc>https://kaigu1990.github.io/mcradds/reference/MCR-class.html</loc>
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/MCTab-class.html</loc>
@@ -37,10 +46,10 @@
     <loc>https://kaigu1990.github.io/mcradds/reference/aucTest.html</loc>
   </url>
   <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/blandAltman.html</loc>
+    <loc>https://kaigu1990.github.io/mcradds/reference/autoplot.html</loc>
   </url>
   <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/calcBias.html</loc>
+    <loc>https://kaigu1990.github.io/mcradds/reference/blandAltman.html</loc>
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/calcium.html</loc>
@@ -59,9 +68,6 @@
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/getAccuracy.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/getCoefficients.html</loc>
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/getOutlier.html</loc>
@@ -97,9 +103,6 @@
     <loc>https://kaigu1990.github.io/mcradds/reference/mcradds-package.html</loc>
   </url>
   <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/mcreg.html</loc>
-  </url>
-  <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/nonparRI.html</loc>
   </url>
   <url>
@@ -113,9 +116,6 @@
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/platelet.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/printSummary.html</loc>
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/qualData.html</loc>

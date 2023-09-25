@@ -12,7 +12,7 @@ The BAsummary class is used to display the BlandAltman analysis and outliers."><
     
     <a class="navbar-brand me-2" href="../index.html">mcradds</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,7 +20,10 @@ The BAsummary class is used to display the BlandAltman analysis and outliers."><
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="active nav-item">
+      <ul class="navbar-nav me-auto"><li class="nav-item">
+  <a class="nav-link" href="../articles/mcradds.html">Get started</a>
+</li>
+<li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
 <li class="nav-item">
@@ -54,17 +57,25 @@ The BAsummary class is used to display the BlandAltman analysis and outliers."><
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">BAsummary</span><span class="op">(</span><span class="va">data</span>, <span class="va">stat</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">BAsummary</span><span class="op">(</span><span class="va">call</span>, <span class="va">data</span>, <span class="va">stat</span>, <span class="va">param</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>data</dt>
+    <dl><dt>call</dt>
+<dd><p>(<code>call</code>)<br> function call.</p></dd>
+
+
+<dt>data</dt>
 <dd><p>(<code>data.frame</code>)<br> stores the raw data from input.</p></dd>
 
 
 <dt>stat</dt>
 <dd><p>(<code>list</code>)<br> contains several statistics for numeric data.</p></dd>
+
+
+<dt>param</dt>
+<dd><p>(<code>list</code>)<br> list of relevant parameters.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -77,12 +88,20 @@ The BAsummary class is used to display the BlandAltman analysis and outliers."><
     <h2 id="slots">Slots<a class="anchor" aria-label="anchor" href="#slots"></a></h2>
     
 
-<dl><dt><code>data</code></dt>
+<dl><dt><code>call</code></dt>
+<dd><p>call</p></dd>
+
+
+<dt><code>data</code></dt>
 <dd><p>data</p></dd>
 
 
 <dt><code>outlier</code></dt>
 <dd><p>outlier</p></dd>
+
+
+<dt><code>param</code></dt>
+<dd><p>param</p></dd>
 
 
 </dl></div>
