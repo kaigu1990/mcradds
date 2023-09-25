@@ -40,8 +40,8 @@ size_ci_corr(r = 0.9, lr = 0.85, alpha = 0.025, alternative = "greater")
 qualData \%>\% diagTab(formula = ~ CandidateN + ComparativeN)
 
 # Bland-Altman analysis
-data("creatinine", package = "mcr")
-blandAltman(x = creatinine$serum.crea, y = creatinine$plasma.crea)
+data("platelet")
+blandAltman(x = platelet$Comparative, y = platelet$Candidate)
 
 # Reference Interval
 data("calcium")

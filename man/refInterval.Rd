@@ -86,5 +86,5 @@ data("calcium")
 x <- calcium$Value
 refInterval(x, RI_method = "parametric", CI_method = "parametric")
 refInterval(x, RI_method = "nonparametric", CI_method = "nonparametric")
-refInterval(x, RI_method = "robust", CI_method = "boot")
+refInterval(x, RI_method = "robust", CI_method = "boot", R = 1000)
 }

@@ -2,9 +2,13 @@
 
 0 errors | 0 warnings | 1 note
 
+Maintainer: 'Kai Gu <gukai1212@163.com>'
+   
+   New submission
+
 * This is a new release.
-* Suggests or Enhances not in mainstream repositories: `mcr`. Because `mcr` package 
-is not available in CRAN. But users can install it from archived version.
+* As `mcr` package is not available in CRAN for now, I add not running statement 
+for the examples. But users can install it from archived version.
 
 ## revdepcheck results
 

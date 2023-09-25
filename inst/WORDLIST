@@ -26,11 +26,9 @@ Jen
 LDL
 Liu
 LoA
-MCResult
 MCTab
 MMEs
 McCulloch
-NBins
 NCSS
 NMPA
 NMPA's
@@ -38,11 +36,8 @@ NOBOUND
 NSCLC
 Newcombe
 OxLDL
-PBequi
 PDL
 PROC
-PaBa
-PaBaLarge
 QC'ed
 RandomEffects
 Reproducibility
@@ -51,7 +46,6 @@ SampleSize
 Satterthwaite
 Searle
 Statist
-Theil
 VC
 VCA
 VCoriginal
@@ -70,7 +64,6 @@ confInt
 creatinin
 dL
 eg
-equivariant
 et
 fontface
 gb
@@ -78,6 +71,7 @@ ggplot
 immunohistochemical
 ixed
 linetype
+linewidth
 lipoprotein
 loa
 magrittr
@@ -95,15 +89,12 @@ pearson
 plr
 ppa
 ppv
-quasilinear
 quations
 refInt
 refROC
 regmeth
-regmethod
 repo
 reproducibility
-rng
 roxygen
 sas
 satterthwaite
