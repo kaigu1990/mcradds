@@ -1,16 +1,17 @@
 Package: mcradds
 Type: Package
-Title: Processing and Analyzing of IVD Trials
+Title: Processing and Analyzing of Diagnostics Trials
 Version: 1.0.1
 Authors@R: c(
     person("Kai", "Gu", , "gukai1212@163.com", role = c("aut", "cre", "cph"))
     )
 Maintainer: Kai Gu <gukai1212@163.com>
-Description: A complement to 'mcr' package, adding methods and functions to 
-    analyze the quantitative or qualitative performance for diagnostic assays. 
-    And outliers detection, reader precision and reference range are discussed. 
-    Most of the methods and algorithms refer to CLSI recommendations and NMPA 
-    guidelines. In additional, relevant plots are constructed by ggplot2.
+Description: Provides methods and functions to analyze the quantitative or 
+    qualitative performance for diagnostic assays, and outliers detection, 
+    reader precision and reference range are discussed. Most of the methods 
+    and algorithms refer to CLSI (Clinical & Laboratory Standards Institute) 
+    recommendations and NMPA (National Medical Products Administration) 
+    guidelines. In additional, relevant plots are constructed by 'ggplot2'.
 License: GPL (>= 3)
 URL: https://github.com/kaigu1990/mcradds, https://kaigu1990.github.io/mcradds/
 BugReports: https://github.com/kaigu1990/mcradds/issues

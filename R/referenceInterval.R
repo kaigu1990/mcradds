@@ -253,10 +253,10 @@ refInterval <- function(x, out_method = c("doxin", "tukey"),
       set.seed(rng.seed)
     }
     if (RI_method == "nonparametric") {
-      print("Bootstrape process could take a short while.")
+      message("Bootstrape process could take a short while.")
       bootres <- boot(data = x, statistic = nonparRI, R = R, conf.level = refLevel)
     } else if (RI_method == "robust") {
-      print("Bootstrape process could take a short while.")
+      message("Bootstrape process could take a short while.")
       bootres <- boot(data = x, statistic = robustRI, R = R, conf.level = refLevel, tol = tol)
     }
     bootlowerci <- boot.ci(bootres, conf = confLevel, type = bootCI, index = c(1, 2))

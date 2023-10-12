@@ -74,6 +74,5 @@ test_that("getOutlier works as expected with 4E method", {
 test_that("getOutlier works as expected to print no outlier", {
   data("platelet")
   ba <- blandAltman(x = platelet$Comparative, y = platelet$Candidate, sid = platelet$Sample)
-  result <- capture_output(getOutlier(ba, method = "4E"))
-  expect_character(result, pattern = "No outlier is detected.")
+  expect_message(getOutlier(ba, method = "4E"), "No outlier is detected.")
 })

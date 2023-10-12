@@ -12,7 +12,7 @@
 #'    \item{Candidate}{Measurements from candidate analyzer}
 #' }
 #' @source CLSI-EP09 A3 Appendix H, Table H2 is cited in this data set.
-#' @seealso [mcr::creatinine] that contains data with with serum and plasma
+#' @seealso From `mcr` package, `creatinine` data set contains data with with serum and plasma
 #' creatinin measurements in mg/dL for each sample.
 "platelet"
 

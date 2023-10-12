@@ -1,13 +1,13 @@
 # mcradds 1.0.1
 
 ### Meta
-* Remove `mcr` package related codes as it's not available in the CRAN.
+* Remove `mcr` package related codes as it's not available in the CRAN. But as the contacting with the author, he is working and updating on it and plans to re-submit to CRAN.
+* First public release of `mcradds` package.
 
 # mcradds 1.0.0
 
 ### Meta
-* First public release of the `mcradds` package.
-* Submission to `CRAN`.
+* Prepared submission to `CRAN`.
 
 ### New features
 * Added `autoplot` method for Bland-Altman and regression plots.

@@ -303,7 +303,7 @@ setMethod(
           outmat = outmat, rmmat = rmout
         ))
       } else {
-        return(cat("No outlier is detected."))
+        return(message("No outlier is detected."))
       }
     }
 
@@ -323,7 +323,7 @@ setMethod(
         row.names(rmout) <- NULL
         return(c(res, list(sid = outid, outmat = outmat, rmmat = rmout)))
       } else {
-        return(cat("No outlier is detected."))
+        return(message("No outlier is detected."))
       }
     }
   }
