@@ -1,7 +1,7 @@
 Package: mcradds
 Type: Package
 Title: Processing and Analyzing of Diagnostics Trials
-Version: 1.0.1
+Version: 1.0.1.9000
 Authors@R: c(
     person("Kai", "Gu", , "gukai1212@163.com", role = c("aut", "cre", "cph"))
     )
