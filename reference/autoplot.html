@@ -16,7 +16,7 @@ the necessary and useful option arguments for presentation."><meta property="og:
     
     <a class="navbar-brand me-2" href="../index.html">mcradds</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,28 +83,6 @@ the necessary and useful option arguments for presentation.</p>
 <span>  label <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  label.digits <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>  label.params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
-<span>  x.nbreak <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  y.nbreak <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  x.title <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  y.title <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  main.title <span class="op">=</span> <span class="cn">NULL</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for MCR</span></span>
-<span><span class="fu">autoplot</span><span class="op">(</span></span>
-<span>  <span class="va">object</span>,</span>
-<span>  color <span class="op">=</span> <span class="st">"black"</span>,</span>
-<span>  fill <span class="op">=</span> <span class="st">"lightgray"</span>,</span>
-<span>  size <span class="op">=</span> <span class="fl">1.5</span>,</span>
-<span>  shape <span class="op">=</span> <span class="fl">21</span>,</span>
-<span>  jitter <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  identity <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  identity.params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"gray"</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span>,</span>
-<span>  reg <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  reg.params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span>, linetype <span class="op">=</span> <span class="st">"solid"</span><span class="op">)</span>,</span>
-<span>  equal.axis <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  legend.title <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  legend.digits <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  x.nbreak <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y.nbreak <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x.title <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -188,35 +166,6 @@ breaks of x-axis and y-axis.</p></dd>
 <dd><p>(<code>string</code>)<br> the x-axis, y-axis and main
 title of plot.</p></dd>
 
-
-<dt>identity</dt>
-<dd><p>(<code>logical</code>)<br> whether to add identity line, default is TRUE.</p></dd>
-
-
-<dt>identity.params, reg.params</dt>
-<dd><p>(<code>list</code>)<br> parameters (color, linetype)
-for the argument 'identity' and 'reg'; eg. identity.params = list(col = "gray",
-linetype = "dashed").</p></dd>
-
-
-<dt>reg</dt>
-<dd><p>(<code>logical</code>)<br> whether to add regression line where the slope and
-intercept are obtained from <code>mcr::mcreg()</code> function, default is TRUE.</p></dd>
-
-
-<dt>equal.axis</dt>
-<dd><p>(<code>logical</code>)<br> whether to adjust the ranges of x-axis and y-axis
-are identical. If <code>equal.axis = TRUE</code>, x-axis will be equal to y-axis.</p></dd>
-
-
-<dt>legend.title</dt>
-<dd><p>(<code>logical</code>)<br> whether to present the title in the legend.</p></dd>
-
-
-<dt>legend.digits</dt>
-<dd><p>(<code>integer</code>)<br> the number of digits after the decimal point
-in the legend.</p></dd>
-
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -232,8 +181,7 @@ provided, adding other <code>ggplot</code> statements are suggested.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="h_difference.html">h_difference()</a></code> to see the type details.</p>
-<p><a href="MCR-class.html">MCR</a> or <code>mcr::mcreg()</code> to see the regression parameters.</p></div>
+    <div class="dont-index"><p><code><a href="h_difference.html">h_difference()</a></code> to see the type details.</p></div>
     </div>
 
     <div class="section level2">
@@ -283,23 +231,6 @@ provided, adding other <code>ggplot</code> statements are suggested.</p>
 <span class="r-in"><span>  y.title <span class="op">=</span> <span class="st">"Reference - Test"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="autoplot-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="co"># Using the default arguments for regression plot</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"platelet"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">mcreg2</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  x <span class="op">=</span> <span class="va">platelet</span><span class="op">$</span><span class="va">Comparative</span>, y <span class="op">=</span> <span class="va">platelet</span><span class="op">$</span><span class="va">Candidate</span>,</span></span>
-<span class="r-in"><span>  method.reg <span class="op">=</span> <span class="st">"Deming"</span>, method.ci <span class="op">=</span> <span class="st">"jackknife"</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">autoplot</span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Only present the regression line and alter the color and shape.</span></span></span>
-<span class="r-in"><span><span class="fu">autoplot</span><span class="op">(</span><span class="va">fit</span>,</span></span>
-<span class="r-in"><span>  identity <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
-<span class="r-in"><span>  reg.params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"grey"</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  legend.title <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
-<span class="r-in"><span>  legend.digits <span class="op">=</span> <span class="fl">4</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
