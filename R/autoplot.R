@@ -297,15 +297,14 @@ setMethod(
 #' @param legend.digits (`integer`)\cr the number of digits after the decimal point
 #'  in the legend.
 #'
-#' @seealso [MCR-class] or [mcr::mcreg()] to see the regression parameters.
+#' @seealso [mcr::mcreg()] to see the regression parameters.
 #'
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' # Using the default arguments for regression plot
 #' data("platelet")
-#' fit <- mcreg2(
+#' fit <- mcreg(
 #'   x = platelet$Comparative, y = platelet$Candidate,
 #'   method.reg = "Deming", method.ci = "jackknife"
 #' )
@@ -318,157 +317,156 @@ setMethod(
 #'   legend.title = FALSE,
 #'   legend.digits = 4
 #' )
-#' }
-# setMethod(
-#   f = "autoplot",
-#   signature = c("MCR"),
-#   definition = function(object,
-#                         color = "black",
-#                         fill = "lightgray",
-#                         size = 1.5,
-#                         shape = 21,
-#                         jitter = FALSE,
-#                         identity = TRUE,
-#                         identity.params = list(col = "gray", linetype = "dashed"),
-#                         reg = TRUE,
-#                         reg.params = list(col = "blue", linetype = "solid"),
-#                         equal.axis = FALSE,
-#                         legend.title = TRUE,
-#                         legend.digits = 2,
-#                         x.nbreak = NULL,
-#                         y.nbreak = NULL,
-#                         x.title = NULL,
-#                         y.title = NULL,
-#                         main.title = NULL) {
-#     assert_class(object, "MCR")
-#     assert_character(color)
-#     assert_character(fill)
-#     assert_number(size)
-#     assert_int(shape)
-#     assert_logical(jitter)
-#     assert_logical(reg)
-#     assert_logical(identity)
-#     assert_logical(equal.axis)
-#     assert_logical(legend.title)
-#     assert_int(legend.digits)
-#     assert_int(x.nbreak, null.ok = TRUE)
-#     assert_int(x.nbreak, null.ok = TRUE)
-#     assert_subset(names(identity.params), c("col", "linetype"))
-#     assert_subset(names(reg.params), c("col", "linetype"))
-#
-#     df <- object@data %>% na.omit()
-#     xrange <- range(df[["x"]])
-#     yrange <- range(df[["y"]])
-#
-#     slope <- formatC(object@coef[2], format = "f", legend.digits)
-#     intercept <- formatC(object@coef[1], format = "f", legend.digits)
-#     fm_text <- paste0("Y = ", slope, " * X + ", intercept)
-#
-#     p <- ggplot(data = df, aes(x = .data$x, y = .data$y))
-#
-#     if (jitter) {
-#       p <- p + geom_point(
-#         position = "jitter", color = color, fill = fill,
-#         size = size, shape = shape
-#       )
-#     } else {
-#       p <- p + geom_point(
-#         color = color, fill = fill,
-#         size = size, shape = shape
-#       )
-#     }
-#
-#     if (reg) {
-#       p <- p +
-#         geom_abline(
-#           aes(
-#             slope = as.numeric(slope), intercept = as.numeric(intercept),
-#             linetype = fm_text, color = fm_text
-#           ),
-#           key_glyph = draw_key_path
-#         )
-#     }
-#
-#     if (identity) {
-#       p <- p +
-#         geom_abline(
-#           aes(
-#             slope = 1, intercept = 0,
-#             linetype = "Identity", color = "Identity"
-#           ),
-#           key_glyph = draw_key_path
-#         )
-#     }
-#
-#     legend_title <- paste0(
-#       object@regmeth, " RegressionFit", " (n=", nrow(object@data), ")"
-#     )
-#     shapes <- stats::setNames(
-#       c(
-#         ifelse(is.null(reg.params[["linetype"]]), 1, reg.params[["linetype"]]),
-#         ifelse(is.null(identity.params[["linetype"]]), 1, identity.params[["linetype"]])
-#       ),
-#       c(fm_text, "Identity")
-#     )
-#     cols <- stats::setNames(
-#       c(
-#         ifelse(is.null(reg.params[["col"]]), 1, reg.params[["col"]]),
-#         ifelse(is.null(identity.params[["col"]]), 1, identity.params[["col"]])
-#       ),
-#       c(fm_text, "Identity")
-#     )
-#     p <- p +
-#       scale_linetype_manual(
-#         name = legend_title,
-#         values = shapes
-#       ) +
-#       scale_color_manual(
-#         name = legend_title,
-#         values = cols
-#       )
-#
-#     p <- p + ggplot2::labs(
-#       x = object@mnames[1], y = object@mnames[2], title = main.title
-#     )
-#
-#     if (equal.axis) {
-#       max_axis <- max(xrange[2] + diff(xrange) * 0.1, yrange[2] + diff(yrange) * 0.1)
-#       p <- p +
-#         scale_x_continuous(
-#           limits = c(0, max_axis),
-#           breaks = if (is.null(x.nbreak)) scales::pretty_breaks(6) else waiver(),
-#           n.breaks = x.nbreak
-#         ) +
-#         scale_y_continuous(
-#           limits = c(0, max_axis),
-#           breaks = if (is.null(y.nbreak)) scales::pretty_breaks(6) else waiver(),
-#           n.breaks = y.nbreak
-#         )
-#     } else {
-#       p <- p +
-#         scale_x_continuous(
-#           limits = c(0, xrange[2] + diff(xrange) * 0.1),
-#           breaks = if (is.null(x.nbreak)) scales::pretty_breaks(6) else waiver(),
-#           n.breaks = x.nbreak
-#         ) +
-#         scale_y_continuous(
-#           limits = c(0, yrange[2] + diff(yrange) * 0.1),
-#           breaks = if (is.null(y.nbreak)) scales::pretty_breaks(6) else waiver(),
-#           n.breaks = y.nbreak
-#         )
-#     }
-#
-#     p +
-#       theme_light() +
-#       theme(
-#         legend.position = c(0.02, 0.98),
-#         legend.justification = c("left", "top"),
-#         legend.background = element_rect(fill = "transparent"),
-#         legend.title = if (!legend.title) element_blank(),
-#         plot.title = element_text(hjust = 0.5),
-#         axis.title.x = element_text(size = 12, margin = margin(c(5, 0, 0, 0))),
-#         axis.title.y = element_text(size = 12, margin = margin(c(0, 5, 0, 0))),
-#         plot.margin = margin(c(15, 15, 10, 10))
-#       )
-#   }
-# )
+setMethod(
+  f = "autoplot",
+  signature = c("MCResult"),
+  definition = function(object,
+                        color = "black",
+                        fill = "lightgray",
+                        size = 1.5,
+                        shape = 21,
+                        jitter = FALSE,
+                        identity = TRUE,
+                        identity.params = list(col = "gray", linetype = "dashed"),
+                        reg = TRUE,
+                        reg.params = list(col = "blue", linetype = "solid"),
+                        equal.axis = FALSE,
+                        legend.title = TRUE,
+                        legend.digits = 2,
+                        x.nbreak = NULL,
+                        y.nbreak = NULL,
+                        x.title = NULL,
+                        y.title = NULL,
+                        main.title = NULL) {
+    assert_class(object, "MCResult")
+    assert_character(color)
+    assert_character(fill)
+    assert_number(size)
+    assert_int(shape)
+    assert_logical(jitter)
+    assert_logical(reg)
+    assert_logical(identity)
+    assert_logical(equal.axis)
+    assert_logical(legend.title)
+    assert_int(legend.digits)
+    assert_int(x.nbreak, null.ok = TRUE)
+    assert_int(x.nbreak, null.ok = TRUE)
+    assert_subset(names(identity.params), c("col", "linetype"))
+    assert_subset(names(reg.params), c("col", "linetype"))
+
+    df <- object@data %>% na.omit()
+    xrange <- range(df[["x"]])
+    yrange <- range(df[["y"]])
+
+    slope <- formatC(object@glob.coef[2], format = "f", legend.digits)
+    intercept <- formatC(object@glob.coef[1], format = "f", legend.digits)
+    fm_text <- paste0("Y = ", slope, " * X + ", intercept)
+
+    p <- ggplot(data = df, aes(x = .data$x, y = .data$y))
+
+    if (jitter) {
+      p <- p + geom_point(
+        position = "jitter", color = color, fill = fill,
+        size = size, shape = shape
+      )
+    } else {
+      p <- p + geom_point(
+        color = color, fill = fill,
+        size = size, shape = shape
+      )
+    }
+
+    if (reg) {
+      p <- p +
+        geom_abline(
+          aes(
+            slope = as.numeric(slope), intercept = as.numeric(intercept),
+            linetype = fm_text, color = fm_text
+          ),
+          key_glyph = draw_key_path
+        )
+    }
+
+    if (identity) {
+      p <- p +
+        geom_abline(
+          aes(
+            slope = 1, intercept = 0,
+            linetype = "Identity", color = "Identity"
+          ),
+          key_glyph = draw_key_path
+        )
+    }
+
+    legend_title <- paste0(
+      object@regmeth, " RegressionFit", " (n=", nrow(object@data), ")"
+    )
+    shapes <- stats::setNames(
+      c(
+        ifelse(is.null(reg.params[["linetype"]]), 1, reg.params[["linetype"]]),
+        ifelse(is.null(identity.params[["linetype"]]), 1, identity.params[["linetype"]])
+      ),
+      c(fm_text, "Identity")
+    )
+    cols <- stats::setNames(
+      c(
+        ifelse(is.null(reg.params[["col"]]), 1, reg.params[["col"]]),
+        ifelse(is.null(identity.params[["col"]]), 1, identity.params[["col"]])
+      ),
+      c(fm_text, "Identity")
+    )
+    p <- p +
+      scale_linetype_manual(
+        name = legend_title,
+        values = shapes
+      ) +
+      scale_color_manual(
+        name = legend_title,
+        values = cols
+      )
+
+    p <- p + ggplot2::labs(
+      x = object@mnames[1], y = object@mnames[2], title = main.title
+    )
+
+    if (equal.axis) {
+      max_axis <- max(xrange[2] + diff(xrange) * 0.1, yrange[2] + diff(yrange) * 0.1)
+      p <- p +
+        scale_x_continuous(
+          limits = c(0, max_axis),
+          breaks = if (is.null(x.nbreak)) scales::pretty_breaks(6) else waiver(),
+          n.breaks = x.nbreak
+        ) +
+        scale_y_continuous(
+          limits = c(0, max_axis),
+          breaks = if (is.null(y.nbreak)) scales::pretty_breaks(6) else waiver(),
+          n.breaks = y.nbreak
+        )
+    } else {
+      p <- p +
+        scale_x_continuous(
+          limits = c(0, xrange[2] + diff(xrange) * 0.1),
+          breaks = if (is.null(x.nbreak)) scales::pretty_breaks(6) else waiver(),
+          n.breaks = x.nbreak
+        ) +
+        scale_y_continuous(
+          limits = c(0, yrange[2] + diff(yrange) * 0.1),
+          breaks = if (is.null(y.nbreak)) scales::pretty_breaks(6) else waiver(),
+          n.breaks = y.nbreak
+        )
+    }
+
+    p +
+      theme_light() +
+      theme(
+        legend.position = c(0.02, 0.98),
+        legend.justification = c("left", "top"),
+        legend.background = element_rect(fill = "transparent"),
+        legend.title = if (!legend.title) element_blank(),
+        plot.title = element_text(hjust = 0.5),
+        axis.title.x = element_text(size = 12, margin = margin(c(5, 0, 0, 0))),
+        axis.title.y = element_text(size = 12, margin = margin(c(0, 5, 0, 0))),
+        plot.margin = margin(c(15, 15, 10, 10))
+      )
+  }
+)

@@ -12,7 +12,7 @@
 #'    \item{Candidate}{Measurements from candidate analyzer}
 #' }
 #' @source CLSI-EP09 A3 Appendix H, Table H2 is cited in this data set.
-#' @seealso From `mcr` package, `creatinine` data set contains data with with serum and plasma
+#' @seealso From `mcr` package, [mcr::creatinine] data set contains data with with serum and plasma
 #' creatinin measurements in mg/dL for each sample.
 "platelet"
 
@@ -49,7 +49,6 @@
 #'    \item{Group}{Sex group of target subjects}
 #' }
 #' @source CLSI-EP28A3 Table 4. is cited in this data set.
-#' @seealso [mcradds::platelet].
 "calcium"
 
 #' Nonparametric Rank Number of Reference Interval

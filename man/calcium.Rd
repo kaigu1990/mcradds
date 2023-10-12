@@ -24,7 +24,4 @@ calcium
 This example \code{\link{calcium}} can be used to compute the reference range of
 Calcium in 240 medical students by sex.
 }
-\seealso{
-\link{platelet}.
-}
 \keyword{datasets}
