@@ -7,6 +7,7 @@
 #' @import checkmate
 #' @import ggplot2
 #' @import methods
+#' @import mcr
 #' @importFrom stats qt na.omit terms qnorm uniroot complete.cases
 #' quantile setNames pnorm cor.test median as.formula
 #' @importFrom purrr map_chr

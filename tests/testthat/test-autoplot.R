@@ -31,33 +31,33 @@ test_that("autoplot works as expected for BAsummary class with multiple argument
   vdiffr::expect_doppelganger("autoplot_BAsummary with multiple arguments", result)
 })
 
-# test_that("autoplot works as expected for MCResult class with default arguments", {
-#   data(creatinine, package = "mcr")
-#   object <- mcreg2(
-#     x = platelet$Comparative, y = platelet$Candidate,
-#     method.reg = "Deming", method.ci = "jackknife"
-#   )
-#
-#   result <- autoplot(object)
-#   vdiffr::expect_doppelganger("autoplot_MCResult with default arguments", result)
-# })
+test_that("autoplot works as expected for MCResult class with default arguments", {
+  data(creatinine, package = "mcr")
+  object <- mcreg(
+    x = platelet$Comparative, y = platelet$Candidate,
+    method.reg = "Deming", method.ci = "jackknife"
+  )
 
-# test_that("autoplot works as expected for MCResult class with multiple arguments", {
-#   data(creatinine, package = "mcr")
-#   object <- mcreg2(
-#     x = platelet$Comparative, y = platelet$Candidate,
-#     method.reg = "PaBa", method.ci = "bootstrap"
-#   )
-#
-#   result <- autoplot(
-#     object,
-#     identity.params = list(col = "blue", linetype = "solid"),
-#     reg.params = list(col = "red", linetype = "solid"),
-#     equal.axis = TRUE,
-#     legend.title = FALSE,
-#     legend.digits = 3,
-#     x.title = "Reference",
-#     y.title = "Test"
-#   )
-#   vdiffr::expect_doppelganger("autoplot_MCResult with multiple arguments", result)
-# })
+  result <- autoplot(object)
+  vdiffr::expect_doppelganger("autoplot_MCResult with default arguments", result)
+})
+
+test_that("autoplot works as expected for MCResult class with multiple arguments", {
+  data(creatinine, package = "mcr")
+  object <- mcreg(
+    x = platelet$Comparative, y = platelet$Candidate,
+    method.reg = "PaBa", method.ci = "bootstrap"
+  )
+
+  result <- autoplot(
+    object,
+    identity.params = list(col = "blue", linetype = "solid"),
+    reg.params = list(col = "red", linetype = "solid"),
+    equal.axis = TRUE,
+    legend.title = FALSE,
+    legend.digits = 3,
+    x.title = "Reference",
+    y.title = "Test"
+  )
+  vdiffr::expect_doppelganger("autoplot_MCResult with multiple arguments", result)
+})

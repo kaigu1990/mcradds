@@ -25,7 +25,7 @@ This example \code{\link{platelet}} can be used to create a data set comparing
 Platelet results from two analyzers in cells.
 }
 \seealso{
-From \code{mcr} package, \code{creatinine} data set contains data with with serum and plasma
+From \code{mcr} package, \link[mcr:creatinine]{mcr::creatinine} data set contains data with with serum and plasma
 creatinin measurements in mg/dL for each sample.
 }
 \keyword{datasets}

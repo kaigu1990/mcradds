@@ -15,7 +15,6 @@ reference:
   - BAsummary
   - RefInt
   - tpROC
-  - MCR
 - title: Internal Helper Functions
   contents:
   - cat_with_newline
@@ -53,6 +52,10 @@ reference:
   - size_ci_corr
   - diagTab
   - blandAltman
+  - printSummary
+  - getCoefficients
+  - mcreg
+  - calcBias
   - pearsonTest
   - spearmanTest
   - ESD_test

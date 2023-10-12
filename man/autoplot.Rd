@@ -3,6 +3,7 @@
 \name{autoplot}
 \alias{autoplot}
 \alias{autoplot,BAsummary-method}
+\alias{autoplot,MCResult-method}
 \title{Generate a \code{ggplot} for Bland-Altman Plot and Regression Plot}
 \usage{
 autoplot(object, ...)
@@ -24,6 +25,27 @@ autoplot(object, ...)
   label = TRUE,
   label.digits = 4,
   label.params = list(col = "black", size = 4),
+  x.nbreak = NULL,
+  y.nbreak = NULL,
+  x.title = NULL,
+  y.title = NULL,
+  main.title = NULL
+)
+
+\S4method{autoplot}{MCResult}(
+  object,
+  color = "black",
+  fill = "lightgray",
+  size = 1.5,
+  shape = 21,
+  jitter = FALSE,
+  identity = TRUE,
+  identity.params = list(col = "gray", linetype = "dashed"),
+  reg = TRUE,
+  reg.params = list(col = "blue", linetype = "solid"),
+  equal.axis = FALSE,
+  legend.title = TRUE,
+  legend.digits = 2,
   x.nbreak = NULL,
   y.nbreak = NULL,
   x.title = NULL,
@@ -73,6 +95,23 @@ breaks of x-axis and y-axis.}
 
 \item{x.title, y.title, main.title}{(\code{string})\cr the x-axis, y-axis and main
 title of plot.}
+
+\item{identity}{(\code{logical})\cr whether to add identity line, default is TRUE.}
+
+\item{identity.params, reg.params}{(\code{list})\cr parameters (color, linetype)
+for the argument 'identity' and 'reg'; eg. identity.params = list(col = "gray",
+linetype = "dashed").}
+
+\item{reg}{(\code{logical})\cr whether to add regression line where the slope and
+intercept are obtained from \code{\link[mcr:mcreg]{mcr::mcreg()}} function, default is TRUE.}
+
+\item{equal.axis}{(\code{logical})\cr whether to adjust the ranges of x-axis and y-axis
+are identical. If \code{equal.axis = TRUE}, x-axis will be equal to y-axis.}
+
+\item{legend.title}{(\code{logical})\cr whether to present the title in the legend.}
+
+\item{legend.digits}{(\code{integer})\cr the number of digits after the decimal point
+in the legend.}
 }
 \value{
 A \code{ggplot} based Bland-Altman plot or regression plot that can be
@@ -129,7 +168,24 @@ autoplot(object,
   x.title = "Mean of Test and Reference Methods",
   y.title = "Reference - Test"
 )
+# Using the default arguments for regression plot
+data("platelet")
+fit <- mcreg(
+  x = platelet$Comparative, y = platelet$Candidate,
+  method.reg = "Deming", method.ci = "jackknife"
+)
+autoplot(fit)
+
+# Only present the regression line and alter the color and shape.
+autoplot(fit,
+  identity = FALSE,
+  reg.params = list(col = "grey", linetype = "dashed"),
+  legend.title = FALSE,
+  legend.digits = 4
+)
 }
 \seealso{
 \code{\link[=h_difference]{h_difference()}} to see the type details.
+
+\code{\link[mcr:mcreg]{mcr::mcreg()}} to see the regression parameters.
 }
