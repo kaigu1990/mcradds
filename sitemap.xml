@@ -25,9 +25,6 @@
     <loc>https://kaigu1990.github.io/mcradds/reference/ESD_test.html</loc>
   </url>
   <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/MCR-class.html</loc>
-  </url>
-  <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/MCTab-class.html</loc>
   </url>
   <url>
@@ -52,6 +49,9 @@
     <loc>https://kaigu1990.github.io/mcradds/reference/blandAltman.html</loc>
   </url>
   <url>
+    <loc>https://kaigu1990.github.io/mcradds/reference/calcBias.html</loc>
+  </url>
+  <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/calcium.html</loc>
   </url>
   <url>
@@ -68,6 +68,9 @@
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/getAccuracy.html</loc>
+  </url>
+  <url>
+    <loc>https://kaigu1990.github.io/mcradds/reference/getCoefficients.html</loc>
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/getOutlier.html</loc>
@@ -103,6 +106,9 @@
     <loc>https://kaigu1990.github.io/mcradds/reference/mcradds-package.html</loc>
   </url>
   <url>
+    <loc>https://kaigu1990.github.io/mcradds/reference/mcreg.html</loc>
+  </url>
+  <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/nonparRI.html</loc>
   </url>
   <url>
@@ -116,6 +122,9 @@
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/platelet.html</loc>
+  </url>
+  <url>
+    <loc>https://kaigu1990.github.io/mcradds/reference/printSummary.html</loc>
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/qualData.html</loc>
