@@ -98,11 +98,12 @@ test_that("getAccuracy function works as expected without reference", {
     c(
       "0.8841", "0.8200", "0.9274",
       "0.8710", "0.7655", "0.9331",
-      "0.8800", "0.8277", "0.9180"
+      "0.8800", "0.8277", "0.9180",
+      "0.7291", "0.6283", "0.8299"
     ),
-    nrow = 3, byrow = TRUE,
+    nrow = 4, byrow = TRUE,
     dimnames = list(
-      c("ppa", "npa", "opa"),
+      c("ppa", "npa", "opa", "kappa"),
       ComparativeN = c("EST", "LowerCI", "UpperCI")
     )
   )
