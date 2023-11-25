@@ -28,7 +28,7 @@
 #' for reproducibility analysis, the original data should be long structure and
 #' using the corresponding formula.
 #'
-#' @return A object `matrix` contains the 2x2 contingency table.
+#' @return A object `MCTab` contains the 2x2 contingency table.
 #' @export
 #'
 #' @seealso [Summary()] for object to calculate diagnostic accuracy criteria.

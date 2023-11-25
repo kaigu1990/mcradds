@@ -272,3 +272,43 @@ tpROC <- function(testROC, refROC, method, H0, stat) {
     testROC = testROC, refROC = refROC, method = method, H0 = H0, stat = stat
   )
 }
+
+# Desc-class ----
+
+#' Descriptive Statistics Class
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' The `Desc` class serves as the store for results from frequency and univariate
+#' statistics analysis.
+#'
+#' @slot func func
+#' @slot mat mat
+#' @slot stat stat
+#'
+#' @rdname Desc-class
+#' @aliases Desc
+setClass(
+  "Desc",
+  slots = c(
+    func = "character",
+    mat = "data.frame",
+    stat = "data.frame"
+  )
+)
+
+# Desc-constructors ----
+
+#' @rdname Desc-class
+#'
+#' @param func (`character`)\cr name of function.
+#' @param mat (`data.frame`)\cr intermediate data with long form, easy for post-processing.
+#' @param stat (`data.frame`)\cr final data with wide form, easy for presentation.
+#'
+#' @return An object of class `Desc`.
+#'
+Desc <- function(func, mat, stat) {
+  new("Desc",
+      func = func, mat = mat, stat = stat
+  )
+}

@@ -40,7 +40,7 @@ subsets. The between-reader and within-reader precision's across variable
 is \code{site} commonly.}
 }
 \value{
-A object \code{matrix} contains the 2x2 contingency table.
+A object \code{MCTab} contains the 2x2 contingency table.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}

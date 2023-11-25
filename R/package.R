@@ -17,6 +17,7 @@
 #' @importFrom VCA anovaVCA VCAinference
 #' @importFrom pROC roc var cov ci.auc
 #' @importFrom utils combn
+#' @importFrom formatters format_value
 NULL
 
 # Resolve missing global definitions:
