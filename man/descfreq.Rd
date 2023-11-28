@@ -2,7 +2,7 @@
 % Please edit documentation in R/desc.R
 \name{descfreq}
 \alias{descfreq}
-\title{Summarize Frequency counts and percentages}
+\title{Summarize Frequency Counts and Percentages}
 \usage{
 descfreq(
   data,
@@ -23,9 +23,9 @@ summarized and grouped.}
 not use temporarily. By default, it's NULL, meaning the function will use
 the number of values of the \code{data}, including missing value.}
 
-\item{var}{(\code{vector})\cr a character vector of variables to summarize within \code{data}.}
+\item{var}{(\code{vector})\cr a character vector of variables to be summarized within \code{data}.}
 
-\item{bygroup}{(\code{string})\cr a variable for grouping within \code{data}.}
+\item{bygroup}{(\code{string})\cr a character variable for grouping within \code{data}.}
 
 \item{format}{(\code{string})\cr formatting string from \code{formatters::list_valid_format_labels()}
 for frequency counts and percentages.}
@@ -45,7 +45,7 @@ post-processing and final data with wide form for presentation.
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-Create a summary table for one or more variables by one group, including a
+Create a summary table for one or more variables by one group, as well as a
 total column if necessary.
 }
 \note{
@@ -55,6 +55,8 @@ alphabetically.
 }
 \examples{
 data(adsl_sub)
+
+# Count the age group by treatment with 'xx (xx.x\%)' format
 adsl_sub \%>\%
   descfreq(
     var = "AGEGR1",
@@ -62,14 +64,16 @@ adsl_sub \%>\%
     format = "xx (xx.x\%)"
   )
 
+# Count the race by treatment with 'xx (xx.xx)' format and replace NA with '0'
 adsl_sub \%>\%
   descfreq(
     var = "RACE",
     bygroup = "TRTP",
-    format = "xx / xx",
+    format = "xx (xx.xx)",
     na_str = "0"
   )
 
+# Count the sex by treatment adding total column
 adsl_sub \%>\%
   descfreq(
     var = "SEX",
@@ -78,7 +82,13 @@ adsl_sub \%>\%
     addtot = TRUE
   )
 
+# Count multiple variables by treatment and sort category by corresponding factor levels
 adsl_sub \%>\%
+  dplyr::mutate(
+    AGEGR1 = factor(AGEGR1, levels = c("<65", "65-80", ">80")),
+    SEX = factor(SEX, levels = c("M", "F")),
+    RACE = factor(RACE, levels = c("WHITE", "AMERICAN INDIAN OR ALASKA NATIVE", "BLACK OR AFRICAN AMERICAN"))
+  ) \%>\%
   descfreq(
     var = c("AGEGR1", "SEX", "RACE"),
     bygroup = "TRTP",
@@ -86,5 +96,4 @@ adsl_sub \%>\%
     addtot = TRUE,
     na_str = "0"
   )
-
 }

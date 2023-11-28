@@ -104,3 +104,112 @@ test_that("descfreq works as expected with factor varibales of var argument", {
     )
   )
 })
+
+# descvar ----
+
+test_that("descvar works as expected with default arguments", {
+  data(adsl_sub)
+  res <- adsl_sub %>%
+    descvar(
+      var = "AGE",
+      bygroup = "TRTP"
+    )
+  expect_class(res, "Desc")
+  expect_identical(res@func, "descvar")
+  expect_identical(dim(res@mat), c(12L, 4L))
+  expect_identical(dim(res@stat), c(6L, 4L))
+
+  expect_equal(
+    as.data.frame(res@stat),
+    data.frame(
+      VarName = c(rep("AGE", 6)),
+      label = c("N", "MEAN", "SD", "MEDIAN", "MAX", "MIN"),
+      Placebo = c('60', '75.2', '8.96', '76.0', '89', '52'),
+      Xanomeline = c('60', '74.6', '7.06', '75.5', '88', '56')
+    )
+  )
+})
+
+test_that("descvar works as expected with specific statistics and total column", {
+  data(adsl_sub)
+  res <- adsl_sub %>%
+    descvar(
+      var = "AGE",
+      bygroup = "TRTP",
+      stats = c("N", "MEANSD", "MEDIAN", "RANGE", "IQR"),
+      addtot = TRUE
+    )
+  expect_identical(dim(res@mat), c(15L, 4L))
+  expect_identical(dim(res@stat), c(5L, 5L))
+
+  expect_equal(
+    as.data.frame(res@stat),
+    data.frame(
+      VarName = c(rep("AGE", 5)),
+      label = c("N", "MEANSD", "MEDIAN", "RANGE", "IQR"),
+      Placebo = c('60', '75.2 (8.96)', '76.0', '52, 89', '69.0, 83.0'),
+      Xanomeline = c('60', '74.6 (7.06)', '75.5', '56, 88', '71.0, 79.0'),
+      Total = c('120', '74.9 (8.04)', '76.0', '52, 89', '69.0, 81.0')
+    )
+  )
+})
+
+test_that("descvar works as expected with specified decimal of 2", {
+  data(adsl_sub)
+  res <- adsl_sub %>%
+    descvar(
+      var = "BMIBL",
+      bygroup = "TRTP",
+      stats = c("N", "MEANSD", "MEDIAN", "RANGE", "IQR"),
+      autodecimal = FALSE,
+      decimal = 2,
+      addtot = TRUE
+    )
+  expect_identical(dim(res@mat), c(15L, 4L))
+  expect_identical(dim(res@stat), c(5L, 5L))
+
+  expect_equal(
+    as.data.frame(res@stat),
+    data.frame(
+      VarName = c(rep("BMIBL", 5)),
+      label = c("N", "MEANSD", "MEDIAN", "RANGE", "IQR"),
+      Placebo = c('60', '23.298 (3.6135)', '22.650', '15.10, 33.30', '21.050, 25.050'),
+      Xanomeline = c('60', '25.742 (4.1310)', '25.250', '15.30, 34.50', '22.850, 28.050'),
+      Total = c('120', '24.520 (4.0546)', '24.300', '15.10, 34.50', '21.800, 27.250')
+    )
+  )
+})
+
+test_that("descvar works as expected with multiple variables", {
+  data(adsl_sub)
+  res <- adsl_sub %>%
+    descvar(
+      var = c("AGE", "BMIBL"),
+      bygroup = "TRTP",
+      stats = c("N", "MEANSD", "MEDIAN", "RANGE", "IQR"),
+      autodecimal = TRUE,
+      addtot = TRUE
+    )
+  expect_identical(dim(res@mat), c(30L, 4L))
+  expect_identical(dim(res@stat), c(10L, 5L))
+
+  expect_equal(
+    as.data.frame(res@stat),
+    data.frame(
+      VarName = c(rep("AGE", 5), rep("BMIBL", 5)),
+      label = rep(c("N", "MEANSD", "MEDIAN", "RANGE", "IQR"), 2),
+      Placebo = c(
+        '60', '75.2 (8.96)', '76.0', '52, 89', '69.0, 83.0',
+        '60', '23.30 (3.614)', '22.65', '15.1, 33.3', '21.05, 25.05'
+      ),
+      Xanomeline = c(
+        '60', '74.6 (7.06)', '75.5', '56, 88', '71.0, 79.0',
+        '60', '25.74 (4.131)', '25.25', '15.3, 34.5', '22.85, 28.05'
+      ),
+      Total = c(
+        '120', '74.9 (8.04)', '76.0', '52, 89', '69.0, 81.0',
+        '120', '24.52 (4.055)', '24.30', '15.1, 34.5', '21.80, 27.25'
+      )
+    )
+  )
+})
