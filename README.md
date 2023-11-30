@@ -22,6 +22,9 @@ state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Current
 Version](https://img.shields.io/github/r-package/v/kaigu1990/mcradds/main?color=purple&label=package%20version)](https://github.com/kaigu1990/mcradds/tree/main)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/mcradds)](https://cran.r-project.org/package=mcradds)
+[![](https://cranlogs.r-pkg.org/badges/grand-total/mcradds)](https://cran.r-project.org/package=mcradds)
 <!-- end badges -->
 
 The `mcradds` R package is a complement to `mcr` package, contains
@@ -48,6 +51,7 @@ The package provides a series of typical functionality, as shown below:
 - Reproducibility analysis (reader precision) for immunohistochemical
   assays, CLSI I/LA28-A2 and NMPA guideline.
 - Evaluation of precision of quantitative measurements, CLSI EP05-A3.
+- Descriptive statistics summary.
 
 ## Installation
 

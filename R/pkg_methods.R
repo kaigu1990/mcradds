@@ -199,6 +199,54 @@ setMethod(
   }
 )
 
+#' @rdname show
+#' @aliases show
+#'
+#' @examples
+#' data(adsl_sub)
+#'
+#' # Count multiple variables by treatment
+#' adsl_sub %>%
+#'   descfreq(
+#'     var = c("AGEGR1", "SEX", "RACE"),
+#'     bygroup = "TRTP",
+#'     format = "xx (xx.x%)",
+#'     addtot = TRUE,
+#'     na_str = "0"
+#'   )
+#'
+#' # Summarize multiple variables by treatment
+#' adsl_sub %>%
+#'   descvar(
+#'     var = c("AGE", "BMIBL", "HEIGHTBL"),
+#'     bygroup = "TRTP",
+#'     stats = c("N", "MEANSD", "MEDIAN", "RANGE", "IQR"),
+#'     autodecimal = TRUE,
+#'     addtot = TRUE
+#'   )
+setMethod(
+  f = "show",
+  signature = "Desc",
+  definition = function(object) {
+    cat_with_newline("Variables:", unique(object@mat$VarName))
+    cat_with_newline(
+      "Group By:",
+      if (object@func == "descfreq") {
+        names(object@mat)[3]
+      } else {
+        names(object@mat)[2]
+      }
+    )
+
+    object@stat %>%
+      dplyr::group_split(VarName) %>%
+      purrr::walk(.f = function(x) {
+        print(x)
+      })
+  }
+)
+
+
 # getAccuracy ----
 
 #' @rdname getAccuracy

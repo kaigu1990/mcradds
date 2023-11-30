@@ -47,6 +47,41 @@ test_that("show works as expected for tpROC object", {
   expect_match(result, "Z: 3.0088\n  Pvalue: 0.002623", fixed = TRUE)
 })
 
+test_that("show works as expected for Desc object", {
+  data(adsl_sub)
+  object <- adsl_sub %>%
+    descfreq(
+      var = c("AGEGR1", "SEX", "RACE"),
+      bygroup = "TRTP",
+      format = "xx (xx.x%)",
+      addtot = TRUE,
+      na_str = "0"
+    )
+  result <- capture_output(show(object))
+  expect_match(result, "Variables: AGEGR1 SEX RACE\nGroup By: TRTP", fixed = TRUE)
+  expect_match(result, "VarName Category Placebo    Xanomeline Total", fixed = TRUE)
+  expect_match(result, "AGEGR1  65-80    29 (48.3%) 45 (75.0%) 74 (61.7%)", fixed = TRUE)
+  expect_match(result, "RACE    BLACK OR AFRICAN AMERICAN        3 (5.0%)   6 (10.0%)  9 (7.5%)", fixed = TRUE)
+  expect_match(result, "SEX     F        39 (65.0%) 30 (50.0%) 69 (57.5%)", fixed = TRUE)
+})
+
+test_that("show works as expected for Desc object", {
+  data(adsl_sub)
+  object <- adsl_sub %>%
+    descvar(
+      var = c("AGE", "BMIBL", "HEIGHTBL"),
+      bygroup = "TRTP",
+      stats = c("N", "MEANSD", "MEDIAN", "RANGE", "IQR"),
+      autodecimal = TRUE,
+      addtot = TRUE
+    )
+  result <- capture_output(show(object))
+  expect_match(result, "Variables: AGE BMIBL HEIGHTBL\nGroup By: TRTP", fixed = TRUE)
+  expect_match(result, "AGE     MEANSD 75.2 (8.96) 74.6 (7.06) 74.9 (8.04)", fixed = TRUE)
+  expect_match(result, "BMIBL   MEDIAN 22.65         25.25         24.30", fixed = TRUE)
+  expect_match(result, "HEIGHTBL RANGE  137.2, 185.4    146.1, 190.5    137.2, 190.5", fixed = TRUE)
+})
+
 # getOutlier ----
 
 test_that("getOutlier works as expected with default settings", {

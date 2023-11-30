@@ -15,6 +15,7 @@ reference:
   - BAsummary
   - RefInt
   - tpROC
+  - Desc
 - title: Internal Helper Functions
   contents:
   - cat_with_newline
@@ -24,6 +25,7 @@ reference:
   - h_fmt_num
   - h_fmt_est
   - h_fmt_range
+  - h_fmt_count_perc
   - esd.critical
   - tukey_outlier
   - dixon_outlier
@@ -38,6 +40,7 @@ reference:
   - glucose
   - ldlroc
   - PDL1RP
+  - adsl_sub
 - title: Methods
   contents:
   - show
@@ -63,4 +66,5 @@ reference:
   - anovaVCA
   - VCAinference
   - aucTest
-
+  - descfreq
+  - descvar
