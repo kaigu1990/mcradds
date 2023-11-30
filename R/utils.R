@@ -223,3 +223,46 @@ h_fmt_range <- function(num1, num2, digits = c(2, 2), width = c(6, 6)) {
   num2 <- h_fmt_num(num2, digits[2], width = width[2])
   paste0("(", num1, ", ", num2, ")")
 }
+
+
+#' Format count and percent
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' Help function to format the count and percent into one string.
+#'
+#' @param cnt (`numeric`)\cr numeric vector for count.
+#' @param perc (`numeric`)\cr numeric vector for percent, if Null only format count.
+#' @param format (`string`)\cr formatting string from `formatters::list_valid_format_labels()`
+#'  for `formatters::format_value()` function.
+#'
+#' @return A character vector of formatted counts and percents.
+#' @export
+#'
+#' @examples
+#' h_fmt_count_perc(cnt = c(5, 9, 12, 110, 0), format = "xx")
+#' h_fmt_count_perc(
+#'   cnt = c(5, 9, 12, 110, 0),
+#'   perc = c(0.0368, 0.0662, 0.0882, 0.8088, 0),
+#'   format = "xx (xx.x%)"
+#' )
+h_fmt_count_perc <- function(cnt, perc = NULL, format, ...) {
+  if (is.null(perc)) {
+    assert_choice(format, formatters::list_valid_format_labels()$`1d`)
+    assert_numeric(cnt)
+    num_str <- sapply(cnt, function(x) {
+      format_value(x, format = format, ...)
+    })
+  }
+
+  if (!is.null(perc)) {
+    assert_choice(format, formatters::list_valid_format_labels()$`2d`)
+    assert_numeric(cnt)
+    assert_numeric(perc)
+    num_str <- mapply(function(x, y) {
+      format_value(c(x, y), format = format, ...)
+    }, x = cnt, y = perc)
+  }
+
+  num_str
+}

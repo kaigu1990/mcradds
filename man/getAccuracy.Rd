@@ -81,6 +81,7 @@ is evaluated by comparison with a comparative method, not reference/gold standar
 \item npa: Negative percent agreement, equals to specificity when the candidate method
 is evaluated by comparison with a comparative method, not reference/gold standard.
 \item opa: Overall percent agreement.
+\item kappa: Cohen's kappa coefficient to measure the level of agreement.
 \item apa: Average positive agreement refers to the positive agreements and can be
 regarded as weighted ppa.
 \item ana: Average negative agreement refers to the negative agreements and can be
@@ -93,7 +94,7 @@ regarded as weighted npa.
 Provides a concise summary of the content of \code{\link{MCTab}} objects. Computes
 sensitivity, specificity, positive and negative predictive values and positive
 and negative likelihood ratios for a diagnostic test with reference/gold standard.
-Computes positive/negative percent agreement, and overall percent agreement
+Computes positive/negative percent agreement, overall percent agreement and Kappa
 when the new test is evaluated by comparison to a non-reference standard. Computes
 average positive/negative agreement when the both tests are all not the
 reference, such as paired reader precision.

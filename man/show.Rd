@@ -7,6 +7,7 @@
 \alias{show,BAsummary-method}
 \alias{show,RefInt-method}
 \alias{show,tpROC-method}
+\alias{show,Desc-method}
 \title{Show Method for Objects}
 \usage{
 \S4method{show}{SampleSize}(object)
@@ -18,6 +19,8 @@
 \S4method{show}{RefInt}(object)
 
 \S4method{show}{tpROC}(object)
+
+\S4method{show}{Desc}(object)
 }
 \arguments{
 \item{object}{(\code{any})\cr input.}
@@ -53,4 +56,25 @@ aucTest(
   x = ldlroc$LDL, y = ldlroc$OxLDL, response = ldlroc$Diagnosis,
   method = "non-inferiority", h0 = -0.1
 )
+data(adsl_sub)
+
+# Count multiple variables by treatment
+adsl_sub \%>\%
+  descfreq(
+    var = c("AGEGR1", "SEX", "RACE"),
+    bygroup = "TRTP",
+    format = "xx (xx.x\%)",
+    addtot = TRUE,
+    na_str = "0"
+  )
+
+# Summarize multiple variables by treatment
+adsl_sub \%>\%
+  descvar(
+    var = c("AGE", "BMIBL", "HEIGHTBL"),
+    bygroup = "TRTP",
+    stats = c("N", "MEANSD", "MEDIAN", "RANGE", "IQR"),
+    autodecimal = TRUE,
+    addtot = TRUE
+  )
 }

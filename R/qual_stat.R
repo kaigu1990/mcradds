@@ -28,7 +28,7 @@
 #' for reproducibility analysis, the original data should be long structure and
 #' using the corresponding formula.
 #'
-#' @return A object `matrix` contains the 2x2 contingency table.
+#' @return A object `MCTab` contains the 2x2 contingency table.
 #' @export
 #'
 #' @seealso [Summary()] for object to calculate diagnostic accuracy criteria.
@@ -163,7 +163,7 @@ diagTab <- function(formula = ~.,
 #' Provides a concise summary of the content of [`MCTab`] objects. Computes
 #' sensitivity, specificity, positive and negative predictive values and positive
 #' and negative likelihood ratios for a diagnostic test with reference/gold standard.
-#' Computes positive/negative percent agreement, and overall percent agreement
+#' Computes positive/negative percent agreement, overall percent agreement and Kappa
 #' when the new test is evaluated by comparison to a non-reference standard. Computes
 #' average positive/negative agreement when the both tests are all not the
 #' reference, such as paired reader precision.
@@ -218,6 +218,7 @@ diagTab <- function(formula = ~.,
 #' - npa: Negative percent agreement, equals to specificity when the candidate method
 #'  is evaluated by comparison with a comparative method, not reference/gold standard.
 #' - opa: Overall percent agreement.
+#' - kappa: Cohen's kappa coefficient to measure the level of agreement.
 #' - apa: Average positive agreement refers to the positive agreements and can be
 #'  regarded as weighted ppa.
 #' - ana: Average negative agreement refers to the negative agreements and can be
@@ -350,8 +351,11 @@ setMethod(
         method = nr_ci, ...
       )
 
-      res <- rbind(ppa, npa, opa)
-      row.names(res) <- c("ppa", "npa", "opa")
+      # Cohen's Kappa for two rates
+      kappa <- CohenKappa(object@tab, weights = "Unweighted", conf.level = 1 - alpha)
+
+      res <- rbind(ppa, npa, opa, kappa)
+      row.names(res) <- c("ppa", "npa", "opa", "kappa")
     } else if (ref == "bnr") {
       if (!is.null(rng.seed)) {
         set.seed(rng.seed)

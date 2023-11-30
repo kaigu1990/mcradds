@@ -36,7 +36,7 @@ This vignette shows the general purpose and usage of the `mcradds` R package.
 browseVignettes(package = "mcradds")
 ```
 
-However, unfortunately these functions and methods have not been validated and QC'ed, I can not guarantee that all of them are entirely proper and error-free. But I always strive to compare the results to other resources in order to obtain a consistent for them. And because some of them were utilized in my past usual work process, so I believe the quality of this package is temporarily sufficient to use.
+However, unfortunately these functions and methods have not been validated and QC'ed, I can not guarantee that all of them are entirely proper and error-free. But I always strive to compare the results to other resources in order to obtain a consistent for them. And because some of them were utilized in my past routine workflow, so I believe the quality of this package is temporarily sufficient to use.
 
 In this vignette you are going to learn how to:
 
@@ -51,6 +51,7 @@ In this vignette you are going to learn how to:
 * Add paired ROC/AUC test for superiority and non-inferiority trials, following CLSI EP05-A3/EP15-A3.
 * Perform reproducibility analysis (reader precision) for immunohistochemical assays, following CLSI I/LA28-A2 and NMPA guideline.
 * Evaluate precision of quantitative measurements, following CLSI EP05-A3.
+* Descriptive statistics summary.
 
 The reference of `mcradds` functions is available on [the mcradds website functions reference](https://kaigu1990.github.io/mcradds/reference/index.html).
 
@@ -76,6 +77,7 @@ data("calcium")
 data("ldlroc")
 data("PDL1RP")
 data("glucose")
+data("adsl_sub")
 ```
 
 ### Estimation of Sample Size
@@ -116,6 +118,63 @@ Suppose that the expected correlation coefficient between test and reference ass
 
 ```{r}
 size_ci_corr(r = 0.9, lr = 0.85, alpha = 0.025, alternative = "greater")
+```
+
+### Descriptive statistics
+
+#### Summarize frequency counts and percentages
+
+If you wish to conduct categorical-type summary statistics, such as counts and percentages for character variables, the `descfreq()` function can be a useful approach to save time manipulating data and presenting it, especially during the QC process.
+
+This function can specify a variety of format types with the `list_valid_format_labels()` of the `formatters` package, and the default format is `xx (xx.x%)`, which is quite common in our analysis report. And the  `Desc` object from `adsl_sub` function contains two section, the `object@mat` is long form data that is easy for post-processing, and the `object@stat` is wide form data that is suited to do presentation as the final table.
+
+```{r}
+adsl_sub %>% 
+  descfreq(
+    var = "AGEGR1",
+    bygroup = "TRTP",
+    format = "xx (xx.x%)"
+  )
+```
+
+Moreover if you want to show multiple variables at once, the `var` argument also supports a character vector. And the `addtot = TRUE` can add a total column based on the entire data if necessary.
+
+```{r}
+adsl_sub %>%
+  descfreq(
+    var = c("AGEGR1", "SEX", "RACE"),
+    bygroup = "TRTP",
+    format = "xx (xx.x%)",
+    addtot = TRUE,
+    na_str = "0"
+  )
+```
+
+#### Summarize univariate statistics
+
+The `descvar()` function can conduct univariate-type summary statistics for numeric variables, such as `MEAN`, `MEDIAN` and `SD`. It also has similar arguments and `object` with `descfreq()` function, but includes a set of statistics for your choices, see `?descvar`.
+
+If you just want to see the default statistics(`getOption("mcradds.stats.default")`) for one variable like `AGE`, an example as shown below.
+
+```{r}
+adsl_sub %>%
+  descvar(
+    var = "AGE",
+    bygroup = "TRTP"
+  )
+```
+
+Besides it can support multiple variables as well, and specific statistics such as  `MEAN (SD)`, `RANGE`, `IQR`, `MEDIQR` and so on. And regarding to the decimal precision that has been defined with a default option, but it can also be adjusted with the `decimal` argument.
+
+```{r}
+adsl_sub %>% 
+  descvar(
+    var = c("AGE", "BMIBL", "HEIGHTBL"),
+    bygroup = "TRTP",
+    stats = c("N", "MEANSD", "MEDIAN", "RANGE", "IQR"),
+    autodecimal = TRUE,
+    addtot = TRUE
+  )
 ```
 
 
