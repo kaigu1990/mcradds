@@ -22,6 +22,9 @@
     <loc>https://kaigu1990.github.io/mcradds/reference/BAsummary-class.html</loc>
   </url>
   <url>
+    <loc>https://kaigu1990.github.io/mcradds/reference/Desc-class.html</loc>
+  </url>
+  <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/ESD_test.html</loc>
   </url>
   <url>
@@ -35,6 +38,9 @@
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/VCAinference.html</loc>
+  </url>
+  <url>
+    <loc>https://kaigu1990.github.io/mcradds/reference/adsl_sub.html</loc>
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/anovaVCA.html</loc>
@@ -56,6 +62,12 @@
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/cat_with_newline.html</loc>
+  </url>
+  <url>
+    <loc>https://kaigu1990.github.io/mcradds/reference/descfreq.html</loc>
+  </url>
+  <url>
+    <loc>https://kaigu1990.github.io/mcradds/reference/descvar.html</loc>
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/diagTab.html</loc>
@@ -83,6 +95,9 @@
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/h_factor.html</loc>
+  </url>
+  <url>
+    <loc>https://kaigu1990.github.io/mcradds/reference/h_fmt_count_perc.html</loc>
   </url>
   <url>
     <loc>https://kaigu1990.github.io/mcradds/reference/h_fmt_est.html</loc>

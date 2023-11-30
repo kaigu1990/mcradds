@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to mcradds">
 <meta property="og:description" content="mcradds">
@@ -103,8 +103,8 @@ these analytical functions.</p>
 validated and QC’ed, I can not guarantee that all of them are entirely
 proper and error-free. But I always strive to compare the results to
 other resources in order to obtain a consistent for them. And because
-some of them were utilized in my past usual work process, so I believe
-the quality of this package is temporarily sufficient to use.</p>
+some of them were utilized in my past routine workflow, so I believe the
+quality of this package is temporarily sufficient to use.</p>
 <p>In this vignette you are going to learn how to:</p>
 <ul>
 <li>Estimate of sample size for trials, following NMPA guideline.</li>
@@ -129,6 +129,7 @@ immunohistochemical assays, following CLSI I/LA28-A2 and NMPA
 guideline.</li>
 <li>Evaluate precision of quantitative measurements, following CLSI
 EP05-A3.</li>
+<li>Descriptive statistics summary.</li>
 </ul>
 <p>The reference of <code>mcradds</code> functions is available on <a href="https://kaigu1990.github.io/mcradds/reference/index.html">the
 mcradds website functions reference</a>.</p>
@@ -151,7 +152,8 @@ usage below.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"calcium"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ldlroc"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"PDL1RP"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"glucose"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"glucose"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"adsl_sub"</span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="estimation-of-sample-size">Estimation of Sample Size<a class="anchor" aria-label="anchor" href="#estimation-of-sample-size"></a>
 </h3>
@@ -246,6 +248,144 @@ criteria is greater than <code>0.85</code>, the total sample is
 </div>
 </div>
 <div class="section level3">
+<h3 id="descriptive-statistics">Descriptive statistics<a class="anchor" aria-label="anchor" href="#descriptive-statistics"></a>
+</h3>
+<div class="section level4">
+<h4 id="summarize-frequency-counts-and-percentages">Summarize frequency counts and percentages<a class="anchor" aria-label="anchor" href="#summarize-frequency-counts-and-percentages"></a>
+</h4>
+<p>If you wish to conduct categorical-type summary statistics, such as
+counts and percentages for character variables, the
+<code><a href="../reference/descfreq.html">descfreq()</a></code> function can be a useful approach to save time
+manipulating data and presenting it, especially during the QC
+process.</p>
+<p>This function can specify a variety of format types with the
+<code>list_valid_format_labels()</code> of the <code>formatters</code>
+package, and the default format is <code>xx (xx.x%)</code>, which is
+quite common in our analysis report. And the <code>Desc</code> object
+from <code>adsl_sub</code> function contains two section, the
+<code>object@mat</code> is long form data that is easy for
+post-processing, and the <code>object@stat</code> is wide form data that
+is suited to do presentation as the final table.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">adsl_sub</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/descfreq.html">descfreq</a></span><span class="op">(</span></span>
+<span>    var <span class="op">=</span> <span class="st">"AGEGR1"</span>,</span>
+<span>    bygroup <span class="op">=</span> <span class="st">"TRTP"</span>,</span>
+<span>    format <span class="op">=</span> <span class="st">"xx (xx.x%)"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; Variables: AGEGR1</span></span>
+<span><span class="co">#&gt; Group By: TRTP</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 4</span></span></span>
+<span><span class="co">#&gt;   VarName Category Placebo    Xanomeline</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> AGEGR1  65-80    29 (48.3%) 45 (75.0%)</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> AGEGR1  &lt;65      10 (16.7%) 5 (8.3%)  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> AGEGR1  &gt;80      21 (35.0%) 10 (16.7%)</span></span></code></pre></div>
+<p>Moreover if you want to show multiple variables at once, the
+<code>var</code> argument also supports a character vector. And the
+<code>addtot = TRUE</code> can add a total column based on the entire
+data if necessary.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">adsl_sub</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/descfreq.html">descfreq</a></span><span class="op">(</span></span>
+<span>    var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AGEGR1"</span>, <span class="st">"SEX"</span>, <span class="st">"RACE"</span><span class="op">)</span>,</span>
+<span>    bygroup <span class="op">=</span> <span class="st">"TRTP"</span>,</span>
+<span>    format <span class="op">=</span> <span class="st">"xx (xx.x%)"</span>,</span>
+<span>    addtot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    na_str <span class="op">=</span> <span class="st">"0"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; Variables: AGEGR1 SEX RACE</span></span>
+<span><span class="co">#&gt; Group By: TRTP</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 5</span></span></span>
+<span><span class="co">#&gt;   VarName Category Placebo    Xanomeline Total     </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> AGEGR1  65-80    29 (48.3%) 45 (75.0%) 74 (61.7%)</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> AGEGR1  &lt;65      10 (16.7%) 5 (8.3%)   15 (12.5%)</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> AGEGR1  &gt;80      21 (35.0%) 10 (16.7%) 31 (25.8%)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 5</span></span></span>
+<span><span class="co">#&gt;   VarName Category                         Placebo    Xanomeline Total      </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> RACE    BLACK OR AFRICAN AMERICAN        3 (5.0%)   6 (10.0%)  9 (7.5%)   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> RACE    WHITE                            57 (95.0%) 53 (88.3%) 110 (91.7%)</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> RACE    AMERICAN INDIAN OR ALASKA NATIVE 0          1 (1.7%)   1 (0.8%)   </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 5</span></span></span>
+<span><span class="co">#&gt;   VarName Category Placebo    Xanomeline Total     </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> SEX     F        39 (65.0%) 30 (50.0%) 69 (57.5%)</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> SEX     M        21 (35.0%) 30 (50.0%) 51 (42.5%)</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="summarize-univariate-statistics">Summarize univariate statistics<a class="anchor" aria-label="anchor" href="#summarize-univariate-statistics"></a>
+</h4>
+<p>The <code><a href="../reference/descvar.html">descvar()</a></code> function can conduct univariate-type
+summary statistics for numeric variables, such as <code>MEAN</code>,
+<code>MEDIAN</code> and <code>SD</code>. It also has similar arguments
+and <code>object</code> with <code><a href="../reference/descfreq.html">descfreq()</a></code> function, but
+includes a set of statistics for your choices, see
+<code><a href="../reference/descvar.html">?descvar</a></code>.</p>
+<p>If you just want to see the default
+statistics(<code>getOption("mcradds.stats.default")</code>) for one
+variable like <code>AGE</code>, an example as shown below.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">adsl_sub</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/descvar.html">descvar</a></span><span class="op">(</span></span>
+<span>    var <span class="op">=</span> <span class="st">"AGE"</span>,</span>
+<span>    bygroup <span class="op">=</span> <span class="st">"TRTP"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; Variables: AGE</span></span>
+<span><span class="co">#&gt; Group By: TRTP</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 4</span></span></span>
+<span><span class="co">#&gt;   VarName label  Placebo Xanomeline</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> AGE     N      60      60        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> AGE     MEAN   75.2    74.6      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> AGE     SD     8.96    7.06      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> AGE     MEDIAN 76.0    75.5      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> AGE     MAX    89      88        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> AGE     MIN    52      56</span></span></code></pre></div>
+<p>Besides it can support multiple variables as well, and specific
+statistics such as <code>MEAN (SD)</code>, <code>RANGE</code>,
+<code>IQR</code>, <code>MEDIQR</code> and so on. And regarding to the
+decimal precision that has been defined with a default option, but it
+can also be adjusted with the <code>decimal</code> argument.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">adsl_sub</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/descvar.html">descvar</a></span><span class="op">(</span></span>
+<span>    var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AGE"</span>, <span class="st">"BMIBL"</span>, <span class="st">"HEIGHTBL"</span><span class="op">)</span>,</span>
+<span>    bygroup <span class="op">=</span> <span class="st">"TRTP"</span>,</span>
+<span>    stats <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"N"</span>, <span class="st">"MEANSD"</span>, <span class="st">"MEDIAN"</span>, <span class="st">"RANGE"</span>, <span class="st">"IQR"</span><span class="op">)</span>,</span>
+<span>    autodecimal <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    addtot <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; Variables: AGE BMIBL HEIGHTBL</span></span>
+<span><span class="co">#&gt; Group By: TRTP</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 5</span></span></span>
+<span><span class="co">#&gt;   VarName label  Placebo     Xanomeline  Total      </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> AGE     N      60          60          120        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> AGE     MEANSD 75.2 (8.96) 74.6 (7.06) 74.9 (8.04)</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> AGE     MEDIAN 76.0        75.5        76.0       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> AGE     RANGE  52, 89      56, 88      52, 89     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> AGE     IQR    69.0, 83.0  71.0, 79.0  69.0, 81.0 </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 5</span></span></span>
+<span><span class="co">#&gt;   VarName label  Placebo       Xanomeline    Total        </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> BMIBL   N      60            60            120          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> BMIBL   MEANSD 23.30 (3.614) 25.74 (4.131) 24.52 (4.055)</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> BMIBL   MEDIAN 22.65         25.25         24.30        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> BMIBL   RANGE  15.1, 33.3    15.3, 34.5    15.1, 34.5   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> BMIBL   IQR    21.05, 25.05  22.85, 28.05  21.80, 27.25 </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 5</span></span></span>
+<span><span class="co">#&gt;   VarName  label  Placebo         Xanomeline      Total          </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> HEIGHTBL N      60              60              120            </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> HEIGHTBL MEANSD 162.20 (10.883) 165.12 (10.542) 163.66 (10.769)</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> HEIGHTBL MEDIAN 162.60          165.10          164.15         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> HEIGHTBL RANGE  137.2, 185.4    146.1, 190.5    137.2, 190.5   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> HEIGHTBL IQR    153.65, 170.20  154.90, 172.70  154.90, 171.50</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level3">
 <h3 id="evaluation-of-diagnostic-accuracy">Evaluation of Diagnostic Accuracy<a class="anchor" aria-label="anchor" href="#evaluation-of-diagnostic-accuracy"></a>
 </h3>
 <div class="section level4">
@@ -253,7 +393,7 @@ criteria is greater than <code>0.85</code>, the total sample is
 </h4>
 <p>Assume that you have a wide structure data like <code>qualData</code>
 contains the measurements of candidate and comparative assays.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">qualData</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   Sample ComparativeN CandidateN</span></span>
 <span><span class="co">#&gt; 1    ID1            1          1</span></span>
@@ -268,7 +408,7 @@ formula, such as right of <code>~</code>. If not, you should add the
 <code>dimname</code> argument to indicate which the row and column names
 2x2 contingency table, and then define the order of levels you prefer
 to.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tb</span> <span class="op">&lt;-</span> <span class="va">qualData</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/diagTab.html">diagTab</a></span><span class="op">(</span></span>
 <span>    formula <span class="op">=</span> <span class="op">~</span> <span class="va">CandidateN</span> <span class="op">+</span> <span class="va">ComparativeN</span>,</span>
@@ -286,7 +426,7 @@ to.</p>
 dummy data is shown below. The formula should be define in another
 format. The left of formula is the type of assay, and the right of it is
 the measurement.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dummy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1001"</span>, <span class="st">"1001"</span>, <span class="st">"1002"</span>, <span class="st">"1002"</span>, <span class="st">"1003"</span>, <span class="st">"1003"</span><span class="op">)</span>,</span>
 <span>  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
@@ -319,7 +459,7 @@ positive/negative predictive value (<code>ppv</code>/<code>npv</code>)
 and positive/negative likelihood ratio
 (<code>plr</code>/<code>nlr</code>). More details can been found in
 <code><a href="../reference/getAccuracy.html">?getAccuracy</a></code>.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Default method is Wilson score, and digit is 4.</span></span>
 <span><span class="va">tb</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/getAccuracy.html">getAccuracy</a></span><span class="op">(</span>ref <span class="op">=</span> <span class="st">"r"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         EST LowerCI UpperCI</span></span>
@@ -359,13 +499,14 @@ comparative assay that has been approved for market sale, the
 The output will present the indicators, positive/negative percent
 agreement (<code>ppa</code>/<code>npa</code>) and overall percent
 agreement (<code>opa</code>).</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># When the reference is a comparative assay, not gold standard.</span></span>
 <span><span class="va">tb</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/getAccuracy.html">getAccuracy</a></span><span class="op">(</span>ref <span class="op">=</span> <span class="st">"nr"</span>, nr_ci <span class="op">=</span> <span class="st">"wilson"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;        EST LowerCI UpperCI</span></span>
-<span><span class="co">#&gt; ppa 0.8841  0.8200  0.9274</span></span>
-<span><span class="co">#&gt; npa 0.8710  0.7655  0.9331</span></span>
-<span><span class="co">#&gt; opa 0.8800  0.8277  0.9180</span></span></code></pre></div>
+<span><span class="co">#&gt;          EST LowerCI UpperCI</span></span>
+<span><span class="co">#&gt; ppa   0.8841  0.8200  0.9274</span></span>
+<span><span class="co">#&gt; npa   0.8710  0.7655  0.9331</span></span>
+<span><span class="co">#&gt; opa   0.8800  0.8277  0.9180</span></span>
+<span><span class="co">#&gt; kappa 0.7291  0.6283  0.8299</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
@@ -384,7 +525,7 @@ functions have been wrapped in the <code>mcradds</code>, such as
 in <code>mcr</code> package, just adding the specific package name in
 front of each of them, like <code><a href="https://rdrr.io/pkg/mcr/man/MCResult.calcBias.html" class="external-link">mcr::calcBias()</a></code>, so that it
 looks the function is called from <code>mcr</code> package.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Deming regression</span></span>
 <span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mcreg.html">mcreg</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="va">platelet</span><span class="op">$</span><span class="va">Comparative</span>, y <span class="op">=</span> <span class="va">platelet</span><span class="op">$</span><span class="va">Candidate</span>,</span>
@@ -437,7 +578,7 @@ decision level. Suppose that you know the medical decision level of one
 assay is <code>30</code>, obviously this is a make-up number. Then you
 can use the <code>fit</code> object above to estimate the bias using
 <code>calcBias</code> function.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># absolute bias.</span></span>
 <span><span class="fu"><a href="../reference/calcBias.html">calcBias</a></span><span class="op">(</span><span class="va">fit</span>, x.levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    Level     Bias       SE      LCI      UCI</span></span>
@@ -468,7 +609,7 @@ difference is derived by <code>Y-X</code>, and relative difference is
 (<code>X</code>) is the gold standard and has a good agreement with test
 (<code>Y</code>), the relative difference type can be
 <code>type2 = 4</code>.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Default difference type</span></span>
 <span><span class="fu"><a href="../reference/blandAltman.html">blandAltman</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="va">platelet</span><span class="op">$</span><span class="va">Comparative</span>, y <span class="op">=</span> <span class="va">platelet</span><span class="op">$</span><span class="va">Candidate</span>,</span>
@@ -528,7 +669,7 @@ latter one being recommended in the most recent version.</p>
 <code>method</code> argument to define the which method you’d like, and
 <code>difference</code> arguments for which difference type like
 ‘absolute’ or ‘relative’ would be used.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ESD approach</span></span>
 <span><span class="va">ba</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/blandAltman.html">blandAltman</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">platelet</span><span class="op">$</span><span class="va">Comparative</span>, y <span class="op">=</span> <span class="va">platelet</span><span class="op">$</span><span class="va">Candidate</span><span class="op">)</span></span>
 <span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getOutlier.html">getOutlier</a></span><span class="op">(</span><span class="va">ba</span>, method <span class="op">=</span> <span class="st">"ESD"</span>, difference <span class="op">=</span> <span class="st">"rel"</span><span class="op">)</span></span>
@@ -589,7 +730,7 @@ Because we are required to provide the P value with <code>H0=0.7</code>
 sometimes. Thus in this case, I suggest you should use the
 <code><a href="../reference/pearsonTest.html">pearsonTest()</a></code> function instead, and the hypothesis is based
 on Fisher’s Z transformation of the correlation.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">44.4</span>, <span class="fl">45.9</span>, <span class="fl">41.9</span>, <span class="fl">53.3</span>, <span class="fl">44.7</span>, <span class="fl">44.1</span>, <span class="fl">50.7</span>, <span class="fl">45.2</span>, <span class="fl">60.1</span><span class="op">)</span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.6</span>, <span class="fl">3.1</span>, <span class="fl">2.5</span>, <span class="fl">5.0</span>, <span class="fl">3.6</span>, <span class="fl">4.0</span>, <span class="fl">5.2</span>, <span class="fl">2.8</span>, <span class="fl">3.8</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/pearsonTest.html">pearsonTest</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, h0 <span class="op">=</span> <span class="fl">0.5</span>, alternative <span class="op">=</span> <span class="st">"greater"</span><span class="op">)</span></span>
@@ -608,13 +749,13 @@ confidence interval and special hypothesis for Spearman, the
 computes the CI using bootstrap method, and the hypothesis is based on
 Fisher’s Z transformation of the correlation, but with the variance
 proposed by Bonett and Wright (2000), not the same as Pearson’s.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">44.4</span>, <span class="fl">45.9</span>, <span class="fl">41.9</span>, <span class="fl">53.3</span>, <span class="fl">44.7</span>, <span class="fl">44.1</span>, <span class="fl">50.7</span>, <span class="fl">45.2</span>, <span class="fl">60.1</span><span class="op">)</span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.6</span>, <span class="fl">3.1</span>, <span class="fl">2.5</span>, <span class="fl">5.0</span>, <span class="fl">3.6</span>, <span class="fl">4.0</span>, <span class="fl">5.2</span>, <span class="fl">2.8</span>, <span class="fl">3.8</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/spearmanTest.html">spearmanTest</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, h0 <span class="op">=</span> <span class="fl">0.5</span>, alternative <span class="op">=</span> <span class="st">"greater"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $stat</span></span>
 <span><span class="co">#&gt;        cor    lowerci    upperci          Z       pval </span></span>
-<span><span class="co">#&gt;  0.6000000 -0.1478261  0.9656153  0.3243526  0.3728355 </span></span>
+<span><span class="co">#&gt;  0.6000000 -0.2173913  0.9487179  0.3243526  0.3728355 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $method</span></span>
 <span><span class="co">#&gt; [1] "Spearman's correlation"</span></span>
@@ -630,7 +771,7 @@ proposed by Bonett and Wright (2000), not the same as Pearson’s.</p>
 in CLSI to establish the reference interval (RI).</p>
 <p>The first is parametric method that follows the normal distribution
 to compute the confidence interval.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/refInterval.html">refInterval</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">calcium</span><span class="op">$</span><span class="va">Value</span>, RI_method <span class="op">=</span> <span class="st">"parametric"</span>, CI_method <span class="op">=</span> <span class="st">"parametric"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  Reference Interval Method: parametric, Confidence Interval Method: parametric </span></span>
@@ -644,7 +785,7 @@ to compute the confidence interval.</p>
 <span><span class="co">#&gt;   Refupper Confidence Interval: 10.2584, 10.3757</span></span></code></pre></div>
 <p>The second one is nonparametric method that computes the 2.5th and
 97.5th percentile if the range of reference interval is 95%.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/refInterval.html">refInterval</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">calcium</span><span class="op">$</span><span class="va">Value</span>, RI_method <span class="op">=</span> <span class="st">"nonparametric"</span>, CI_method <span class="op">=</span> <span class="st">"nonparametric"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  Reference Interval Method: nonparametric, Confidence Interval Method: nonparametric </span></span>
@@ -661,7 +802,7 @@ involves an iterative procedure based on the formulas in EP28A3. And the
 observations are weighted according to their distance from the central
 tendency that is initially estimated by median and MAD(the median
 absolute deviation).</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/refInterval.html">refInterval</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">calcium</span><span class="op">$</span><span class="va">Value</span>, RI_method <span class="op">=</span> <span class="st">"robust"</span>, CI_method <span class="op">=</span> <span class="st">"boot"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Bootstrape process could take a short while.</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -672,8 +813,8 @@ absolute deviation).</p>
 <span><span class="co">#&gt;   N = 240</span></span>
 <span><span class="co">#&gt;   Outliers: NULL</span></span>
 <span><span class="co">#&gt;   Reference Interval: 9.04, 10.32</span></span>
-<span><span class="co">#&gt;   RefLower Confidence Interval: 8.9799, 9.0977</span></span>
-<span><span class="co">#&gt;   Refupper Confidence Interval: 10.2575, 10.3755</span></span></code></pre></div>
+<span><span class="co">#&gt;   RefLower Confidence Interval: 8.9793, 9.0975</span></span>
+<span><span class="co">#&gt;   Refupper Confidence Interval: 10.2564, 10.3745</span></span></code></pre></div>
 <p>The first two methods are also accepted by NMPA guideline, but the
 robust method is not recommended by NMPA because if you want to
 establish a reference interval for your assay, you must collect the at
@@ -724,7 +865,7 @@ diagnostic accuracy based on the paired areas under ROC curves”.
 <p>Suppose that you want to compare the paired AUC from OxLDL and LDL
 assays in <code>ldlroc</code> data set, and the null hypothesis is there
 is no difference of AUC area.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># H0 : Difference between areas = 0:</span></span>
 <span><span class="fu"><a href="../reference/aucTest.html">aucTest</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ldlroc</span><span class="op">$</span><span class="va">LDL</span>, y <span class="op">=</span> <span class="va">ldlroc</span><span class="op">$</span><span class="va">OxLDL</span>, response <span class="op">=</span> <span class="va">ldlroc</span><span class="op">$</span><span class="va">Diagnosis</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Setting levels: control = 0, case = 1</span></span>
@@ -752,7 +893,7 @@ is no difference of AUC area.</p>
 <p>Suppose that you want to see if the OxLDL assay is superior to LDL
 assay when the margin is equal to <code>0.1</code>. In this case the
 null hypothesis is the difference is less than <code>0.1</code>.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># H0 : Superiority margin &lt;= 0.1:</span></span>
 <span><span class="fu"><a href="../reference/aucTest.html">aucTest</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="va">ldlroc</span><span class="op">$</span><span class="va">LDL</span>, y <span class="op">=</span> <span class="va">ldlroc</span><span class="op">$</span><span class="va">OxLDL</span>, response <span class="op">=</span> <span class="va">ldlroc</span><span class="op">$</span><span class="va">Diagnosis</span>,</span>
@@ -784,7 +925,7 @@ null hypothesis is the difference is less than <code>0.1</code>.</p>
 LDL assay when the margin is equal to <code>-0.1</code>. In this case
 the null hypothesis is the difference is less than
 <code>-0.1</code>.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># H0 : Non-inferiority margin &lt;= -0.1:</span></span>
 <span><span class="fu"><a href="../reference/aucTest.html">aucTest</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="va">ldlroc</span><span class="op">$</span><span class="va">LDL</span>, y <span class="op">=</span> <span class="va">ldlroc</span><span class="op">$</span><span class="va">OxLDL</span>, response <span class="op">=</span> <span class="va">ldlroc</span><span class="op">$</span><span class="va">Diagnosis</span>,</span>
@@ -831,7 +972,7 @@ For <code>PDL1RP$wtn_reader</code> sub-data, 3 readers were selected
 from three different sites and each of them were responsible for scoring
 50 specimens once. Thus you might want to evaluate the reproducibility
 within three readers through three site.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">reader</span> <span class="op">&lt;-</span> <span class="va">PDL1RP</span><span class="op">$</span><span class="va">btw_reader</span></span>
 <span><span class="va">tb1</span> <span class="op">&lt;-</span> <span class="va">reader</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/diagTab.html">diagTab</a></span><span class="op">(</span></span>
@@ -851,7 +992,7 @@ from three different sites and each of them was responsible for scoring
 50 specimens 3 times with a minimum of 2 weeks between reads that means
 the process of score. Thus you might want to evaluate the
 reproducibility within three reads through all specimens.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">read</span> <span class="op">&lt;-</span> <span class="va">PDL1RP</span><span class="op">$</span><span class="va">wtn_reader</span></span>
 <span><span class="va">tb2</span> <span class="op">&lt;-</span> <span class="va">read</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/diagTab.html">diagTab</a></span><span class="op">(</span></span>
@@ -870,7 +1011,7 @@ reproducibility within three reads through all specimens.</p>
 from three different sites and all of them were responsible for scoring
 150 specimens once, that collected from those three sites. Thus you
 might want to evaluate the reproducibility within three site.</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">site</span> <span class="op">&lt;-</span> <span class="va">PDL1RP</span><span class="op">$</span><span class="va">btw_site</span></span>
 <span><span class="va">tb3</span> <span class="op">&lt;-</span> <span class="va">site</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/diagTab.html">diagTab</a></span><span class="op">(</span></span>
@@ -897,7 +1038,7 @@ as well as the <code>mcr</code> package. It’s recommended to read the
 details in <code><a href="../reference/anovaVCA.html">?anovaVCA</a></code> and <code><a href="../reference/VCAinference.html">?VCAinference</a></code>
 functions or CLSI-EP05 to help understanding the outputs, such as
 <code>CV%</code>.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/anovaVCA.html">anovaVCA</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">day</span> <span class="op">/</span> <span class="va">run</span>, <span class="va">glucose</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/VCAinference.html">VCAinference</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -964,20 +1105,20 @@ can be obtained by just call <code><a href="../reference/autoplot.html">autoplot
 <code><a href="../reference/blandAltman.html">blandAltman()</a></code> function and then call <code>autoplot</code>
 straightforward where you can choose which Bland-Altman type do you
 require, ‘absolute’ or ‘relative’.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">object</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/blandAltman.html">blandAltman</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">platelet</span><span class="op">$</span><span class="va">Comparative</span>, y <span class="op">=</span> <span class="va">platelet</span><span class="op">$</span><span class="va">Candidate</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Absolute difference plot</span></span>
 <span><span class="fu"><a href="../reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">object</span>, type <span class="op">=</span> <span class="st">"absolute"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="mcradds_files/figure-html/unnamed-chunk-31-1.png" width="700"></p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<p><img src="mcradds_files/figure-html/unnamed-chunk-35-1.png" width="700"></p>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Relative difference plot</span></span>
 <span><span class="fu"><a href="../reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">object</span>, type <span class="op">=</span> <span class="st">"relative"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="mcradds_files/figure-html/unnamed-chunk-31-2.png" width="700"></p>
+<p><img src="mcradds_files/figure-html/unnamed-chunk-35-2.png" width="700"></p>
 <p>Add more drawing arguments if you would like to adjust the format.
 More detailed arguments can be found in <code><a href="../reference/autoplot.html">?autoplot</a></code>.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/autoplot.html">autoplot</a></span><span class="op">(</span></span>
 <span>  <span class="va">object</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"absolute"</span>,</span>
@@ -994,7 +1135,7 @@ More detailed arguments can be found in <code><a href="../reference/autoplot.htm
 <span>  x.title <span class="op">=</span> <span class="st">"Mean of Test and Reference Methods"</span>,</span>
 <span>  y.title <span class="op">=</span> <span class="st">"Reference - Test"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="mcradds_files/figure-html/unnamed-chunk-32-1.png" width="700"></p>
+<p><img src="mcradds_files/figure-html/unnamed-chunk-36-1.png" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="regression-plot">Regression plot<a class="anchor" aria-label="anchor" href="#regression-plot"></a>
@@ -1002,15 +1143,15 @@ More detailed arguments can be found in <code><a href="../reference/autoplot.htm
 <p>To generate the regression plot, you should create the object from
 <code><a href="../reference/mcreg.html">mcreg()</a></code> function and then call <code>autoplot</code>
 straightforward.</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mcreg.html">mcreg</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="va">platelet</span><span class="op">$</span><span class="va">Comparative</span>, y <span class="op">=</span> <span class="va">platelet</span><span class="op">$</span><span class="va">Candidate</span>,</span>
 <span>  method.reg <span class="op">=</span> <span class="st">"PaBa"</span>, method.ci <span class="op">=</span> <span class="st">"bootstrap"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div>
-<p><img src="mcradds_files/figure-html/unnamed-chunk-33-1.png" width="700"></p>
+<p><img src="mcradds_files/figure-html/unnamed-chunk-37-1.png" width="700"></p>
 <p>More arguments can be used as shown below.</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/autoplot.html">autoplot</a></span><span class="op">(</span></span>
 <span>  <span class="va">fit</span>,</span>
 <span>  identity.params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span>, linetype <span class="op">=</span> <span class="st">"solid"</span><span class="op">)</span>,</span>
@@ -1021,7 +1162,7 @@ straightforward.</p>
 <span>  x.title <span class="op">=</span> <span class="st">"Reference"</span>,</span>
 <span>  y.title <span class="op">=</span> <span class="st">"Test"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="mcradds_files/figure-html/unnamed-chunk-34-1.png" width="700"></p>
+<p><img src="mcradds_files/figure-html/unnamed-chunk-38-1.png" width="700"></p>
 </div>
 </div>
 <div class="section level2">
@@ -1040,7 +1181,7 @@ supplementary analysis needs from the regulatory.</p>
 <h2 id="session-info">Session Info<a class="anchor" aria-label="anchor" href="#session-info"></a>
 </h2>
 <p>Here is the output of <code><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo()</a></code> on the system.</p>
-<pre><code><span><span class="co">#&gt; R version 4.3.1 (2023-06-16)</span></span>
+<pre><code><span><span class="co">#&gt; R version 4.3.2 (2023-10-31)</span></span>
 <span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu (64-bit)</span></span>
 <span><span class="co">#&gt; Running under: Ubuntu 22.04.3 LTS</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -1064,35 +1205,36 @@ supplementary analysis needs from the regulatory.</p>
 <span><span class="co">#&gt; [1] mcradds_1.0.1.9000</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span><span class="co">#&gt;  [1] gld_2.6.6           gtable_0.3.4        xfun_0.40          </span></span>
-<span><span class="co">#&gt;  [4] bslib_0.5.1         ggplot2_3.4.3       lattice_0.21-8     </span></span>
-<span><span class="co">#&gt;  [7] numDeriv_2016.8-1.1 vctrs_0.6.3         tools_4.3.1        </span></span>
-<span><span class="co">#&gt; [10] generics_0.1.3      parallel_4.3.1      tibble_3.2.1       </span></span>
-<span><span class="co">#&gt; [13] proxy_0.4-27        fansi_1.0.5         pkgconfig_2.0.3    </span></span>
-<span><span class="co">#&gt; [16] Matrix_1.5-4.1      data.table_1.14.8   checkmate_2.2.0    </span></span>
-<span><span class="co">#&gt; [19] desc_1.4.2          readxl_1.4.3        lifecycle_1.0.3    </span></span>
-<span><span class="co">#&gt; [22] rootSolve_1.8.2.4   farver_2.1.1        compiler_4.3.1     </span></span>
-<span><span class="co">#&gt; [25] stringr_1.5.0       textshaping_0.3.7   Exact_3.2          </span></span>
-<span><span class="co">#&gt; [28] munsell_0.5.0       htmltools_0.5.6.1   DescTools_0.99.50  </span></span>
-<span><span class="co">#&gt; [31] class_7.3-22        sass_0.4.7          yaml_2.3.7         </span></span>
-<span><span class="co">#&gt; [34] nloptr_2.0.3        pillar_1.9.0        pkgdown_2.0.7      </span></span>
-<span><span class="co">#&gt; [37] jquerylib_0.1.4     robslopes_1.1.3     MASS_7.3-60        </span></span>
-<span><span class="co">#&gt; [40] cachem_1.0.8        boot_1.3-28.1       nlme_3.1-162       </span></span>
-<span><span class="co">#&gt; [43] mcr_1.3.3           tidyselect_1.2.0    digest_0.6.33      </span></span>
-<span><span class="co">#&gt; [46] mvtnorm_1.2-3       stringi_1.7.12      dplyr_1.1.3        </span></span>
-<span><span class="co">#&gt; [49] purrr_1.0.2         labeling_0.4.3      splines_4.3.1      </span></span>
-<span><span class="co">#&gt; [52] rprojroot_2.0.3     fastmap_1.1.1       grid_4.3.1         </span></span>
-<span><span class="co">#&gt; [55] colorspace_2.1-0    lmom_3.0            expm_0.999-7       </span></span>
-<span><span class="co">#&gt; [58] cli_3.6.1           magrittr_2.0.3      utf8_1.2.3         </span></span>
-<span><span class="co">#&gt; [61] VCA_1.4.5           e1071_1.7-13        withr_2.5.1        </span></span>
-<span><span class="co">#&gt; [64] scales_1.2.1        backports_1.4.1     httr_1.4.7         </span></span>
-<span><span class="co">#&gt; [67] rmarkdown_2.25      lme4_1.1-34         cellranger_1.1.0   </span></span>
-<span><span class="co">#&gt; [70] ragg_1.2.6          memoise_2.0.1       evaluate_0.22      </span></span>
-<span><span class="co">#&gt; [73] knitr_1.44          rlang_1.1.1         Rcpp_1.0.11        </span></span>
-<span><span class="co">#&gt; [76] glue_1.6.2          renv_0.15.5         pROC_1.18.4        </span></span>
-<span><span class="co">#&gt; [79] minqa_1.2.6         rstudioapi_0.15.0   jsonlite_1.8.7     </span></span>
-<span><span class="co">#&gt; [82] plyr_1.8.9          R6_2.5.1            systemfonts_1.0.5  </span></span>
-<span><span class="co">#&gt; [85] fs_1.6.3</span></span></code></pre>
+<span><span class="co">#&gt;  [1] gld_2.6.6           gtable_0.3.4        xfun_0.41          </span></span>
+<span><span class="co">#&gt;  [4] bslib_0.6.1         ggplot2_3.4.4       formatters_0.5.2   </span></span>
+<span><span class="co">#&gt;  [7] lattice_0.21-9      numDeriv_2016.8-1.1 vctrs_0.6.4        </span></span>
+<span><span class="co">#&gt; [10] tools_4.3.2         generics_0.1.3      parallel_4.3.2     </span></span>
+<span><span class="co">#&gt; [13] tibble_3.2.1        proxy_0.4-27        fansi_1.0.5        </span></span>
+<span><span class="co">#&gt; [16] highr_0.10          pkgconfig_2.0.3     Matrix_1.6-1.1     </span></span>
+<span><span class="co">#&gt; [19] data.table_1.14.8   checkmate_2.3.0     desc_1.4.2         </span></span>
+<span><span class="co">#&gt; [22] readxl_1.4.3        lifecycle_1.0.4     rootSolve_1.8.2.4  </span></span>
+<span><span class="co">#&gt; [25] farver_2.1.1        compiler_4.3.2      stringr_1.5.1      </span></span>
+<span><span class="co">#&gt; [28] textshaping_0.3.7   Exact_3.2           munsell_0.5.0      </span></span>
+<span><span class="co">#&gt; [31] htmltools_0.5.7     DescTools_0.99.51   class_7.3-22       </span></span>
+<span><span class="co">#&gt; [34] sass_0.4.7          yaml_2.3.7          tidyr_1.3.0        </span></span>
+<span><span class="co">#&gt; [37] nloptr_2.0.3        pillar_1.9.0        pkgdown_2.0.7      </span></span>
+<span><span class="co">#&gt; [40] jquerylib_0.1.4     robslopes_1.1.3     MASS_7.3-60        </span></span>
+<span><span class="co">#&gt; [43] cachem_1.0.8        boot_1.3-28.1       nlme_3.1-163       </span></span>
+<span><span class="co">#&gt; [46] mcr_1.3.3           tidyselect_1.2.0    digest_0.6.33      </span></span>
+<span><span class="co">#&gt; [49] mvtnorm_1.2-4       stringi_1.8.2       dplyr_1.1.4        </span></span>
+<span><span class="co">#&gt; [52] purrr_1.0.2         labeling_0.4.3      splines_4.3.2      </span></span>
+<span><span class="co">#&gt; [55] rprojroot_2.0.4     fastmap_1.1.1       grid_4.3.2         </span></span>
+<span><span class="co">#&gt; [58] colorspace_2.1-0    lmom_3.0            expm_0.999-8       </span></span>
+<span><span class="co">#&gt; [61] cli_3.6.1           magrittr_2.0.3      utf8_1.2.4         </span></span>
+<span><span class="co">#&gt; [64] VCA_1.4.5           e1071_1.7-13        withr_2.5.2        </span></span>
+<span><span class="co">#&gt; [67] scales_1.3.0        backports_1.4.1     httr_1.4.7         </span></span>
+<span><span class="co">#&gt; [70] rmarkdown_2.25      lme4_1.1-35.1       cellranger_1.1.0   </span></span>
+<span><span class="co">#&gt; [73] ragg_1.2.6          memoise_2.0.1       evaluate_0.23      </span></span>
+<span><span class="co">#&gt; [76] knitr_1.45          rlang_1.1.2         Rcpp_1.0.11        </span></span>
+<span><span class="co">#&gt; [79] glue_1.6.2          renv_0.15.5         pROC_1.18.5        </span></span>
+<span><span class="co">#&gt; [82] minqa_1.2.6         rstudioapi_0.15.0   jsonlite_1.8.7     </span></span>
+<span><span class="co">#&gt; [85] plyr_1.8.9          R6_2.5.1            systemfonts_1.0.5  </span></span>
+<span><span class="co">#&gt; [88] fs_1.6.3</span></span></code></pre>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
