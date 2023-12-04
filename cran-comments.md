@@ -2,4 +2,17 @@
 
 This is a resubmission. In this version I have:
 
-I have contacted with the `mcr` package's author who are working and updating the mcr-package and will resubmit to CRAN. So I think that's fine although the `mcr` package can not been found in the CRAN right now. Once the `mcr` is available, I will also recover the mcr-related functions that have been commented out in the `mcradds` package in the next version.
+I have refreshed the `mcr` relevant functions as they were unavailable in last 
+version, and added a set of new features in current version.
+
+## R CMD check results
+
+0 errors | 0 warnings | 1 note
+
+
+## revdepcheck results
+
+We checked 0 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+
+ * We saw 0 new problems
+ * We failed to check 0 packages

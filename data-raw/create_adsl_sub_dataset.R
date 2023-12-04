@@ -1,6 +1,8 @@
 adsl <- haven::read_xpt("../../Documents/phuse-scripts/data/adam/cdiscpilot01/adsl.xpt") %>%
-  dplyr::select(STUDYID, USUBJID, SUBJID, SITEID, ARM, AGE, AGEGR1, RACE,
-                SEX, BMIBL, BMIBLGR1, HEIGHTBL, WEIGHTBL)
+  dplyr::select(
+    STUDYID, USUBJID, SUBJID, SITEID, ARM, AGE, AGEGR1, RACE,
+    SEX, BMIBL, BMIBLGR1, HEIGHTBL, WEIGHTBL
+  )
 
 set.seed(12345)
 adsl_sub <- rbind(
@@ -17,9 +19,10 @@ adsl_sub <- rbind(
       TRUE ~ 2
     )
   ) %>%
-  dplyr::select(STUDYID, USUBJID, SUBJID, SITEID, TRTP, TRTPN, AGE, AGEGR1,
-                RACE, SEX, BMIBL, BMIBLGR1, HEIGHTBL, WEIGHTBL) %>%
+  dplyr::select(
+    STUDYID, USUBJID, SUBJID, SITEID, TRTP, TRTPN, AGE, AGEGR1,
+    RACE, SEX, BMIBL, BMIBLGR1, HEIGHTBL, WEIGHTBL
+  ) %>%
   dplyr::arrange(SUBJID)
 
 usethis::use_data(adsl_sub, overwrite = TRUE)
-

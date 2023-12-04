@@ -32,6 +32,7 @@ Imports:
     mcr,
     pROC,
     purrr,
+    rlang,
     stats,
     tibble,
     tidyr,

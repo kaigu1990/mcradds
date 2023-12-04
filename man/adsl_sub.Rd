@@ -16,6 +16,6 @@ adsl_sub
 
 This ADSL is created by subsetting the CDISC ADSL with 60 subjects in each of two
 treatments like placebo and Xanomeline (this one corresponds to high dose level
-in the orginal ADSL).
+in the original ADSL).
 }
 \keyword{datasets}

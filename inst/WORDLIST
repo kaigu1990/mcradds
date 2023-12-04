@@ -1,8 +1,10 @@
+ADSL
 BAsummary
 Bablok
 BinomCI
 BlandAltman
 Bonett
+CDISC
 CLSI
 CLSI's
 Casella
@@ -28,6 +30,9 @@ Liu
 LoA
 MCResult
 MCTab
+MEANSD
+MEDIQR
+MEDRANGE
 MMEs
 McCulloch
 NBins
@@ -58,10 +63,10 @@ VCoriginal
 VCs
 VarFixed
 Vitro
+Xanomeline
 addional
 al
 ana
-ananlysis
 apa
 ci
 clopper
@@ -72,6 +77,8 @@ eg
 equivariant
 et
 fontface
+formatters
+func
 gb
 ggplot
 immunohistochemical

@@ -145,7 +145,7 @@
 #'
 #' This ADSL is created by subsetting the CDISC ADSL with 60 subjects in each of two
 #' treatments like placebo and Xanomeline (this one corresponds to high dose level
-#' in the orginal ADSL).
+#' in the original ADSL).
 #'
 #' @format A [mcradds::adsl_sub] data set contains 120 observations and 14 variables.
 #' And the description of each variable has been labeled in data set.

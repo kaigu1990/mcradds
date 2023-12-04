@@ -239,7 +239,7 @@ setMethod(
     )
 
     object@stat %>%
-      dplyr::group_split(VarName) %>%
+      dplyr::group_split(.data$VarName) %>%
       purrr::walk(.f = function(x) {
         print(x)
       })

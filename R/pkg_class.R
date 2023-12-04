@@ -309,6 +309,6 @@ setClass(
 #'
 Desc <- function(func, mat, stat) {
   new("Desc",
-      func = func, mat = mat, stat = stat
+    func = func, mat = mat, stat = stat
   )
 }

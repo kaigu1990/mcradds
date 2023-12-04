@@ -235,6 +235,7 @@ h_fmt_range <- function(num1, num2, digits = c(2, 2), width = c(6, 6)) {
 #' @param perc (`numeric`)\cr numeric vector for percent, if Null only format count.
 #' @param format (`string`)\cr formatting string from `formatters::list_valid_format_labels()`
 #'  for `formatters::format_value()` function.
+#' @param ... other arguments to be passed to [formatters::format_value].
 #'
 #' @return A character vector of formatted counts and percents.
 #' @export

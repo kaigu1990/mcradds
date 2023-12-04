@@ -87,7 +87,10 @@ adsl_sub \%>\%
   dplyr::mutate(
     AGEGR1 = factor(AGEGR1, levels = c("<65", "65-80", ">80")),
     SEX = factor(SEX, levels = c("M", "F")),
-    RACE = factor(RACE, levels = c("WHITE", "AMERICAN INDIAN OR ALASKA NATIVE", "BLACK OR AFRICAN AMERICAN"))
+    RACE = factor(RACE, levels = c(
+      "WHITE", "AMERICAN INDIAN OR ALASKA NATIVE",
+      "BLACK OR AFRICAN AMERICAN"
+    ))
   ) \%>\%
   descfreq(
     var = c("AGEGR1", "SEX", "RACE"),

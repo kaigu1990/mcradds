@@ -8,3 +8,4 @@ vignettes/*.html
 vignettes/*.pdf
 vignettes/*.R
 design/*.html
+revdep/*

@@ -62,7 +62,10 @@
 #'   dplyr::mutate(
 #'     AGEGR1 = factor(AGEGR1, levels = c("<65", "65-80", ">80")),
 #'     SEX = factor(SEX, levels = c("M", "F")),
-#'     RACE = factor(RACE, levels = c("WHITE", "AMERICAN INDIAN OR ALASKA NATIVE", "BLACK OR AFRICAN AMERICAN"))
+#'     RACE = factor(RACE, levels = c(
+#'       "WHITE", "AMERICAN INDIAN OR ALASKA NATIVE",
+#'       "BLACK OR AFRICAN AMERICAN"
+#'     ))
 #'   ) %>%
 #'   descfreq(
 #'     var = c("AGEGR1", "SEX", "RACE"),
@@ -89,23 +92,23 @@ descfreq <- function(data,
   reslist <- lapply(var, function(x) {
     dat1 <- data %>%
       dplyr::count(!!sym(bygroup), !!sym(x), .drop = fctdrop) %>%
-      dplyr::add_count(!!sym(bygroup), wt = n, name = "tot") %>%
+      dplyr::add_count(!!sym(bygroup), wt = .data$n, name = "tot") %>%
       dplyr::mutate(
-        perc = n / tot,
+        perc = .data$n / .data$tot,
         VarName = x
       ) %>%
-      dplyr::select(VarName, Category = !!sym(x), everything())
+      dplyr::select("VarName", Category = !!sym(x), dplyr::everything())
 
     dat2 <- if (addtot) {
       data %>%
         dplyr::count(!!sym(x), .drop = fctdrop) %>%
-        dplyr::add_count(wt = n, name = "tot") %>%
+        dplyr::add_count(wt = .data$n, name = "tot") %>%
         dplyr::mutate(
-          perc = n / tot,
+          perc = .data$n / .data$tot,
           VarName = x,
           !!sym(bygroup) := "Total"
         ) %>%
-        dplyr::select(VarName, Category = !!sym(x), everything())
+        dplyr::select("VarName", Category = !!sym(x), dplyr::everything())
     }
 
     dat <- rbind(dat1, dat2)
@@ -123,9 +126,9 @@ descfreq <- function(data,
 
   tb <- df %>%
     tidyr::pivot_wider(
-      id_cols = -c(n, tot, perc),
+      id_cols = -c("n", "tot", "perc"),
       names_from = !!sym(bygroup),
-      values_from = con,
+      values_from = "con",
       values_fill = na_str
     )
 
@@ -210,13 +213,13 @@ descfreq <- function(data,
 #'     addtot = TRUE
 #'   )
 descvar <- function(data,
-                       var,
-                       bygroup,
-                       stats = getOption("mcradds.stats.default"),
-                       autodecimal = TRUE,
-                       decimal = 1,
-                       addtot = FALSE,
-                       .perctype = 2) {
+                    var,
+                    bygroup,
+                    stats = getOption("mcradds.stats.default"),
+                    autodecimal = TRUE,
+                    decimal = 1,
+                    addtot = FALSE,
+                    .perctype = 2) {
   assert_data_frame(data)
   assert_subset(var, choices = names(data), empty.ok = FALSE)
   assert_subset(bygroup, choices = names(data), empty.ok = FALSE)
@@ -230,7 +233,7 @@ descvar <- function(data,
   assert_int(.perctype, lower = 1, upper = 9)
 
   if (addtot) {
-    data %<>%
+    data <- data %>%
       dplyr::mutate(!!sym(bygroup) := "Total") %>%
       dplyr::bind_rows(., data)
   }
@@ -246,10 +249,10 @@ descvar <- function(data,
     }) %>% max()
 
     dig_tb <- if (autodecimal) {
-      dplyr::mutate(precision_tb, digits = extra + digit_ori) %>%
+      dplyr::mutate(precision_tb, digits = .data$extra + digit_ori) %>%
         as.data.frame()
     } else {
-      dplyr::mutate(precision_tb, digits = extra + decimal) %>%
+      dplyr::mutate(precision_tb, digits = .data$extra + decimal) %>%
         as.data.frame()
     }
     rownames(dig_tb) <- dig_tb$stat
@@ -294,15 +297,15 @@ descvar <- function(data,
           format = "f",
           digits = dig_tb["Q3", "digits"]
         ),
-        MEANSD = paste0(MEAN, " (", SD, ")"),
-        RANGE = paste0(c(MIN, MAX), collapse = ", "),
-        IQR = paste0(c(Q1, Q3), collapse = ", "),
-        MEDRANGE = paste0(MEDIAN, " (", RANGE, ")"),
-        MEDIQR = paste0(MEDIAN, " (", IQR, ")"),
+        MEANSD = paste0(.data$MEAN, " (", .data$SD, ")"),
+        RANGE = paste0(c(.data$MIN, .data$MAX), collapse = ", "),
+        IQR = paste0(c(.data$Q1, .data$Q3), collapse = ", "),
+        MEDRANGE = paste0(.data$MEDIAN, " (", .data$RANGE, ")"),
+        MEDIQR = paste0(.data$MEDIAN, " (", .data$IQR, ")"),
       ) %>%
       dplyr::ungroup() %>%
       dplyr::mutate(VarName = x) %>%
-      dplyr::select(VarName, !!sym(bygroup), all_of(stats)) %>%
+      dplyr::select("VarName", !!sym(bygroup), dplyr::all_of(stats)) %>%
       dplyr::arrange(!!sym(bygroup) == "Total") %>%
       tidyr::pivot_longer(
         cols = -c(1:2),
@@ -314,9 +317,9 @@ descvar <- function(data,
 
   tb <- df %>%
     tidyr::pivot_wider(
-      id_cols = c(VarName, label),
+      id_cols = c("VarName", "label"),
       names_from = !!sym(bygroup),
-      values_from = value
+      values_from = "value"
     )
 
   object <- Desc(

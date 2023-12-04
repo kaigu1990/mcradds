@@ -1,5 +1,14 @@
 # mcradds (development version)
 
+# mcradds 1.1.0
+
+### Enhancements
+* Enhanced `getAccuracy` to support Kappa calculation in qualitative performance.
+* Refreshed `mcr` relevant functions that were commented temporarily in last version.
+
+### New features
+* Added `descfreq` and `descvar` functions for summarizing descriptive statistics .
+
 # mcradds 1.0.1
 
 ### Meta
@@ -26,7 +35,7 @@
 * Added `calcium`, `glucose`, `ldlroc` and `PDL1RP` data sets for example and testing use, and `nonparRanks` data set for internal function use.
 
 ### Enhancements
-* Enhanced `diagTab` and `getAccuracy` so that they can support the reader precision ananlysis not only qualitative performance.
+* Enhanced `diagTab` and `getAccuracy` so that they can support the reader precision analysis not only qualitative performance.
 
 ### Miscellaneous
 * Added a series of helper function to format and concatenate to string.

@@ -13,6 +13,8 @@ h_fmt_count_perc(cnt, perc = NULL, format, ...)
 
 \item{format}{(\code{string})\cr formatting string from \code{formatters::list_valid_format_labels()}
 for \code{formatters::format_value()} function.}
+
+\item{...}{other arguments to be passed to \link[formatters:format_value]{formatters::format_value}.}
 }
 \value{
 A character vector of formatted counts and percents.

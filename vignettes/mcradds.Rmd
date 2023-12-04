@@ -129,7 +129,7 @@ If you wish to conduct categorical-type summary statistics, such as counts and p
 This function can specify a variety of format types with the `list_valid_format_labels()` of the `formatters` package, and the default format is `xx (xx.x%)`, which is quite common in our analysis report. And the  `Desc` object from `adsl_sub` function contains two section, the `object@mat` is long form data that is easy for post-processing, and the `object@stat` is wide form data that is suited to do presentation as the final table.
 
 ```{r}
-adsl_sub %>% 
+adsl_sub %>%
   descfreq(
     var = "AGEGR1",
     bygroup = "TRTP",
@@ -167,7 +167,7 @@ adsl_sub %>%
 Besides it can support multiple variables as well, and specific statistics such as  `MEAN (SD)`, `RANGE`, `IQR`, `MEDIQR` and so on. And regarding to the decimal precision that has been defined with a default option, but it can also be adjusted with the `decimal` argument.
 
 ```{r}
-adsl_sub %>% 
+adsl_sub %>%
   descvar(
     var = c("AGE", "BMIBL", "HEIGHTBL"),
     bygroup = "TRTP",
