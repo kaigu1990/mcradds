@@ -89,7 +89,7 @@ pearsonTest <- function(x, y,
 #' interval(`lowerci` and `upperci`), Z statistic (`Z`) and p-value (`pval`)
 #' @export
 #'
-#' @seealso [cor.test()] [boot()] to see the detailed arguments.
+#' @seealso [cor.test()] [boot::boot()] to see the detailed arguments.
 #' @references NCSS correlation document
 #'
 #' @examples
