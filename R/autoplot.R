@@ -459,7 +459,8 @@ setMethod(
     p +
       theme_light() +
       theme(
-        legend.position = c(0.02, 0.98),
+        legend.position = c("inside"),
+        legend.position.inside = c(0.02, 0.98),
         legend.justification = c("left", "top"),
         legend.background = element_rect(fill = "transparent"),
         legend.title = if (!legend.title) element_blank(),

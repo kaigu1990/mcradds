@@ -1,7 +1,7 @@
 Package: mcradds
 Type: Package
 Title: Processing and Analyzing of Diagnostics Trials
-Version: 1.1.0
+Version: 1.1.1
 Authors@R: c(
     person("Kai", "Gu", , "gukai1212@163.com", role = c("aut", "cre", "cph"))
     )
@@ -47,7 +47,7 @@ Suggests:
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Collate: 
     'pkg_class.R'
     'pkg_methods.R'

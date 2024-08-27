@@ -58,5 +58,5 @@ spearmanTest(x, y, h0 = 0.5, alternative = "greater")
 NCSS correlation document
 }
 \seealso{
-\code{\link[=cor.test]{cor.test()}} \code{\link[=boot]{boot()}} to see the detailed arguments.
+\code{\link[=cor.test]{cor.test()}} \code{\link[boot:boot]{boot::boot()}} to see the detailed arguments.
 }

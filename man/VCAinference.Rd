@@ -10,7 +10,7 @@ VCAinference(...)
 \item{...}{
   Arguments passed on to \code{\link[VCA:VCAinference]{VCA::VCAinference}}
   \describe{
-    \item{\code{obj}}{(object) of class 'VCA' or, alternatively, a list of 'VCA' objects, where all other argument can be 
+    \item{\code{obj}}{(object) of class 'VCA' or, alternatively, a list of 'VCA' objects, where all other arguments can be 
 specified as vectors, where the i-th vector element applies to the i-th element of 'obj' (see examples)}
     \item{\code{alpha}}{(numeric) value specifying the significance level for \eqn{100*(1-alpha)}\% confidence intervals.}
     \item{\code{total.claim}}{(numeric) value specifying the claim-value for the Chi-Squared test for the total variance (SD or CV, see \code{claim.type}).}
@@ -21,10 +21,9 @@ specified as vectors, where the i-th vector element applies to the i-th element 
 "CV" = claim-values specified in terms of coefficient(s) of variation (CV)
 and are specified as percentages.\cr
 If set to "SD" or "CV", claim-values will be converted to variances before applying the Chi-Squared test (see examples).}
-    \item{\code{VarVC}}{(logical) TRUE = if element "Matrices" exists (see \code{\link[VCA]{anovaVCA}}), the covariance
-matrix of the estimated VCs will be computed (see \code{\link[VCA]{vcovVC}}, which is used in CIs for 
+    \item{\code{VarVC}}{(logical) TRUE = the covariance matrix of the estimated VCs will be computed (see \code{\link[VCA]{vcovVC}}), where diagonal
+    elements correspond to the variances of the individual VCs. This matrix is required for estimation of CIs for 
 intermediate VCs if 'method.ci="sas"'. 
-Note, this might take very long for larger datasets, since there are many matrix operations involved. 
 FALSE (Default) = computing covariance matrix of VCs is omitted, as well as CIs for intermediate VCs.}
     \item{\code{excludeNeg}}{(logical) TRUE = confidence intervals of negative variance estimates will not be reported. \cr
 FALSE = confidence intervals for all VCs will be reported including those with negative VCs.\cr

@@ -216,14 +216,12 @@
 <text x='672.50' y='548.48' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='19.58px' lengthAdjust='spacingAndGlyphs'>1400</text>
 <text x='377.63' y='563.55' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='46.71px' lengthAdjust='spacingAndGlyphs'>Method1</text>
 <text transform='translate(18.22,276.22) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='46.71px' lengthAdjust='spacingAndGlyphs'>Method2</text>
-<rect x='63.30' y='25.39' width='117.89' height='51.00' style='stroke-width: 1.07; stroke: none;' />
-<rect x='68.78' y='36.35' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<line x1='70.51' y1='44.99' x2='84.33' y2='44.99' style='stroke-width: 1.07; stroke: #0000FF; stroke-linecap: butt;' />
-<line x1='70.51' y1='44.99' x2='84.33' y2='44.99' style='stroke-width: 1.07; stroke: #0000FF; stroke-linecap: butt;' />
-<rect x='68.78' y='53.63' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<line x1='70.51' y1='62.27' x2='84.33' y2='62.27' style='stroke-width: 1.07; stroke: #FF0000; stroke-linecap: butt;' />
-<line x1='70.51' y1='62.27' x2='84.33' y2='62.27' style='stroke-width: 1.07; stroke: #FF0000; stroke-linecap: butt;' />
-<text x='91.54' y='48.02' style='font-size: 8.80px; font-family: sans;' textLength='28.37px' lengthAdjust='spacingAndGlyphs'>Identity</text>
-<text x='91.54' y='65.30' style='font-size: 8.80px; font-family: sans;' textLength='84.17px' lengthAdjust='spacingAndGlyphs'>Y = 1.031 * X + 3.189</text>
+<rect x='63.30' y='25.39' width='117.89' height='45.52' style='stroke-width: 1.07; stroke: none;' />
+<rect x='68.78' y='30.87' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<line x1='70.51' y1='39.51' x2='84.33' y2='39.51' style='stroke-width: 1.07; stroke: #0000FF; stroke-linecap: butt;' />
+<rect x='68.78' y='48.15' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<line x1='70.51' y1='56.79' x2='84.33' y2='56.79' style='stroke-width: 1.07; stroke: #FF0000; stroke-linecap: butt;' />
+<text x='91.54' y='42.54' style='font-size: 8.80px; font-family: sans;' textLength='28.37px' lengthAdjust='spacingAndGlyphs'>Identity</text>
+<text x='91.54' y='59.82' style='font-size: 8.80px; font-family: sans;' textLength='84.17px' lengthAdjust='spacingAndGlyphs'>Y = 1.031 * X + 3.189</text>
 </g>
 </svg>
