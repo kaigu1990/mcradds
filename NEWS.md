@@ -1,3 +1,7 @@
+# mcradds 1.1.1
+
+* Fix the `autoplot` test error due to ggplot dependence update.
+
 # mcradds 1.1.0
 
 ### Enhancements
