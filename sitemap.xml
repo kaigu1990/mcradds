@@ -1,180 +1,62 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/404.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/articles/mcradds.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/index.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/BAsummary-class.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/Desc-class.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/ESD_test.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/MCTab-class.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/PDL1RP.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/RefInt-class.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/VCAinference.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/adsl_sub.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/anovaVCA.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/aucTest.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/autoplot.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/blandAltman.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/calcBias.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/calcium.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/cat_with_newline.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/descfreq.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/descvar.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/diagTab.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/dixon_outlier.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/esd.critical.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/getAccuracy.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/getCoefficients.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/getOutlier.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/glucose.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/h_difference.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/h_factor.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/h_fmt_count_perc.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/h_fmt_est.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/h_fmt_num.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/h_fmt_range.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/h_summarize.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/ldlroc.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/mcradds-package.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/mcreg.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/nonparRI.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/nonparRanks.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/pearsonTest.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/pipe.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/platelet.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/printSummary.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/qualData.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/refInterval.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/robustRI.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/samplesize-class.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/show.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/size_ci_corr.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/size_ci_one_prop.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/size_corr.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/size_one_prop.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/spearmanTest.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/tpROC-class.html</loc>
-  </url>
-  <url>
-    <loc>https://kaigu1990.github.io/mcradds/reference/tukey_outlier.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://kaigu1990.github.io/mcradds/404.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/articles/index.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/articles/mcradds.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/authors.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/index.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/news/index.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/BAsummary-class.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/Desc-class.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/ESD_test.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/MCTab-class.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/PDL1RP.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/RefInt-class.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/VCAinference.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/adsl_sub.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/anovaVCA.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/aucTest.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/autoplot.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/blandAltman.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/calcBias.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/calcium.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/cat_with_newline.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/descfreq.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/descvar.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/diagTab.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/dixon_outlier.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/esd.critical.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/getAccuracy.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/getCoefficients.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/getOutlier.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/glucose.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/h_difference.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/h_factor.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/h_fmt_count_perc.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/h_fmt_est.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/h_fmt_num.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/h_fmt_range.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/h_summarize.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/index.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/ldlroc.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/mcradds-package.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/mcreg.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/nonparRI.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/nonparRanks.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/pearsonTest.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/pipe.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/platelet.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/printSummary.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/qualData.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/refInterval.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/robustRI.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/samplesize-class.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/show.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/size_ci_corr.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/size_ci_one_prop.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/size_corr.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/size_one_prop.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/spearmanTest.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/tpROC-class.html</loc></url>
+<url><loc>https://kaigu1990.github.io/mcradds/reference/tukey_outlier.html</loc></url>
 </urlset>
+
