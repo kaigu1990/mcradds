@@ -3,7 +3,7 @@ pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
   mcradds: mcradds.html
-last_built: 2024-09-05T02:26Z
+last_built: 2024-09-05T02:48Z
 urls:
   reference: https://kaigu1990.github.io/mcradds/reference
   article: https://kaigu1990.github.io/mcradds/articles
